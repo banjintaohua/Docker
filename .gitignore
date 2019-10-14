@@ -8,3 +8,4 @@
 !/Gitlab/docker-compose.yml
 !/MySQL/docker-compose.yml
 !/NextCloud/docker-compose.yml
+!/VSCode/
