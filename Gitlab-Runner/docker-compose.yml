@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+
+  runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: gitlab-runner
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Linux use /srv instead of /Users/Shared
+      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner

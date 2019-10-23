@@ -1,11 +1,3 @@
 .idea
-
-/*
-
-!README.md
-!LICENSE
-
-!/Gitlab/docker-compose.yml
-!/MySQL/docker-compose.yml
-!/NextCloud/docker-compose.yml
-!/Portainer/docker-compose.yml
+/MySQL/data/
+/MySQL/log/
