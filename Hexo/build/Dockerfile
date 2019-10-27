@@ -3,6 +3,11 @@ FROM mhart/alpine-node:12
 COPY ./ /usr/local/opt/hexo-tmp/
 
 RUN apk add --no-cache git \
+    && apk add --no-cache openssh-server tzdata \
+    && ssh-keygen -t rsa -P "" -f /root/.ssh/id_rsa \
+    && ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key \
+    && ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key \
+    && ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key \
     && rm -rf /tmp/* /var/cache/apk/* \
     && npm install -g hexo-cli \
     && mkdir -p /usr/local/opt/hexo \
@@ -23,7 +28,7 @@ RUN apk add --no-cache git \
 WORKDIR /usr/local/opt/hexo
 
 EXPOSE 4000
+EXPOSE 22
 
-CMD ["hexo", "server"]
-
+CMD ["/usr/sbin/sshd", "-D"]
 
