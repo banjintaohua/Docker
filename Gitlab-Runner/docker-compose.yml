@@ -13,7 +13,7 @@ services:
       - gitlab-runner-net
 
   hexo:
-    image: bolg-hexo:next
+    image: blog-hexo:next
     container_name: hexo
     restart: always
     ports:
