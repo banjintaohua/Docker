@@ -10,3 +10,8 @@ services:
     ports:
       - "4000:4000"
       - "4001:22"
+    environment:
+      - PASSWORD=password
+      - PUB_KEY=
+    volumes:
+      - ./config/sshd_config:/etc/ssh/sshd_config
