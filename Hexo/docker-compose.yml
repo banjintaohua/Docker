@@ -9,3 +9,4 @@ services:
     restart: always
     ports:
       - "4000:4000"
+      - "4001:22"
