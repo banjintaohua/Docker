@@ -4,10 +4,12 @@ services:
   edit:
     image: swaggerapi/swagger-editor
     container_name: "swagger-edit"
+    restart: always
     ports:
       - 8081:8080
   ui:
     image: swaggerapi/swagger-ui
     container_name: "swagger-ui"
+    restart: always
     ports:
       - 8082:8080

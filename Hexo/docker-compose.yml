@@ -1,7 +1,6 @@
 version: "3"
 
 services:
-
   hexo:
     build: ./build
     image: blog-hexo:next
@@ -13,5 +12,8 @@ services:
     environment:
       - PASSWORD=password
       - PUB_KEY=
-    volumes:
-      - ./config/sshd_config:/etc/ssh/sshd_config
+
+networks:
+  default:
+    external:
+      name: gitlab-runner_gitlab-runner-net

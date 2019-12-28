@@ -12,19 +12,5 @@ services:
     networks:
       - gitlab-runner-net
 
-  hexo:
-    image: blog-hexo:next
-    container_name: hexo
-    restart: always
-    ports:
-      - "4000:4000"
-      - "4001:22"
-    environment:
-      - PASSWORD=password
-      - PUB_KEY=
-    networks:
-      - gitlab-runner-net
-
-
 networks:
   gitlab-runner-net:
