@@ -10,7 +10,7 @@ services:
     volumes:
       - ./data/:/var/lib/mysql:rw
       - ./conf/:/etc/mysql/conf.d:rw
-      - ./log/:/var/log/mysql/:rw
+      - ./logs/:/var/log/mysql/:rw
     ports:
       - "3306:3306"
     environment:

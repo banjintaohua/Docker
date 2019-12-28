@@ -1,0 +1,15 @@
+version: "3"
+services:
+  php-fpm:
+    build: ./build
+#    image: php:5.6.40-fpm
+    container_name: php-56
+    restart: always
+    ports:
+      - 9002:9000
+    volumes:
+      - ../../Php:/usr/local/www/php/:rw
+      - ./logs/php-fpm:/var/log/php-fpm:rw
+      - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+
