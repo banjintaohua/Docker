@@ -1,16 +1,18 @@
-version: "3"
+version: "3.5"
 
 services:
   runner:
-    image: gitlab/gitlab-runner
+    build: ./build
+    # image: gitlab/gitlab-runner
     container_name: gitlab-runner
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # Linux use /srv instead of /Users/Shared
-      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner
+      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
     networks:
-      - gitlab-runner-net
+      - ci
 
 networks:
-  gitlab-runner-net:
+  ci:
+    name: gitlab-runner

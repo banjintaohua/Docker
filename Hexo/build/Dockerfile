@@ -1,5 +1,8 @@
 FROM mhart/alpine-node:12
 
+ENV PUB_KEY \n
+ENV PASSWORD password
+
 COPY ./ /usr/local/opt/hexo-tmp/
 
 RUN apk add --no-cache git \
@@ -8,7 +11,8 @@ RUN apk add --no-cache git \
     && ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key \
     && ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key \
     && ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key \
-    && echo "$PUB_KEY" >> ~/.ssh/authorized_keys \
+    && echo "$PUB_KEY" >> /root/.ssh/authorized_keys \
+    && echo "root:$PASSWORD" | chpasswd
     && rm -rf /tmp/* /var/cache/apk/* \
     && npm install -g hexo-cli \
     && mkdir -p /usr/local/opt/hexo \
@@ -25,7 +29,7 @@ RUN apk add --no-cache git \
     && mv -f /usr/local/opt/hexo-tmp/config/next/site-overview.swig /usr/local/opt/hexo/themes/next/layout/_partials/sidebar/site-overview.swig \
     && mv -f /usr/local/opt/hexo-tmp/config/next/post.styl /usr/local/opt/hexo/themes/next/source/css/_common/components/post/post.styl \
     && mv -f /usr/local/opt/hexo-tmp/config/next/zh-CN.yml /usr/local/opt/hexo/themes/next/languages/zh-CN.yml \
-    && echo "`whoami`:$PASSWORD" | chpasswd
+    && rm -rf /usr/local/opt/hexo-tmp/
 
 WORKDIR /usr/local/opt/hexo
 
