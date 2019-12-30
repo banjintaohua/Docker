@@ -1,8 +1,8 @@
-version: "3"
+version: "3.5"
+
 services:
   php-fpm:
     build: ./build
-#    image: php:5.6.40-fpm
     container_name: php-56
     restart: always
     ports:
@@ -12,4 +12,9 @@ services:
       - ./logs/php-fpm:/var/log/php-fpm:rw
       - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+
+networks:
+  default:
+    external:
+      name: develop
 
