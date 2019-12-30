@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 services:
   edit:
@@ -7,9 +7,17 @@ services:
     restart: always
     ports:
       - 8081:8080
+    networks:
+      - dev
   ui:
     image: swaggerapi/swagger-ui
     container_name: "swagger-ui"
     restart: always
     ports:
       - 8082:8080
+    networks:
+      - dev
+
+networks:
+  dev:
+    name: develop
