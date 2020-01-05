@@ -22,10 +22,9 @@ services:
     links:
       - db
     volumes:
-      - nextcloud:/var/www/html
+      - ./html:/var/www/html
       - /mnt/hgfs:/mnt/hgfs:rw
     restart: always
 
 volumes:
   db:
-  nextcloud:
