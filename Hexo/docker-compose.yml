@@ -9,6 +9,12 @@ services:
     ports:
       - "4000:4000"
       - "4001:22"
+    command:
+        - sh
+        - -c 
+        - |
+            /usr/bin/hexo server &
+            /usr/sbin/sshd -D
 
 networks:
   default:
