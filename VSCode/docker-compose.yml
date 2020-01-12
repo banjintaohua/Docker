@@ -1,17 +1,15 @@
 version: "3"
 
 services:
-  code_server:
-    image: codercom/code-server
-    command: --allow-http --password "task@3389"
+  code-server:
+    container_name: code-server
+    image: codercom/code-server:v2
+    restart: always
+    user: 0:0
     ports:
-      - "60025:8443"
+      - 8080:8080
     volumes:
-      - "/home/docker/codeserver/project:/home/coder/project"
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-      placement:
-        constraints:
-          - node.labels.code_server==true
+      - "/usr/local/opt/vscode/project:/home/coder/project"
+      - "/usr/local/opt/vscode/.local/share/code-server:/home/coder/.local/share/code-server"
+    environment:
+      - PASSWORD=password
