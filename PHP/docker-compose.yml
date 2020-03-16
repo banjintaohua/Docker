@@ -8,7 +8,7 @@ services:
     ports:
       - 9002:9000
     volumes:
-      - ../../Php:/usr/local/www/php/:rw
+      - ../../Php/Task:***REMOVED***:rw
       - ./logs/php-fpm:/var/log/php-fpm:rw
       - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
