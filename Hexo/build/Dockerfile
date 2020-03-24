@@ -1,5 +1,7 @@
 FROM mhart/alpine-node:12
 
+LABLE maintainer="fjxzyx@gmail.com"
+
 ENV PUB_KEY \n
 ENV PASSWORD password
 
