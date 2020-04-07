@@ -7,4 +7,6 @@
 /PHP/conf/
 /PHP/logs/
 
+/Minio/data/
+
 /Registry/data/registry/

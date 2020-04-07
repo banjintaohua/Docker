@@ -7,6 +7,13 @@ services:
     container_name: "gitlab"
     restart: always
     hostname: 'gitlab.banjintaohua.online'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url = 'https://gitlab.banjintaohua.online'
+        gitlab_rails['gitlab_shell_ssh_port'] = 57891
+        nginx['enable'] = true
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
     ports:
       - '8181:80'
       - '8443:443'
