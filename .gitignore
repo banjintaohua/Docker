@@ -10,3 +10,5 @@
 /Minio/data/
 
 /Registry/data/registry/
+
+/Redis/data/
