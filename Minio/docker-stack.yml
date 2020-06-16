@@ -1,0 +1,38 @@
+version: "3.5"
+
+services:
+  minio:
+    image: minio/minio:latest
+    volumes:
+      - minio:/data:rw
+    networks:
+      - minio
+    ports:
+      - 9003:9000
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: MINIO_ACCESS_KEY
+      MINIO_SECRET_KEY: 'MINIO_SECRET_KEY'
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 2
+      placement:
+        constraints:
+          - 'node.hostname == Cloud'
+          - 'node.id == 0s4487ohhl7elxnugia34tbwl'
+
+networks:
+  minio:
+    name: minio
+    driver: overlay
+
+volumes:
+  minio:
+    name: minio
+    driver: local

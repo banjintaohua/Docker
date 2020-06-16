@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - mysql-56:/var/lib/mysql:rw
+      - mysql-56:/etc/mysql/conf.d:rw
+      - mysql-56:/var/log/mysql/:rw
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    networks:
+      - mysql-56
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 2
+      placement:
+        constraints:
+          - 'node.role == worker'
+
+networks:
+  mysql-56:
+    name: mysql-56
+    driver: overlay
+
+volumes:
+  mysql-56:
+    name: mysql-56
+    driver: local

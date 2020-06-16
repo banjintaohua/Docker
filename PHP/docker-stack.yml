@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+  php-fpm:
+    image: php:5.6.40-fpm
+    ports:
+      - 9002:9000
+    volumes:
+      - php-56:***REMOVED***:rw
+      - php-56:/var/log/php-fpm:rw
+      - php-56:/usr/local/etc/php/php.ini:ro
+      - php-56:/usr/local/etc/php/conf.d/dexbug.ini:ro
+    networks:
+      - php-56
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 2
+
+networks:
+  php-56:
+    name: php-56
+    driver: overlay
+
+volumes:
+  php-56:
+    name: php-56
+    driver: local

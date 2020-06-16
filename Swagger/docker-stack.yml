@@ -1,0 +1,48 @@
+version: "3.5"
+
+services:
+  edit:
+    image: swaggerapi/swagger-editor
+    restart: always
+    ports:
+      - 8081:8080
+    networks:
+      - develop
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 2
+      placement:
+        constraints:
+          - 'node.hostname == Cloud'
+          - 'node.id == 0s4487ohhl7elxnugia34tbwl'
+          - 'node.labels.vscode == true'
+
+  ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8082:8080
+    networks:
+      - develop
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 2
+      placement:
+        constraints:
+          - 'node.hostname == Cloud'
+
+networks:
+  develop:
+    name: develop
+    driver: overlay
