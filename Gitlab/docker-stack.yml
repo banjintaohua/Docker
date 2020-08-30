@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    ports:
+      - '8182:80'
+      - '8443:443'
+      - '57891:22'
+    volumes:
+      - '/usr/local/opt/gitlab/config:/etc/gitlab'
+      - '/usr/local/opt/gitlab/logs:/var/log/gitlab'
+      - '/usr/local/opt/gitlab/data:/var/opt/gitlab'
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      placement:
+        constraints:
+          - 'node.hostname == VMware'
+          - 'node.id == 6wmrak0dhwe2m8g7p1f472ro3'
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    stop_grace_period: 1m30s
+
