@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:12
 
-LABLE maintainer="fjxzyx@gmail.com"
+LABEL maintainer="fjxzyx@gmail.com"
 
 ENV PUB_KEY \n
 ENV PASSWORD password
@@ -14,7 +14,7 @@ RUN apk add --no-cache git \
     && ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key \
     && ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key \
     && echo "$PUB_KEY" >> /root/.ssh/authorized_keys \
-    && echo "root:$PASSWORD" | chpasswd
+    && echo "root:$PASSWORD" | chpasswd \
     && rm -rf /tmp/* /var/cache/apk/* \
     && npm install -g hexo-cli \
     && mkdir -p /usr/local/opt/hexo \
