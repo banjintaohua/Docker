@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  php-fpm:
+  php-56:
     build: ./build
     container_name: php-56
     restart: always
@@ -12,6 +12,13 @@ services:
       - ./logs/php-fpm:/var/log/php-fpm:rw
       - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+
+  php-74:
+    image: php:7.4.8-fpm
+    container_name: php-74
+    restart: always
+    ports:
+      - 9004:9000
 
 networks:
   default:

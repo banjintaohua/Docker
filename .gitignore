@@ -1,5 +1,9 @@
 .idea
 
+/Gitlab/conf/
+/Gitlab/logs/
+/Gitlab/data/
+
 /MySQL/conf/
 /MySQL/logs/
 /MySQL/data/
@@ -12,3 +16,4 @@
 /Registry/data/registry/
 
 /Redis/data/
+/Redis/conf/
