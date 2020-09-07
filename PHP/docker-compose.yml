@@ -12,6 +12,23 @@ services:
       - ./logs/php-fpm:/var/log/php-fpm:rw
       - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+      - ./conf/php-fpm.d:/usr/local/etc/php-fpm.d:rw
+
+  nginx:
+    image: nginx:latest
+    container_name: php-nginx
+    restart: always
+    depends_on:
+      - php-56
+      - php-74
+    ports:
+      - 8088:80
+    volumes:
+      - ../../Php/Task:***REMOVED***:rw
+      - ./nginx/conf/ssl/:/etc/nginx/ssl/:rw
+      - ./nginx/conf/conf.d/:/etc/nginx/conf.d/:rw
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw
+      - ./nginx/logs/:/var/log/nginx/:rw
 
   php-74:
     image: php:7.4.8-fpm

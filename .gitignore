@@ -8,8 +8,13 @@
 /MySQL/logs/
 /MySQL/data/
 
+/Nginx/conf/
+/Nginx/logs/
+/Nginx/www/
+
 /PHP/conf/
 /PHP/logs/
+/PHP/nginx/
 
 /Minio/data/
 
