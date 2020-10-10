@@ -1,16 +1,26 @@
-version: "3"
+version: '3.8'
 
 services:
   minio:
     image: minio/minio:latest
     container_name: minio
     restart: always
-    volumes:
-      # - /srv/minio:/data
-      - ./data:/data:rw
     ports:
       - 9003:9000
+    volumes:
+      # - /srv/minio:/data
+      # - ./data:/data:rw
+      - minio:/data:rw
+    networks:
+      - develop
     environment:
       MINIO_ACCESS_KEY: MINIO_ACCESS_KEY
       MINIO_SECRET_KEY: 'MINIO_SECRET_KEY'
     command: server /data
+
+volumes:
+  minio:
+
+networks:
+  develop:
+    external: true

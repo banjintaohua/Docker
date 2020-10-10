@@ -18,8 +18,11 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     # 加密解密
     && apt-get install -y libmcrypt-dev \
     && docker-php-ext-install mcrypt \
+    # Excel 依赖
+    && apt-get install -y libzip-dev zlib1g-dev \
+    && docker-php-ext-install zip \
     # 数据库
-    && docker-php-ext-install mysql mysqli pdo_mysql \
+    && docker-php-ext-install mysql mysqli pdo_mysql zip \
     # 断点调试
     && pecl install xdebug-2.5.5
 
