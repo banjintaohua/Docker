@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   nginx:
@@ -16,8 +16,14 @@ services:
       - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./logs/:/var/log/nginx/:rw
       #- logs:/var/log/nginx/:rw
+      - minio_minio:/data:rw
+    networks:
+      - develop
 
 networks:
-  default:
-    external:
-      name: develop
+  develop:
+    external: true
+
+volumes:
+  minio_minio:
+    external: true

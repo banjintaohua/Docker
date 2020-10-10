@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.8'
 
 services:
   db:
@@ -6,16 +6,17 @@ services:
     command: mysqld
     container_name: mysql-56
     restart: always
+    ports:
+      - "3306:3306"
     volumes:
       - ./data/:/var/lib/mysql:rw
       - ./conf/:/etc/mysql/conf.d:rw
       - ./logs/:/var/log/mysql/:rw
-    ports:
-      - "3306:3306"
+    networks:
+      - develop
     environment:
       - MYSQL_ROOT_PASSWORD=password
 
 networks:
-  default:
-    external:
-      name: develop
+  develop:
+    external: true

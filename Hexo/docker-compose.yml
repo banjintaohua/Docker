@@ -1,22 +1,37 @@
-version: "3"
+version: '3.8'
 
 services:
   hexo:
-    build: ./build
-    image: blog-hexo:next
+    build:
+      context: ./build/
+      dockerfile: Dockerfile
+      args:
+        BLOG_REPOSITORY: '...'
+        PUB_KEY: ''
+    image: banjintaohua/hexo:1.2
     container_name: hexo
     restart: always
     ports:
       - "4000:4000"
       - "4001:22"
+    environment:
+      BRANCH: 'master'
+    working_dir: '/usr/local/opt/hexo/blog/'
     command:
-        - sh
-        - -c 
-        - |
-            /usr/bin/hexo server &
-            /usr/sbin/sshd -D
+      # sh -c | /usr/local/bin/hexo server & ; /usr/sbin/sshd -D
+      - sh
+      - -c
+      - |
+        /usr/local/bin/hexo server & ;
+        /usr/sbin/sshd -D
+    volumes:
+      - ./config/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
+      - ./config/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
+      - ./ssh/id_rsa:/root/.ssh/ci:rw
+      - ./ssh/id_rsa.pub:/root/.ssh/ci.pub:rw
+    networks:
+      - gitlab-runner
 
 networks:
-  default:
-    external:
-      name: gitlab-runner
+  gitlab-runner:
+    external: true

@@ -1,4 +1,4 @@
-version: "3.5"
+version: '3.8'
 
 services:
   runner:
@@ -11,8 +11,8 @@ services:
       # Linux use /srv instead of /Users/Shared
       - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
     networks:
-      - ci
+      - gitlab-runner
 
 networks:
-  ci:
-    name: gitlab-runner
+  gitlab-runner:
+    external: false
