@@ -22,3 +22,6 @@
 
 /Redis/data/
 /Redis/conf/
+
+/Hexo/config/
+/Hexo/ssh/
