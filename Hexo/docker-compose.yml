@@ -22,11 +22,12 @@ services:
       - sh
       - -c
       - |
-        /usr/local/bin/hexo server & ;
+        /usr/local/bin/hexo server &
         /usr/sbin/sshd -D
     volumes:
       - ./config/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
       - ./config/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
+      - ./config/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
       - ./ssh/id_rsa:/root/.ssh/ci:rw
       - ./ssh/id_rsa.pub:/root/.ssh/ci.pub:rw
     networks:
