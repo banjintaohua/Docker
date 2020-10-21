@@ -3,7 +3,7 @@ FROM node:12.14.0-alpine
 LABEL maintainer="fjxzyx@gmail.com"
 
 ARG BLOG_REPOSITORY
-ARG PUB_KEY
+ARG AUTHORIZED_KEY
 
 COPY . /tmp/hexo
 
@@ -12,10 +12,10 @@ COPY . /tmp/hexo
 # 注意：使用 hexo generate --debug 可以查看具体的报错信息 https://github.com/hexojs/hexo/issues/1837
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories \
-    && apk add --progress git openssh-server tzdata \
+    && apk add --progress git openssh openssh-server tzdata \
     && ssh-keygen -A \
     && mkdir -p /root/.ssh \
-    && echo "$PUB_KEY" >> /root/.ssh/authorized_keys \
+    && echo "$AUTHORIZED_KEY" >> /root/.ssh/authorized_keys \
     && chmod 600 /root/.ssh/authorized_keys \
     && npm config set registry 'http://registry.npm.taobao.org' \
     && npm install --verbose --global hexo-cli@3.1.0 \
@@ -42,6 +42,6 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 EXPOSE 4000
 EXPOSE 22
 
-WORKDIR /usr/local/opt/hexo/blog
+WORKDIR /usr/local/opt/hexo/blog/source/_posts
 
 CMD ["hexo", "server"]
