@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile
       args:
         BLOG_REPOSITORY: '...'
-        PUB_KEY: ''
+        AUTHORIZED_KEY: ''
+        BRANCH: 'master'
     image: example/hexo:1.2
     container_name: hexo
     restart: always
@@ -16,20 +17,24 @@ services:
       - "4001:22"
     environment:
       BRANCH: 'master'
-    working_dir: '/usr/local/opt/hexo/blog/'
+    working_dir: '/usr/local/opt/hexo/blog/source/_posts'
     command:
-      # sh -c | /usr/local/bin/hexo server & ; /usr/sbin/sshd -D
+      # 在 yaml 中，使用 | 开头的文本块换行符都会被解析为空格
+      # 等效于 dockerfile 中的 ['sh', '-c', '/usr/local/bin/hexo server & ; /usr/sbin/sshd -D']
+      # sh -c '/usr/local/bin/hexo server & ; /usr/sbin/sshd -D'
       - sh
       - -c
       - |
+        '
         /usr/local/bin/hexo server &
         /usr/sbin/sshd -D
+        '
     volumes:
       - ./config/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
       - ./config/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
       - ./config/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
-      - ./ssh/id_rsa:/root/.ssh/ci:rw
-      - ./ssh/id_rsa.pub:/root/.ssh/ci.pub:rw
+      - ./ssh/id_rsa:/root/.ssh/id_rsa:rw
+      - ./ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
     networks:
       - gitlab-runner
 
