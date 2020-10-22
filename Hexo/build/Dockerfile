@@ -36,7 +36,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
     && mv -f /tmp/hexo/site-overview.swig /usr/local/opt/hexo/blog/themes/next/layout/_partials/sidebar/site-overview.swig \
     && rm -f /usr/local/opt/hexo/blog/themes/next/source/css/_common/components/post/post.styl \
     && mv -f /tmp/hexo/post.styl /usr/local/opt/hexo/blog/themes/next/source/css/_common/components/post/post.styl \
-    && git clone --progress $BLOG_REPOSITORY /usr/local/opt/hexo/blog/source/_posts \
+    && test -z $BLOG_REPOSITORY || git clone --progress $BLOG_REPOSITORY /usr/local/opt/hexo/blog/source/_posts \
     && rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE 4000
