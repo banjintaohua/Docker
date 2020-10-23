@@ -17,6 +17,8 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
     && mkdir -p /root/.ssh \
     && echo "$AUTHORIZED_KEY" >> /root/.ssh/authorized_keys \
     && chmod 600 /root/.ssh/authorized_keys \
+    && git config --global user.email fjxzyx@gmail.com \
+    && git config --global user.name banjintaohua \
     && npm config set registry 'http://registry.npm.taobao.org' \
     && npm install --verbose --global hexo-cli@3.1.0 \
     && mkdir -p /usr/local/opt/hexo/blog \

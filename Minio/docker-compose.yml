@@ -10,7 +10,7 @@ services:
     volumes:
       # - /srv/minio:/data
       # - ./data:/data:rw
-      - minio:/data:rw
+      - cache:/data:rw
     networks:
       - develop
     environment:
@@ -19,7 +19,8 @@ services:
     command: server /data
 
 volumes:
-  minio:
+  cache:
+    external: true
 
 networks:
   develop:

@@ -1,6 +1,6 @@
 FROM gitlab/gitlab-runner
 
-LABLE maintainer="fjxzyx@gmail.com"
+LABEL maintainer="fjxzyx@gmail.com"
 
 ENV USER gitlab-runner
 
