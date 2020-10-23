@@ -2,8 +2,10 @@ version: '3.8'
 
 services:
   runner:
-    build: ./build
-    # image: gitlab/gitlab-runner
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/gitlab-runner:1.0
     container_name: gitlab-runner
     restart: always
     volumes:
@@ -11,8 +13,9 @@ services:
       # Linux use /srv instead of /Users/Shared
       - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
     networks:
-      - gitlab-runner
+      - ci
 
 networks:
-  gitlab-runner:
+  ci:
     external: false
+    name: ci

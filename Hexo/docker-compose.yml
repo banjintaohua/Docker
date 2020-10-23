@@ -30,12 +30,13 @@ services:
     volumes:
       - ./config/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
       - ./config/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
+      - ./config/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
       - ./config/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
       - ./ssh/id_rsa:/root/.ssh/id_rsa:rw
       - ./ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
     networks:
-      - gitlab-runner
+      - ci
 
 networks:
-  gitlab-runner:
+  ci:
     external: true

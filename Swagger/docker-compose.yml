@@ -20,4 +20,4 @@ services:
 
 networks:
   develop:
-    external: false
+    external: true

@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   php-56:
-    build: ./build
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/php-56:1.0
     container_name: php-56
     restart: always
     ports:
