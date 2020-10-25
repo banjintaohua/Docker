@@ -25,3 +25,9 @@
 
 /Hexo/config/
 /Hexo/ssh/
+
+/PostgreSQL/data/
+
+/Caddy/data/
+/Caddy/config/
+/Caddy/Caddyfile

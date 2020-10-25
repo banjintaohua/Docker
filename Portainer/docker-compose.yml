@@ -12,7 +12,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
+    networks:
+      - portainer
 
 volumes:
+  portainer:
+    name: portainer
+
+networks:
   portainer:
     name: portainer

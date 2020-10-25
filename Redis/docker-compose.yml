@@ -10,4 +10,10 @@ services:
       volumes:
         - ./conf/redis.conf:/etc/redis/redis.conf
         - ./data:/data
+      networks:
+        - develop
       command: redis-server /etc/redis/redis.conf
+
+networks:
+  develop:
+    external: true

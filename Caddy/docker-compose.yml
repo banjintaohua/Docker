@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: always
+    ports:
+      - "8089:80"
+      # - "80:80"
+      # - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+      - ./config:/config
+    networks:
+      - develop
+
+networks:
+  develop:
+    external: true

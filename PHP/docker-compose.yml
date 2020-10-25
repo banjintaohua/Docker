@@ -36,6 +36,9 @@ services:
       - ./nginx/logs/:/var/log/nginx/:rw
     networks:
       - develop
+    depends_on:
+      - php-74
+      - php-56
 
   php-74:
     image: php:7.4.8-fpm
@@ -43,6 +46,8 @@ services:
     restart: always
     ports:
       - 9004:9000
+    networks:
+      - develop
 
 networks:
   develop:
