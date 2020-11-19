@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  shadowsocks:
+    image: teddysun/shadowsocks-libev
+    container_name: shadowsocks
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./conf/shadowsocks:/etc/shadowsocks-libev
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./log/caddy:/root/caddy/log
