@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  php-72:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/php-72:1.0
+    container_name: php-72
+    restart: always
+    ports:
+      - 9005:9000
+    volumes:
+      - ./conf/php/php.ini:/usr/local/etc/php/php.ini:rw
+    networks:
+      - develop
+
+networks:
+  develop:
+    external: true
+

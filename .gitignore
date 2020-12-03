@@ -16,6 +16,9 @@
 /PHP/logs/
 /PHP/nginx/
 
+/YAF/conf/
+/YAF/logs/
+
 /Minio/data/
 
 /Registry/data/registry/
