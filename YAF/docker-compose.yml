@@ -7,11 +7,14 @@ services:
       dockerfile: Dockerfile
     image: example/php-72:1.0
     container_name: php-72
+    working_dir: /var/www/dianfumao/server
+    user: root
     restart: always
     ports:
       - 9005:9000
     volumes:
-      - ./conf/php/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./conf/php.ini:/usr/local/etc/php/php.ini:rw
+      - ../../Php/Dianfumao/server:/var/www/dianfumao/server:rw
     networks:
       - develop
 
