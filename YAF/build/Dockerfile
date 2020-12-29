@@ -27,7 +27,12 @@ RUN apt-get update \
     && pear config-set php_ini /usr/local/etc/php/php.ini \
     # YAF 拓展
     && pecl install yaf \
+    # 数据库
+    && docker-php-ext-install mysqli pdo_mysql \
+    # GD
+    && apt-get -y install libpng-dev libssl-dev \
+    && docker-php-ext-install gd \
     # XDebug
-    && pecl install xdebug-3.0.0
+    && pecl install xdebug-2.9.8
 
  WORKDIR /var/www
