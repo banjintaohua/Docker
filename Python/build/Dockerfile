@@ -2,11 +2,12 @@ FROM python:3.9.1
 
 WORKDIR /app
 
-COPY src/requirements.txt ./
+COPY conf/pip.conf ~/.pip/
+COPY conf/requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-COPY src /app
+COPY app /app
 
 EXPOSE 8080
 

@@ -5,8 +5,8 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: example/python-39:1.0
-    container_name: python-39
+    image: example/python-3.9:1.0
+    container_name: python-3.9
     restart: always
     ports:
       - 9006:8080
