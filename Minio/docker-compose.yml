@@ -9,8 +9,8 @@ services:
       - 9003:9000
     volumes:
       # - /srv/minio:/data
-      # - ./data:/data:rw
-      - cache:/data:rw
+      - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
+      # - cache:/data:rw
     networks:
       - develop
     environment:
@@ -18,9 +18,9 @@ services:
       MINIO_SECRET_KEY: 'MINIO_SECRET_KEY'
     command: server /data
 
-volumes:
-  cache:
-    external: true
+# volumes:
+#   cache:
+#     external: true
 
 networks:
   develop:
