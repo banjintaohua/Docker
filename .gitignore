@@ -19,6 +19,9 @@
 /YAF/conf/
 /YAF/logs/
 
+/Tomcat/webapps/
+/Tomcat/logs/
+
 /Minio/data/
 
 /Registry/data/registry/
