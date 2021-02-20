@@ -1,0 +1,59 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints:
+          - node.labels.vpn == true
+    networks:
+      - vpn
+    ports:
+      - 80:80
+      - 443:443
+    working_dir: /var/www
+    volumes:
+      - ./conf/nginx/ssl:/etc/ssl
+      - ./conf/nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./log/:/var/log/nginx/:rw
+
+  shadowsocks:
+    image: teddysun/shadowsocks-libev
+    container_name: shadowsocks
+    restart: always
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints:
+          - node.labels.vpn == true
+    networks:
+      - vpn
+    ports:
+      - 9000:9000
+    volumes:
+      - ./conf/nginx/ssl:/etc/ssl
+      - ./conf/shadowsocks:/etc/shadowsocks-libev
+
+networks:
+  vpn:
+    driver: overlay
+    external: false
+    name: vpn

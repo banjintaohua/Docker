@@ -1,9 +1,28 @@
-version: '3.8'
+version: "3.7"
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: php-nginx
+    restart: always
+    ports:
+      - 8088:80
+    volumes:
+      - ./nginx/logs/:/var/log/nginx/:rw
+      - ./nginx/conf/ssl/:/etc/nginx/ssl/:rw
+      - ./nginx/conf/conf.d/:/etc/nginx/conf.d/:rw
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw
+      - ../../Php/task:***REMOVED***:rw
+    networks:
+      - develop
+    depends_on:
+      - php-8
+      - php-72
+      - php-56
+
   php-56:
     build:
-      context: ./build
+      context: ./build/php-56
       dockerfile: Dockerfile
     image: example/php-56:1.0
     container_name: php-56
@@ -11,38 +30,37 @@ services:
     ports:
       - 9002:9000
     volumes:
+      - ./logs/php-56/php-fpm:/var/log/php-fpm:rw
+      - ./conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./conf/php-56/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+      - ./conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
       - ../../Php/task:***REMOVED***:rw
-      - ./logs/php-fpm:/var/log/php-fpm:rw
-      - ./conf/php.ini:/usr/local/etc/php/php.ini:ro
-      - ./conf/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
-      - ./conf/php-fpm.d:/usr/local/etc/php-fpm.d:rw
     networks:
       - develop
 
-  nginx:
-    image: nginx:latest
-    container_name: php-nginx
+  php-72:
+    build:
+      context: ./build/php-72
+      dockerfile: Dockerfile
+    image: example/php-72:1.0
+    container_name: php-72
+    working_dir: /var/www/***REMOVED***
+    user: root
     restart: always
-    depends_on:
-      - php-56
-      - php-74
     ports:
-      - 8088:80
+      - 9005:9000
     volumes:
-      - ../../Php/task:***REMOVED***:rw
-      - ./nginx/conf/ssl/:/etc/nginx/ssl/:rw
-      - ./nginx/conf/conf.d/:/etc/nginx/conf.d/:rw
-      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw
-      - ./nginx/logs/:/var/log/nginx/:rw
+      - ./logs/php-72/php-fpm:/var/log/php-fpm:rw
+      - ./conf/php-72/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./conf/php-72/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - ../../Php/epiboly/***REMOVED***:/var/www/***REMOVED***:rw
+      - ../../Php/epiboly/***REMOVED***:/var/www/***REMOVED***:rw
     networks:
       - develop
-    depends_on:
-      - php-74
-      - php-56
 
-  php-74:
-    image: php:7.4.8-fpm
-    container_name: php-74
+  php-8:
+    image: php:8.0.2-fpm
+    container_name: php-8
     restart: always
     ports:
       - 9004:9000
@@ -52,4 +70,3 @@ services:
 networks:
   develop:
     external: true
-

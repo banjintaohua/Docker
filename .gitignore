@@ -9,15 +9,12 @@
 /MySQL/data/
 
 /Nginx/conf/
-/Nginx/logs/
+/Nginx/log/
 /Nginx/www/
 
 /PHP/conf/
 /PHP/logs/
 /PHP/nginx/
-
-/YAF/conf/
-/YAF/logs/
 
 /Tomcat/webapps/
 /Tomcat/logs/
