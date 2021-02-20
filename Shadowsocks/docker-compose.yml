@@ -1,21 +1,58 @@
-version: "3.5"
+version: "3.7"
 
 services:
-  shadowsocks:
-    image: teddysun/shadowsocks-libev
-    container_name: shadowsocks
+  ss-websocket-http:
+    image: teddysun/shadowsocks-libev:3.3.5
+    container_name: ss-websocket-http
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-http.log 2>&1"
+    working_dir: /etc/shadowsocks-libev
+    networks:
+      - vpn
     restart: always
     ports:
-      - "9000:9000"
+      - 9001:9000
+      - 9001:9000/udp
     volumes:
-      - ./conf/shadowsocks:/etc/shadowsocks-libev
+      - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
+      - ./log/ss-websocket-http:/var/log/shadowsocks
 
-  caddy:
-    image: caddy:2-alpine
-    container_name: caddy
+  ss-websocket-https:
+    image: teddysun/shadowsocks-libev:3.3.5K
+    container_name: ss-websocket-https
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-https 2>&1"
+    working_dir: /etc/shadowsocks-libev
+    networks:
+      - vpn
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - 9002:9000
+      - 9002:9000/udp
     volumes:
-      - ./log/caddy:/root/caddy/log
+      - ./conf/ssl:/etc/ssl:ro
+      - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
+      - ./log/ss-websocket-https:/var/log/shadowsocks
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - ss-websocket-http
+    working_dir: /var/www
+    networks:
+      - vpn
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./conf/ssl:/etc/ssl:ro
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ./log/nginx:/var/log/nginx:rw
+
+networks:
+  vpn:
+    name: vpn
+    external: false
+    driver: bridge
