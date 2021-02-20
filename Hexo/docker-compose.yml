@@ -19,9 +19,6 @@ services:
       BRANCH: 'master'
     working_dir: '/usr/local/opt/hexo/blog/source/_posts'
     command:
-      # 在 yaml 中，使用 | 开头的文本块换行符都会被解析为空格
-      # 等效于 dockerfile 中的 ['sh', '-c', '/usr/local/bin/hexo server & ; /usr/sbin/sshd -D']
-      # sh -c '/usr/local/bin/hexo server & ; /usr/sbin/sshd -D'
       - sh
       - -c
       - |

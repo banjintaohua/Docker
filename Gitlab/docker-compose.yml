@@ -1,17 +1,16 @@
-version: '3.8'
+version: "3.7"
 
 services:
-
   gitlab:
-    image: 'gitlab/gitlab-ce:latest'
-    container_name: "gitlab"
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab
     restart: always
-    hostname: 'gitlab.example.online'
+    hostname: gitlab.***REMOVED***
     ports:
-      - '8182:80'
-      - '8443:443'
-      - '57891:22'
+      - 9022:22
+      - 9080:80
+      - 9443:443
     volumes:
-      - './conf:/etc/gitlab'
-      - './logs:/var/log/gitlab'
-      - './data:/var/opt/gitlab'
+      - ./conf:/etc/gitlab
+      - ./logs:/var/log/gitlab
+      - ./data:/var/opt/gitlab

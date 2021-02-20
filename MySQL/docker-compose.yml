@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.7"
 
 services:
   db:
@@ -7,7 +7,7 @@ services:
     container_name: mysql-56
     restart: always
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - ./data/:/var/lib/mysql:rw
       - ./conf/:/etc/mysql/conf.d:rw

@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.7"
 
 services:
   edit:
@@ -16,7 +16,7 @@ services:
       restart_policy:
         condition: any
         delay: 5s
-        max_attempts: 2
+        max_attempts: 3
       placement:
         constraints:
           - 'node.hostname == Cloud'
