@@ -11,7 +11,7 @@ services:
     volumes:
       - ./data/:/var/lib/mysql:rw
       - ./conf/:/etc/mysql/conf.d:rw
-      - ./logs/:/var/log/mysql/:rw
+      - ./log/:/var/log/mysql/:rw
     networks:
       - develop
     environment:

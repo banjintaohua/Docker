@@ -6,9 +6,9 @@ services:
       context: ./build/
       dockerfile: Dockerfile
       args:
-        BLOG_REPOSITORY: ''
-        AUTHORIZED_KEY: ''
-        BRANCH: 'master'
+        BLOG_REPOSITORY: ~
+        AUTHORIZED_KEY: ~
+        BRANCH: master
     image: example/hexo:1.3
     container_name: hexo
     restart: always
@@ -16,8 +16,8 @@ services:
       - "4000:4000"
       - "4001:22"
     environment:
-      BRANCH: 'master'
-    working_dir: '/usr/local/opt/hexo/blog/source/_posts'
+      BRANCH: master
+    working_dir: /usr/local/opt/hexo/blog/source/_posts
     command:
       - sh
       - -c
@@ -29,8 +29,8 @@ services:
       - ./config/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
       - ./config/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
       - ./config/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
-      - ./ssh/id_rsa:/root/.ssh/id_rsa:rw
-      - ./ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
+      - ./config/ssh/id_rsa:/root/.ssh/id_rsa:rw
+      - ./config/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
     networks:
       - ci
 

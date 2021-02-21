@@ -4,13 +4,32 @@ services:
   gitlab:
     image: gitlab/gitlab-ce:latest
     container_name: gitlab
-    restart: always
+    restart: on-failure
     hostname: gitlab.***REMOVED***
     ports:
-      - 9022:22
-      - 9080:80
-      - 9443:443
+      - "9022:22"
+      - "9080:80"
+      - "9443:443"
     volumes:
-      - ./conf:/etc/gitlab
-      - ./logs:/var/log/gitlab
-      - ./data:/var/opt/gitlab
+      - ./conf:/etc/gitlab:rw
+      - ./log:/var/log/gitlab:rw
+      - ./data:/var/opt/gitlab:rw
+
+  runner:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/gitlab-runner:1.0
+    container_name: gitlab-runner
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Linux use /srv instead of /Users/Shared
+      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
+    networks:
+      - ci
+
+networks:
+  ci:
+    external: false
+    name: ci

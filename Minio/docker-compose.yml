@@ -6,21 +6,15 @@ services:
     container_name: minio
     restart: always
     ports:
-      - 9003:9000
+      - "9003:9000"
     volumes:
-      # - /srv/minio:/data
       - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
-      # - cache:/data:rw
     networks:
       - develop
     environment:
       MINIO_ACCESS_KEY: MINIO_ACCESS_KEY
-      MINIO_SECRET_KEY: 'MINIO_SECRET_KEY'
+      MINIO_SECRET_KEY: MINIO_SECRET_KEY
     command: server /data
-
-# volumes:
-#   cache:
-#     external: true
 
 networks:
   develop:

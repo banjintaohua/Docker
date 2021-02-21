@@ -1,10 +1,67 @@
 version: "3.7"
 
 services:
+  ss-websocket-http:
+    image: teddysun/shadowsocks-libev:3.3.5
+    container_name: ss-websocket-http
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-http.log 2>&1"
+    working_dir: /etc/shadowsocks-libev
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints:
+          - node.labels.vpn == true
+    networks:
+      - vpn
+    restart: always
+    ports:
+      - 9001:9000
+      - 9001:9000/udp
+    volumes:
+      - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
+      - ./log/ss-websocket-http:/var/log/shadowsocks
+
+  ss-websocket-https:
+    image: teddysun/shadowsocks-libev:3.3.5K
+    container_name: ss-websocket-https
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-https 2>&1"
+    working_dir: /etc/shadowsocks-libev
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        failure_action: rollback
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints:
+          - node.labels.vpn == true
+    networks:
+      - vpn
+    restart: always
+    ports:
+      - 9002:9000
+      - 9002:9000/udp
+    volumes:
+      - ./conf/ssl:/etc/ssl:ro
+      - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
+      - ./log/ss-websocket-https:/var/log/shadowsocks
+
   nginx:
     image: nginx:latest
     container_name: nginx
-    restart: always
+    depends_on:
+      - ss-websocket-http
+    working_dir: /var/www
     deploy:
       replicas: 1
       update_config:
@@ -19,41 +76,19 @@ services:
           - node.labels.vpn == true
     networks:
       - vpn
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
     ports:
       - 80:80
       - 443:443
-    working_dir: /var/www
     volumes:
-      - ./conf/nginx/ssl:/etc/ssl
-      - ./conf/nginx/conf.d/:/etc/nginx/conf.d/:ro
-      - ./log/:/var/log/nginx/:rw
-
-  shadowsocks:
-    image: teddysun/shadowsocks-libev
-    container_name: shadowsocks
-    restart: always
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-        failure_action: rollback
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-      placement:
-        constraints:
-          - node.labels.vpn == true
-    networks:
-      - vpn
-    ports:
-      - 9000:9000
-    volumes:
-      - ./conf/nginx/ssl:/etc/ssl
-      - ./conf/shadowsocks:/etc/shadowsocks-libev
+      - ./conf/ssl:/etc/ssl:ro
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ./log/nginx:/var/log/nginx:rw
 
 networks:
   vpn:
-    driver: overlay
-    external: false
     name: vpn
+    external: false
+    driver: overlay

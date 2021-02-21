@@ -9,7 +9,7 @@ services:
     container_name: python-3.9
     restart: always
     ports:
-      - 9006:8080
+      - "9006:8080"
     networks:
       - develop
     command: tail -f /dev/null

@@ -7,9 +7,9 @@ services:
     restart: always
     user: 0:0
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
-      - "/usr/local/opt/vscode/project:/home/coder/project"
-      - "/usr/local/opt/vscode/.local/share/code-server:/home/coder/.local/share/code-server"
+      - /usr/local/opt/vscode/project:/home/coder/project
+      - /usr/local/opt/vscode/.local/share/code-server:/home/coder/.local/share/code-server
     environment:
       - PASSWORD=password
