@@ -9,7 +9,7 @@ services:
       - vscode:/home/coder/project
       - vscode:/home/coder/.local/share/code-server
     environment:
-      - PASSWORD=password
+      PASSWORD: password
     deploy:
       replicas: 1
       update_config:

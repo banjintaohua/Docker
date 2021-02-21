@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  edit:
+  swagger-edit:
     image: swaggerapi/swagger-editor
     container_name: "swagger-edit"
     restart: always
@@ -11,7 +11,8 @@ services:
       - "8081:8080"
     networks:
       - develop
-  ui:
+
+  swagger-ui:
     image: swaggerapi/swagger-ui
     container_name: "swagger-ui"
     restart: always

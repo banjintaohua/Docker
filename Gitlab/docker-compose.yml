@@ -4,7 +4,7 @@ services:
   gitlab:
     image: gitlab/gitlab-ce:latest
     container_name: gitlab
-    restart: on-failure
+    restart: always
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['gitlab_shell_ssh_port'] = 8222
@@ -20,7 +20,7 @@ services:
       - ./log:/var/log/gitlab:rw
       - ./data:/var/opt/gitlab:rw
 
-  runner:
+  gitlab-runner:
     build:
       context: ./build
       dockerfile: Dockerfile
@@ -31,10 +31,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # Mac use /Users/Shared instead of /srv
       - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
-    networks:
-      - ci
-
-networks:
-  ci:
-    external: false
-    name: ci

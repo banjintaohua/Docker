@@ -33,22 +33,8 @@ services:
       - ./conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
       - ./conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
     networks:
-      - ci
-
-  gitlab-runner:
-    build:
-      context: ./build/runner
-      dockerfile: Dockerfile
-    image: example/gitlab-runner:1.0
-    container_name: gitlab-runner
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Linux use /srv instead of /Users/Shared
-      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
-    networks:
-      - ci
+      - develop
 
 networks:
-  ci:
-    external: false
+  develop:
+    external: true
