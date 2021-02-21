@@ -1,42 +1,48 @@
 .idea
 
 /Gitlab/conf/
-/Gitlab/logs/
+/Gitlab/log/
 /Gitlab/data/
 
 /MySQL/conf/
-/MySQL/logs/
+/MySQL/log/
 /MySQL/data/
 
 /Nginx/conf/
 /Nginx/log/
-/Nginx/www/
+/Nginx/data/
 
 /PHP/conf/
-/PHP/logs/
-/PHP/nginx/
+/PHP/log/
+/PHP/data/
 
-/Tomcat/webapps/
-/Tomcat/logs/
+/Tomcat/conf/
+/Tomcat/log/
+/Tomcat/data/
 
+/Minio/conf/
+/Minio/log/
 /Minio/data/
 
-/Registry/data/registry/
+/Registry/conf/
+/Registry/log/
+/Registry/data/
 
-/Redis/data/
 /Redis/conf/
+/Redis/log/
+/Redis/data/
 
-/Hexo/config/
-/Hexo/ssh/
+/Hexo/conf/
+/Hexo/log/
+/Hexo/data/
 
+/PostgreSQL/conf/
+/PostgreSQL/log/
 /PostgreSQL/data/
-
-/Caddy/data/
-/Caddy/config/
-/Caddy/Caddyfile
 
 /Shadowsocks/conf/
 /Shadowsocks/log/
+/Shadowsocks/data/
 
 /StackStorm/files
 /StackStorm/packs
