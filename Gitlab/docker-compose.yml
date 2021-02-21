@@ -6,10 +6,12 @@ services:
     container_name: gitlab
     restart: on-failure
     hostname: gitlab.***REMOVED***
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
-      - "9022:22"
-      - "9080:80"
-      - "9443:443"
+      - "8222:22"
+      - "8181:80"
+      - "8443:443"
     volumes:
       - ./conf:/etc/gitlab:rw
       - ./log:/var/log/gitlab:rw
@@ -24,8 +26,8 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Linux use /srv instead of /Users/Shared
-      - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
+      # Mac use /Users/Shared instead of /srv
+      - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
     networks:
       - ci
 

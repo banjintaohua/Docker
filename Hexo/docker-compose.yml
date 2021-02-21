@@ -12,6 +12,8 @@ services:
     image: example/hexo:1.3
     container_name: hexo
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "4000:4000"
       - "4001:22"

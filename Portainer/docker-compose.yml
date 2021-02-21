@@ -6,6 +6,8 @@ services:
     command: -H unix:///var/run/docker.sock
     container_name: portainer
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "9001:9000"
       - "8000:8000"

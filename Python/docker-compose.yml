@@ -8,6 +8,8 @@ services:
     image: example/python-3.9:1.0
     container_name: python-3.9
     restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "9006:8080"
     networks:
