@@ -17,7 +17,7 @@ services:
     networks:
       - develop
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}
 
 networks:
   develop:

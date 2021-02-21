@@ -5,7 +5,10 @@ services:
     image: gitlab/gitlab-ce:latest
     container_name: gitlab
     restart: on-failure
-    hostname: gitlab.***REMOVED***
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['gitlab_shell_ssh_port'] = 8222
+    hostname: ${HOST_NAME:-gitlab.***REMOVED***}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:

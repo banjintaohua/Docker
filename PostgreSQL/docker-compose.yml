@@ -14,7 +14,7 @@ services:
     networks:
       - develop
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-example}
 
 networks:
   develop:
