@@ -5,8 +5,6 @@ services:
     image: minio/minio:latest
     container_name: minio
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "9003:9000"
     volumes:

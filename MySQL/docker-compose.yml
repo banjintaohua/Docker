@@ -6,8 +6,6 @@ services:
     command: mysqld
     container_name: mysql-56
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "3306:3306"
     volumes:

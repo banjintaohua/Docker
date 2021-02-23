@@ -1,6 +1,24 @@
 version: "3.7"
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: php-nginx
+    restart: always
+    ports:
+      - 8088:80
+    volumes:
+      - ./log/nginx:/var/log/nginx:rw
+      - ./conf/nginx/conf.d/:/etc/nginx/conf.d/:rw
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
+      - ../../Php/task:***REMOVED***:rw
+    networks:
+      - develop
+    depends_on:
+      - php-8
+      - php-72
+      - php-56
+
   php-56:
     build:
       context: ./build/php-56
@@ -8,8 +26,6 @@ services:
     image: example/php-56:1.0
     container_name: php-56
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "9002:9000"
     volumes:
@@ -30,8 +46,6 @@ services:
     working_dir: /var/www/***REMOVED***
     user: root
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "9005:9000"
     volumes:
@@ -47,8 +61,6 @@ services:
     image: php:8.0.2-fpm
     container_name: php-8
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "9004:9000"
     networks:

@@ -76,8 +76,6 @@ services:
           - node.labels.vpn == true
     networks:
       - vpn
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     restart: always
     ports:
       - 80:80

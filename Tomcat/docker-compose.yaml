@@ -4,8 +4,6 @@ services:
     container_name: tomcat
     image: tomcat:7.0-jdk8
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "8085:8080"
     volumes:

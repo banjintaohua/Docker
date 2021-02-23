@@ -9,8 +9,6 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['gitlab_shell_ssh_port'] = 8222
     hostname: ${HOST_NAME:-gitlab.***REMOVED***}
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "8222:22"
       - "8181:80"
