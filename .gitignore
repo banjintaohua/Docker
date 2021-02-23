@@ -16,6 +16,10 @@
 /PHP/log/
 /PHP/data/
 
+/Portainer/conf/
+/Portainer/log/
+/Portainer/data/
+
 /Tomcat/conf/
 /Tomcat/log/
 /Tomcat/data/
