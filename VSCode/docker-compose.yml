@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /usr/local/opt/vscode/project:/home/coder/project
-      - /usr/local/opt/vscode/.local/share/code-server:/home/coder/.local/share/code-server
+      - ./data/project:/home/coder/project
+      - ./data/.local/share/code-server:/home/coder/.local/share/code-server
     environment:
       PASSWORD: ${PASSWORD:-password}

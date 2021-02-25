@@ -1,18 +1,24 @@
 version: "3.7"
 
 services:
-  minio:
+  minio-1:
     image: minio/minio:latest
+    hostname: minio-1
     volumes:
       - minio:/data:rw
-    networks:
-      - minio
     ports:
       - 9003:9000
-    command: server /data
-    environment:
-      MINIO_ACCESS_KEY: MINIO_ACCESS_KEY
-      MINIO_SECRET_KEY: 'MINIO_SECRET_KEY'
+    networks:
+      - minio
+    command: server http://minio{1...4}/export
+    secrets:
+      - secret_key
+      - access_key
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
     deploy:
       replicas: 1
       update_config:
@@ -31,6 +37,12 @@ networks:
   minio:
     name: minio
     driver: overlay
+
+secrets:
+  secret_key:
+    external: true
+  access_key:
+    external: true
 
 volumes:
   minio:
