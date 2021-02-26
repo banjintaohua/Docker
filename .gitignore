@@ -48,6 +48,10 @@
 /Shadowsocks/log/
 /Shadowsocks/data/
 
+/Bark/conf/
+/Bark/log/
+/Bark/data/
+
 /StackStorm/files
 /StackStorm/packs
 /StackStorm/packs.dev
