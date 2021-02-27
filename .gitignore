@@ -8,6 +8,10 @@
 /MySQL/log/
 /MySQL/data/
 
+/Frp/conf/
+/Frp/log/
+/Frp/data/
+
 /Nginx/conf/
 /Nginx/log/
 /Nginx/data/

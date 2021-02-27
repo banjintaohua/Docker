@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  frps:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        FRP_VERSION: ${FRP_VERSION}
+        OS: ${OS:-linux}
+        ARCH: ${ARCH:-amd64}
+    image: example:frps
+    container_name: frps
+    restart: always
+    network_mode: host
+    command: /usr/bin/frps -c /etc/frp/frps.ini
+    volumes:
+      - ./conf/frps.ini:/etc/frp/frps.ini:rw
+      - ./log:/var/log/frp
+
+  frpc:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        FRP_VERSION: ${FRP_VERSION}
+        OS: ${OS:-linux}
+        ARCH: ${ARCH:-amd64}
+    image: example:frpc
+    container_name: frpc
+    restart: always
+    command: /usr/bin/frpc -c /etc/frp/frpc.ini
+    volumes:
+      - ./conf/frpc.ini:/etc/frp/frpc.ini:rw
+      - ./log:/var/log/frp
