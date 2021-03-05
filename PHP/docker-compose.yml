@@ -62,7 +62,7 @@ services:
     container_name: php-8
     restart: always
     ports:
-      - "9004:9000"
+      - "***REMOVED***:9004:9000"
     networks:
       - develop
 

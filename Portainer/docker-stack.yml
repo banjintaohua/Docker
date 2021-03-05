@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  portainer:
+    image: portainer/portainer:latest
+    command: -H unix:///var/run/docker.sock
+    container_name: portainer
+    restart: always
+    ports:
+      - "9001:9000"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+    networks:
+      - develop
+
+volumes:
+  portainer:
+    name: portainer
+
+networks:
+  develop:
+    name: develop
+    external: true

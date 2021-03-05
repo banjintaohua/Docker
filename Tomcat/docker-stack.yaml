@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  tomcat:
+    container_name: tomcat
+    image: tomcat:7.0-jdk8
+    restart: always
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./log:/usr/local/tomcat/logs
+      - ./data:/usr/local/tomcat/webapps
+    networks:
+      - develop
+
+networks:
+  develop:
+    external: true

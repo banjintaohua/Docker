@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  hexo:
+    build:
+      context: ./build/hexo
+      dockerfile: Dockerfile
+      args:
+        GIT_HTTP_URL_WITH_USER_AND_PASSWORD: ${GIT_HTTP_URL_WITH_USER_AND_PASSWORD}
+        AUTHORIZED_KEY: ${AUTHORIZED_KEY}
+    image: example/hexo:1.3
+    container_name: hexo
+    restart: always
+    ports:
+      - "4000:4000"
+      - "4001:22"
+    environment:
+      BRANCH: ${BRANCH:-master}
+    working_dir: /usr/local/opt/hexo/blog/source/_posts
+    command:
+      - sh
+      - -c
+      - |
+        /usr/local/bin/hexo server &
+        /usr/sbin/sshd -D
+    volumes:
+      - ./conf/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
+      - ./conf/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
+      - ./conf/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
+      - ./conf/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
+      - ./conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
+      - ./conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
+    networks:
+      - develop
+
+networks:
+  develop:
+    external: true

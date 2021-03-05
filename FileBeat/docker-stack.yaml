@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:${ELK_VERSION}
+    container_name: filebeat
+    restart: always
+    user: root
+    labels:
+      co.elastic.logs/enable: false
+    networks:
+      - elk
+    volumes:
+      - ./conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - filebeat:/usr/share/filebeat/data
+    environment:
+      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
+      - KIBANA_HOST=${KIBANA_HOST}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+    command: ["--strict.perms=false"]
+
+networks:
+  elk:
+    name: elk
+    external: true
+
+volumes:
+  filebeat:
+    name: filebeat
+    external: false
