@@ -56,6 +56,10 @@
 /Bark/log/
 /Bark/data/
 
+/ElasticStack/conf/
+/ElasticStack/log/
+/ElasticStack/data/
+
 /StackStorm/files
 /StackStorm/packs
 /StackStorm/packs.dev
