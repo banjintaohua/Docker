@@ -60,6 +60,10 @@
 /ElasticStack/log/
 /ElasticStack/data/
 
+/FileBeat/conf/
+/FileBeat/log/
+/FileBeat/data/
+
 /StackStorm/files
 /StackStorm/packs
 /StackStorm/packs.dev
