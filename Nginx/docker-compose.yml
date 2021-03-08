@@ -22,3 +22,7 @@ services:
 networks:
   develop:
     external: true
+
+volumes:
+  filebeat:
+    external: true
