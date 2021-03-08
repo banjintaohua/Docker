@@ -9,7 +9,7 @@ services:
     container_name: elasticsearch
     volumes:
       - ./conf/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - elasticsearch:/usr/share/elasticsearch/data
+      - elastic-stack:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -60,7 +60,11 @@ services:
 
 networks:
   elk:
+    name: elk
     driver: bridge
+    external: false
 
 volumes:
-  elasticsearch:
+  elastic-stack:
+    name: elastic-stack
+    external: false
