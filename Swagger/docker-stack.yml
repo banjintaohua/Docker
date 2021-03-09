@@ -1,15 +1,14 @@
 version: "3.7"
 
 services:
-  edit:
+  swagger-edit:
     image: swaggerapi/swagger-editor
-    restart: always
     ports:
-      - 8081:8080
+      - "8081:8080"
     networks:
       - develop
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         parallelism: 2
         failure_action: rollback
@@ -19,18 +18,16 @@ services:
         max_attempts: 3
       placement:
         constraints:
-          - 'node.hostname == Cloud'
-          - 'node.id == 0s4487ohhl7elxnugia34tbwl'
-          - 'node.labels.vscode == true'
+          - 'node.labels.cloud == true'
 
-  ui:
+  swagger-ui:
     image: swaggerapi/swagger-ui
     ports:
-      - 8082:8080
+      - "8082:8080"
     networks:
       - develop
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         parallelism: 2
         failure_action: rollback
@@ -40,7 +37,7 @@ services:
         max_attempts: 2
       placement:
         constraints:
-          - 'node.hostname == Cloud'
+          - 'node.labels.cloud == true'
 
 networks:
   develop:
