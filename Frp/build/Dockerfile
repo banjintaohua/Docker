@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-LABEL maintainer="example@mail.com"
+LABEL maintainer="example"
 
 ARG FRP_VERSION
 ARG OS
