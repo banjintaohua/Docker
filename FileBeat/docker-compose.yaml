@@ -11,8 +11,9 @@ services:
     networks:
       - elk
     volumes:
-      - ./conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - filebeat:/usr/share/filebeat/data
+      - ./conf/filebeat.yml:/usr/share/filebeat/filebeat.yml:rw
+      - ./conf/modules.d:/usr/share/filebeat/modules.d:rw
+      - filebeat:/var/log
     environment:
       - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
       - KIBANA_HOST=${KIBANA_HOST}
