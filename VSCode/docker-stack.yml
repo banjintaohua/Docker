@@ -2,28 +2,26 @@ version: "3.7"
 
 services:
   code-server:
-    image: codercom/code-server:v2
+    image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - vscode:/home/coder/project
       - vscode:/home/coder/.local/share/code-server
     environment:
-      PASSWORD: password
+      PASSWORD: ${PASSWORD:-password}
     deploy:
       replicas: 1
       update_config:
-        parallelism: 2
+        parallelism: 1
         failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
-        max_attempts: 2
+        max_attempts: 3
       placement:
         constraints:
-          - 'node.hostname == Cloud'
-          - 'node.id == 0s4487ohhl7elxnugia34tbwl'
-          - 'node.labels.vscode == true'
+          - node.labels.oversea != true
 
 volumes:
   vscode:

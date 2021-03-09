@@ -3,13 +3,16 @@ version: "3.7"
 services:
   code-server:
     container_name: code-server
-    image: codercom/code-server:v2
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        CODE_SERVER_VERSION: $CODE_SERVER_VERSION
     restart: always
     user: 0:0
     ports:
       - "8080:8080"
     volumes:
       - ./data/project:/home/coder/project
-      - ./data/.local/share/code-server:/home/coder/.local/share/code-server
     environment:
-      PASSWORD: ${PASSWORD:-password}
+      PASSWORD: ${PASSWORD}
