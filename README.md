@@ -3,10 +3,14 @@ My personal docker study notes
 
 | Service                     | Port                             |
 | --------------------------- | -------------------------------- |
-| ELK                         |                                  |
+| Bark                        | `8080:8080`                      |
+| ElasticStack                |                                  |
+| FileBeat                    |                                  |
+| Frp                         |                                  |
 | GitLab                      | `8222:22`  `8181:80`  `8443:443` |
 | GitLab-Runner               | -                                |
 | Hexo                        | `4000:4000` `4001:22`            |
+| Keepalive                   |                                  |
 | Minio                       | `9003:9000`                      |
 | MySQL                       | `3306:3306`                      |
 | Nginx                       | `80:80`  `443:443`               |
@@ -17,6 +21,7 @@ My personal docker study notes
 | Portainer                   | `9001:9000`  `8000:8000`         |
 | PostgresSQL                 | `5432:5432`                      |
 | Python                      | `9006:8080`                      |
+| RabbitMQ                    |                                  |
 | Redis                       | `6379:6379`                      |
 | Docker Registry             | `5000:5000`                      |
 | Shadowsocks-Websocket-HTTP  | `9001:9000`  `9001:9000/udp`     |
@@ -25,5 +30,5 @@ My personal docker study notes
 | Swagger-Editor              | `8081:8080`                      |
 | Swagger-UI                  | `8082:8080`                      |
 | Tomcat                      | `8085:8080`                      |
-| Code-Server                 | `8080:8080`                      |
+| Code-Server                 | `8083:8080`                      |
 

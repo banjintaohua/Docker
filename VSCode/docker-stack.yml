@@ -4,7 +4,7 @@ services:
   code-server:
     image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
     ports:
-      - "8080:8080"
+      - "8083:8080"
     volumes:
       - vscode:/home/coder/project
       - vscode:/home/coder/.local/share/code-server

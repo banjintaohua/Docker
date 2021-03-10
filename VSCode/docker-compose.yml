@@ -11,7 +11,7 @@ services:
     restart: always
     user: 0:0
     ports:
-      - "8080:8080"
+      - "8083:8080"
     volumes:
       - ./data/project:/home/coder/project
     environment:
