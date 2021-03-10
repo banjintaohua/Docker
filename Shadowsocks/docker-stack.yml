@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   ss-websocket-http:
@@ -16,6 +16,7 @@ services:
         delay: 5s
         max_attempts: 3
       placement:
+        max_replicas_per_node: 1
         constraints:
           - node.labels.vpn == true
     networks:
@@ -43,6 +44,7 @@ services:
         delay: 5s
         max_attempts: 3
       placement:
+        max_replicas_per_node: 1
         constraints:
           - node.labels.vpn == true
     networks:
@@ -72,6 +74,7 @@ services:
         delay: 5s
         max_attempts: 3
       placement:
+        max_replicas_per_node: 1
         constraints:
           - node.labels.vpn == true
     networks:

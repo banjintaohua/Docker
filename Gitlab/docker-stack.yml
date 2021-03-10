@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
 
@@ -18,6 +18,7 @@ services:
         parallelism: 1
         failure_action: rollback
       placement:
+        max_replicas_per_node: 1
         constraints:
           - "node.hostname == Cloud"
           - "node.id == 9vkhpxkv570xojyy17alr7t76"

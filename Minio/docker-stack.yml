@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   minio-1:
@@ -29,6 +29,7 @@ services:
         delay: 5s
         max_attempts: 2
       placement:
+        max_replicas_per_node: 1
         constraints:
           - 'node.hostname == Cloud'
           - 'node.id == 0s4487ohhl7elxnugia34tbwl'
