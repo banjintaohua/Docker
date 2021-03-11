@@ -58,36 +58,6 @@ services:
       - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-https:/var/log/shadowsocks
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    depends_on:
-      - ss-websocket-http
-    working_dir: /var/www
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 2
-        failure_action: rollback
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-      placement:
-        max_replicas_per_node: 1
-        constraints:
-          - node.labels.vpn == true
-    networks:
-      - vpn
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./conf/ssl:/etc/ssl:ro
-      - ./conf/nginx/conf.d:/etc/nginx/conf.d:rw
-      - ./log/nginx:/var/log/nginx:rw
-
 networks:
   vpn:
     name: vpn
