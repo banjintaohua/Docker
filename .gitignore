@@ -64,7 +64,8 @@
 /Redis/log/
 /Redis/data/
 
-/Registry/conf/
+/Registry/conf/*
+!/Registry/conf/config.yml
 /Registry/log/
 /Registry/data/
 
