@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   minio:
-    image: minio/minio:latest
+    image: minio/minio:${IMAGE_VERSION:-latest}
     container_name: minio
     restart: always
     ports:
