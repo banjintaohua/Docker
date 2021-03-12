@@ -19,7 +19,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - 'node.labels.cloud == true'
+          - node.labels.cloud == true
 
   swagger-ui:
     image: swaggerapi/swagger-ui
@@ -39,7 +39,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - 'node.labels.cloud == true'
+          - node.labels.cloud == true
 
 networks:
   cluster:

@@ -4,8 +4,6 @@ services:
   portainer:
     image: portainer/portainer:latest
     command: -H unix:///var/run/docker.sock
-    container_name: portainer
-    restart: always
     ports:
       - "9001:9000"
       - "8000:8000"

@@ -3,8 +3,7 @@ version: "3.9"
 services:
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:3.3.5
-    container_name: ss-websocket-http
-    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-http.log 2>&1"
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-http.log 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
       replicas: 1
@@ -18,21 +17,19 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.vpn == true
+          - node.labels.oversea == true
     networks:
-      - vpn
-    restart: always
+      - cluster
     ports:
-      - 9001:9000
-      - 9001:9000/udp
+      - "9001:9000"
+      - "9001:9000/udp"
     volumes:
       - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-http:/var/log/shadowsocks
 
   ss-websocket-https:
-    image: teddysun/shadowsocks-libev:3.3.5K
-    container_name: ss-websocket-https
-    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/shadowsocks/ss-websocket-https 2>&1"
+    image: teddysun/shadowsocks-libev:3.3.5
+    command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-https 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
       replicas: 1
@@ -46,20 +43,19 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.vpn == true
+          - node.labels.oversea == true
     networks:
-      - vpn
-    restart: always
+      - cluster
     ports:
-      - 9002:9000
-      - 9002:9000/udp
+      - "9002:9000"
+      - "9002:9000/udp"
     volumes:
-      - ./conf/ssl:/etc/ssl:ro
+      - ../Nginx/conf/ssl:/etc/ssl:ro
       - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-https:/var/log/shadowsocks
 
 networks:
-  vpn:
-    name: vpn
-    external: false
+  cluster:
+    name: cluster
+    external: true
     driver: overlay
