@@ -5,9 +5,10 @@ services:
     image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
     ports:
       - "8083:8080"
+    user: 0:0
     volumes:
-      - vscode:/home/coder/project
-      - vscode:/home/coder/.local/share/code-server
+      - vscode:/home/coder/project:rw
+      - vscode:/home/coder/.local/share/code-server:rw
     networks:
       - cluster
     environment:
