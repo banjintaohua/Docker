@@ -6,7 +6,7 @@ services:
     container_name: minio
     restart: always
     ports:
-      - "9003:9000"
+      - "63812:9000"
     volumes:
       - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
     networks:
