@@ -69,7 +69,9 @@
 /Registry/log/
 /Registry/data/
 
-/Shadowsocks/conf/
+/Shadowsocks/conf/*
+!/Shadowsocks/conf/ss-websocket-http/config.json.example
+!/Shadowsocks/conf/ss-websocket-https/config.json.example
 /Shadowsocks/log/
 /Shadowsocks/data/
 

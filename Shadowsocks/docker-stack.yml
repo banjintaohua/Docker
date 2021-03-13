@@ -21,8 +21,8 @@ services:
     networks:
       - cluster
     ports:
-      - "9001:9000"
-      - "9001:9000/udp"
+      - "9001:9100"
+      - "9001:9100/udp"
     volumes:
       - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-http:/var/log/shadowsocks
@@ -47,8 +47,8 @@ services:
     networks:
       - cluster
     ports:
-      - "9002:9000"
-      - "9002:9000/udp"
+      - "9002:9100"
+      - "9002:9100/udp"
     volumes:
       - ../Nginx/conf/ssl:/etc/ssl:ro
       - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
