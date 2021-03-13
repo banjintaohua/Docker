@@ -1,10 +1,10 @@
 version: "3.9"
 
 services:
-  code-server:
+  vscode:
     image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
     ports:
-      - "8083:8080"
+      - "50012:8080"
     user: 0:0
     volumes:
       - vscode:/home/coder/project:rw
@@ -12,12 +12,9 @@ services:
     networks:
       - cluster
     environment:
-      PASSWORD: ${PASSWORD:-password}
+      PASSWORD: ${PASSWORD:ch@ngeme}
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -25,7 +22,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.oversea != true
+          - node.hostname == VPS
 
 volumes:
   vscode:

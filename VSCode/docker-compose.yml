@@ -7,12 +7,12 @@ services:
       context: ./build
       dockerfile: Dockerfile
       args:
-        CODE_SERVER_VERSION: $CODE_SERVER_VERSION
+        CODE_SERVER_VERSION: ${CODE_SERVER_VERSION:-3.9.1}
     restart: always
     user: 0:0
     ports:
-      - "8083:8080"
+      - "40012:8080"
     environment:
-      PASSWORD: ${PASSWORD}
+      PASSWORD: ${PASSWORD:ch@ngeme}
     volumes:
       - ./data/project:/home/coder/project:rw
