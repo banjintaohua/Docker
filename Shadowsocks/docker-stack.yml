@@ -2,14 +2,11 @@ version: "3.9"
 
 services:
   ss-websocket-http:
-    image: teddysun/shadowsocks-libev:3.3.5
+    image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-http.log 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 2
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -17,25 +14,23 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.oversea == true
+          - node.hostname == Bandwagon
     networks:
       - cluster
     ports:
-      - "9001:9100"
-      - "9001:9100/udp"
-    volumes:
-      - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
-      - ./log/ss-websocket-http:/var/log/shadowsocks
+      - "50004:9100"
+      - "50004:9100/udp"
+    configs:
+      - source: ss-websocket-http-config
+        target: /etc/shadowsocks-libev/config.json
+        mode: 0644
 
   ss-websocket-https:
-    image: teddysun/shadowsocks-libev:3.3.5
+    image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-https 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 2
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -43,19 +38,35 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.oversea == true
+          - node.hostname == Bandwagon
     networks:
       - cluster
     ports:
-      - "9002:9100"
-      - "9002:9100/udp"
-    volumes:
-      - ../Nginx/conf/ssl:/etc/ssl:ro
-      - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
-      - ./log/ss-websocket-https:/var/log/shadowsocks
+      - "50005:9100"
+      - "50005:9100/udp"
+    configs:
+      - source: ss-websocket-https-config
+        target: /etc/shadowsocks-libev/config.json
+    secrets:
+      - source: wildcard-certificate.crt
+        target: /etc/ssl/wildcard-certificate.crt
+      - source: wildcard-certificate.key
+        target: /etc/ssl/wildcard-certificate.key
 
 networks:
   cluster:
     name: cluster
     external: true
     driver: overlay
+
+configs:
+  ss-websocket-http-config:
+    external: true
+  ss-websocket-https-config:
+    external: true
+
+secrets:
+  wildcard-certificate.crt:
+    external: true
+  wildcard-certificate.key:
+    external: true
