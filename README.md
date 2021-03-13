@@ -7,6 +7,8 @@ My personal docker study notes
 | Portainer-Agent             |                                  | `50003:9001`                   |
 | Shadowsocks-Websocket-HTTP  | `40004:9100`  `40004:9100/udp`   | `50004:9100`  `50004:9100/udp` |
 | Shadowsocks-Websocket-HTTPS | `40005:9100`  `40005:9100/udp`   | `50005:9100`  `50005:9100/udp` |
+| Swagger-Editor              | `40006:8080`                     | `50006:8080`                   |
+| Swagger-UI                  | `40007:8080`                     | `50007:8080`                   |
 |                             |                                  |                                |
 | Bark                        | `8080:8080`                      |                                |
 | ElasticStack                |                                  |                                |

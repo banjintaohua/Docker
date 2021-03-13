@@ -2,16 +2,14 @@ version: "3.9"
 
 services:
   swagger-edit:
-    image: swaggerapi/swagger-editor
+    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-latest}
     ports:
-      - "8081:8080"
+      - "50006:8080"
     networks:
       - cluster
     deploy:
+      mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -19,19 +17,18 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.cloud == true
+          - node.hostname != Bandwagon
+          - node.platform.os == linux
 
   swagger-ui:
-    image: swaggerapi/swagger-ui
+    image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-latest}
     ports:
-      - "8082:8080"
+      - "50007:8080"
     networks:
       - cluster
     deploy:
+      mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -39,7 +36,8 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.labels.cloud == true
+          - node.hostname != Bandwagon
+          - node.platform.os == linux
 
 networks:
   cluster:
