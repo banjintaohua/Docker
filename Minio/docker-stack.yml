@@ -5,27 +5,26 @@ services:
     image: minio/minio:${IMAGE_VERSION:-latest}
     hostname: minio1
     volumes:
-      - minio1-data:/export
+      - minio1-data:/data
     ports:
       - "9101:9000"
     networks:
       - cluster
     deploy:
-      replicas: 1
       restart_policy:
         delay: 10s
         max_attempts: 10
         window: 60s
       placement:
         constraints:
-          - node.hostname == Cloud
-    command: server http://minio{1...4}/export
+          - node.hostname == Peach
+    command: server http://minio{1...4}/data
     secrets:
-      - minio_access_key
-      - minio_secret_key
+      - access_key
+      - secret_key
     environment:
-      MINIO_ACCESS_KEY: /run/secrets/minio_access_key
-      MINIO_SECRET_KEY: /run/secrets/minio_secret_key
+      MINIO_ACCESS_KEY: /run/secrets/access_key
+      MINIO_SECRET_KEY: /run/secrets/secret_key
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -36,7 +35,7 @@ services:
     image: minio/minio:${IMAGE_VERSION:-latest}
     hostname: minio2
     volumes:
-      - minio2-data:/export
+      - minio2-data:/data
     ports:
       - "9102:9000"
     networks:
@@ -48,14 +47,14 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname == Cloud
-    command: server http://minio{1...4}/export
+          - node.hostname == Peach
+    command: server http://minio{1...4}/data
     secrets:
-      - minio_access_key
-      - minio_secret_key
+      - access_key
+      - secret_key
     environment:
-      MINIO_ACCESS_KEY: /run/secrets/minio_access_key
-      MINIO_SECRET_KEY: /run/secrets/minio_secret_key
+      MINIO_ACCESS_KEY: /run/secrets/access_key
+      MINIO_SECRET_KEY: /run/secrets/secret_key
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -66,7 +65,7 @@ services:
     image: minio/minio:${IMAGE_VERSION:-latest}
     hostname: minio3
     volumes:
-      - minio3-data:/export
+      - minio3-data:/data
     ports:
       - "9103:9000"
     networks:
@@ -79,13 +78,13 @@ services:
       placement:
         constraints:
           - node.hostname == VPS
-    command: server http://minio{1...4}/export
+    command: server http://minio{1...4}/data
     secrets:
-      - minio_access_key
-      - minio_secret_key
+      - access_key
+      - secret_key
     environment:
-      MINIO_ACCESS_KEY: /run/secrets/minio_access_key
-      MINIO_SECRET_KEY: /run/secrets/minio_secret_key
+      MINIO_ACCESS_KEY: /run/secrets/access_key
+      MINIO_SECRET_KEY: /run/secrets/secret_key
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -96,7 +95,7 @@ services:
     image: minio/minio:${IMAGE_VERSION:-latest}
     hostname: minio4
     volumes:
-      - minio4-data:/export
+      - minio4-data:/data
     ports:
       - "9104:9000"
     networks:
@@ -107,16 +106,15 @@ services:
         max_attempts: 10
         window: 60s
       placement:
-        max_replicas_per_node: 1
         constraints:
-          - node.hostname == Bandwagon
-    command: server http://minio{1...4}/export
+          - node.hostname == VPS
+    command: server http://minio{1...4}/data
     secrets:
-      - minio_access_key
-      - minio_secret_key
+      - access_key
+      - secret_key
     environment:
-      MINIO_ACCESS_KEY: /run/secrets/minio_access_key
-      MINIO_SECRET_KEY: /run/secrets/minio_secret_key
+      MINIO_ACCESS_KEY: /run/secrets/access_key
+      MINIO_SECRET_KEY: /run/secrets/secret_key
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -130,9 +128,9 @@ networks:
     external: true
 
 secrets:
-  minio_secret_key:
+  access_key:
     external: true
-  minio_access_key:
+  secret_key:
     external: true
 
 volumes:
