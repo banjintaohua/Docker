@@ -3,10 +3,12 @@ log:
   fields:
     service: registry
 storage:
-  cache:
-    blobdescriptor: inmemory
   filesystem:
     rootdirectory: /var/lib/registry
+  delete:
+    enabled: true
+  cache:
+    blobdescriptor: inmemory
 http:
   addr: :5000
   headers:

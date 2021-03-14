@@ -14,21 +14,20 @@ services:
         registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/wildcard-certificate.crt"
         registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/wildcard-certificate.key"
     hostname: ${HOST_NAME}
-    extra_hosts:
-      - ${DOCKER_REGISTRY_HOST_NAME}:${DOCKER_REGISTRY_HOST}
     ports:
       - "63807:22"
       - "63808:80"
       - "63809:443"
     networks:
       - develop
+    working_dir: /var/lib
     volumes:
       - ./conf:/etc/gitlab:rw
       - ../Nginx/conf/ssl/*.***REMOVED***.crt:/etc/gitlab/ssl/wildcard-certificate.crt:ro
       - ../Nginx/conf/ssl/*.***REMOVED***.key:/etc/gitlab/ssl/wildcard-certificate.key:ro
       - ./log:/var/log/gitlab:rw
       - ./data:/var/opt/gitlab:rw
-      - docker-registry:/var/lib/registry:rw
+      - registries:/var/lib/registry:rw
 
   gitlab-runner:
     build:
@@ -50,6 +49,6 @@ networks:
     external: true
 
 volumes:
-  docker-registry:
-    name: docker-registry
-    external: false
+  registries:
+    name: registries
+    external: true
