@@ -10,8 +10,8 @@ services:
       - vpn
     restart: always
     ports:
-      - "40004:9100"
-      - "40004:9100/udp"
+      - "63821:9100"
+      - "63821:9100/udp"
     volumes:
       - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-http:/var/log/shadowsocks
@@ -25,8 +25,8 @@ services:
       - vpn
     restart: always
     ports:
-      - "40005:9100"
-      - "40005:9100/udp"
+      - "63822:9100"
+      - "63822:9100/udp"
     volumes:
       - ../Nginx/conf/ssl:/etc/ssl:ro
       - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw

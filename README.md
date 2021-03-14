@@ -21,9 +21,8 @@ My personal docker study notes
 | VSCode                      | `63817:8080`                                           |                           |
 | Portainer                   | `63818:9000`  `63819:8000`                             |                           |
 | Portainer-Agent             | `63820`                                                |                           |
-|                             |                                                        |                           |
-| Shadowsocks-Websocket-HTTP  | `40004:9100`  `40004:9100/udp`                         |                           |
-| Shadowsocks-Websocket-HTTPS | `40005:9100`  `40005:9100/udp`                         |                           |
+| Shadowsocks-Websocket-HTTP  | `63821:9100`  `63821:9100/udp`                         |                           |
+| Shadowsocks-Websocket-HTTPS | `63822:9100`  `63822:9100/udp`                         |                           |
 | Swagger-Editor              | `40006:8080`                                           |                           |
 | Swagger-UI                  | `40007:8080`                                           |                           |
 |                             |                                                        |                           |

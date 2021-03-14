@@ -18,8 +18,8 @@ services:
     networks:
       - cluster
     ports:
-      - "50004:9100"
-      - "50004:9100/udp"
+      - "63821:9100"
+      - "63821:9100/udp"
     configs:
       - source: ss-websocket-http-config
         target: /etc/shadowsocks-libev/config.json
@@ -42,8 +42,8 @@ services:
     networks:
       - cluster
     ports:
-      - "50005:9100"
-      - "50005:9100/udp"
+      - "63822:9100"
+      - "63822:9100/udp"
     configs:
       - source: ss-websocket-https-config
         target: /etc/shadowsocks-libev/config.json
