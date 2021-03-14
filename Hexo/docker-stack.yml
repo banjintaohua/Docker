@@ -2,35 +2,64 @@ version: "3.9"
 
 services:
   hexo:
-    build:
-      context: ./build/hexo
-      dockerfile: Dockerfile
-      args:
-        GIT_HTTP_URL_WITH_USER_AND_PASSWORD: ${GIT_HTTP_URL_WITH_USER_AND_PASSWORD}
-        AUTHORIZED_KEY: ${AUTHORIZED_KEY}
-    image: example/hexo:1.3
+    image: registry.***REMOVED***/example/notes:1.0
     ports:
-      - "4000:4000"
-      - "4001:22"
+      - "63825:4000"
+      - "63826:22"
     environment:
       BRANCH: ${BRANCH:-master}
     working_dir: /usr/local/opt/hexo/blog/source/_posts
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.hostname != Bandwagon
     command:
       - sh
       - -c
       - |
         /usr/local/bin/hexo server &
         /usr/sbin/sshd -D
-    volumes:
-      - ./conf/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
-      - ./conf/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
-      - ./conf/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
-      - ./conf/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
-      - ./conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
-      - ./conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
+    configs:
+      - source: hexo-_config.yml
+        target: /usr/local/opt/hexo/blog/_config.yml
+      - source: hexo-next-_config.yml
+        target: /usr/local/opt/hexo/blog/themes/next/_config.yml
+      - source: hexo-next-Pisces.styl
+        target: /usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl
+      - source: hexo-next-zh-CN.yml
+        target: /usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml
+    secrets:
+      - source: hexo-ssh-id_rsa
+        target: /root/.ssh/id_rsa
+      - source: hexo-ssh-id_rsa.pub
+        target: /root/.ssh/id_rsa.pub
     networks:
-      - develop
+      - cluster
+
+configs:
+  hexo-_config.yml:
+    external: true
+  hexo-next-_config.yml:
+    external: true
+  hexo-next-Pisces.styl:
+    external: true
+  hexo-next-zh-CN.yml:
+    external: true
+
+secrets:
+  hexo-ssh-id_rsa:
+    external: true
+  hexo-ssh-id_rsa.pub:
+    external: true
 
 networks:
-  develop:
+  cluster:
+    name: cluster
+    driver: overlay
     external: true
