@@ -1,21 +1,29 @@
 version: "3.9"
 
 services:
-
   registry:
-    image: registry
+    image: registry:${REGISTRY_VERSION:-2.7.1}
     ports:
-      - 5000:5000
+      - "63816:443"
     volumes:
-      - registry:/var/lib/registry
-      - registry:/etc/docker/registry/config.yml
+      - ./data/registry:/var/lib/registry
+      - ./conf/config.yml:/etc/docker/registry/config.yml:rw
     networks:
       - registry
+    secrets:
+      - wildcard-certificate.crt
+      - wildcard-certificate.key
+      - source: registry_auth_htpasswd
+        target: /auth/htpasswd
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_TLS_CERTIFICATE: /run/secrets/wildcard-certificate.crt
+      REGISTRY_HTTP_TLS_KEY: /run/secrets/wildcard-certificate.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 2
-        failure_action: rollback
       restart_policy:
         condition: any
         delay: 5s
@@ -23,7 +31,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - 'node.hostname == Cloud'
+          - node.hostname == Cloud
 
 networks:
   registry:
@@ -34,3 +42,11 @@ volumes:
   registry:
     driver: local
     name: registry
+
+secrets:
+  wildcard-certificate.crt:
+    external: true
+  wildcard-certificate.key:
+    external: true
+  registry_auth_htpasswd:
+    external: true

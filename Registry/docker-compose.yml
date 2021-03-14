@@ -6,20 +6,20 @@ services:
     container_name: registry
     restart: always
     ports:
-      - "5050:443"
+      - "63816:443"
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:443
-      REGISTRY_HTTP_TLS_CERTIFICATE: ${REGISTRY_HTTP_TLS_CERTIFICATE}
-      REGISTRY_HTTP_TLS_KEY: ${REGISTRY_HTTP_TLS_KEY}
-      REGISTRY_AUTH: ${REGISTRY_AUTH}
-      REGISTRY_AUTH_HTPASSWD_PATH: ${REGISTRY_AUTH_HTPASSWD_PATH}
-      REGISTRY_AUTH_HTPASSWD_REALM: ${REGISTRY_AUTH_HTPASSWD_REALM}
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/wildcard-certificate.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/wildcard-certificate.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     volumes:
-      - docker-registry:/var/opt/gitlab/gitlab-rails/shared/registry
+      - docker-registry:/var/lib/registry:rw
       - ./conf/config.yml:/etc/docker/registry/config.yml:rw
-      - ../Nginx/conf/ssl/*.***REMOVED***.crt:${REGISTRY_HTTP_TLS_CERTIFICATE}:ro
-      - ../Nginx/conf/ssl/*.***REMOVED***.key:${REGISTRY_HTTP_TLS_KEY}:ro
       - ./conf/auth:/auth
+      - ../Nginx/conf/ssl/*.***REMOVED***.crt:/certs/wildcard-certificate.crt:ro
+      - ../Nginx/conf/ssl/*.***REMOVED***.key:/certs/wildcard-certificate.key:ro
     networks:
       - registry
 
