@@ -16,6 +16,6 @@ RUN cd /home \
     && cd /etc/frp \
     && rm -rf /home/frp_${FRP_VERSION}_${OS}_${ARCH}
 
-EXPOSE 6000
+EXPOSE 63805 63806
 
 CMD ["tail", "-f", "/dev/null" ]

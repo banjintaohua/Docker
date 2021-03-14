@@ -6,10 +6,10 @@ services:
       context: ./build
       dockerfile: Dockerfile
       args:
-        FRP_VERSION: ${FRP_VERSION}
+        FRP_VERSION: ${FRP_VERSION:-0.35.1}
         OS: ${OS:-linux}
         ARCH: ${ARCH:-amd64}
-    image: example:frps
+    image: registry.***REMOVED***/example/frps:1.0
     container_name: frps
     restart: always
     network_mode: host
@@ -23,10 +23,10 @@ services:
       context: ./build
       dockerfile: Dockerfile
       args:
-        FRP_VERSION: ${FRP_VERSION}
+        FRP_VERSION: ${FRP_VERSION:-0.35.1}
         OS: ${OS:-linux}
         ARCH: ${ARCH:-amd64}
-    image: example:frpc
+    image: registry.***REMOVED***/example/frpc:1.0
     container_name: frpc
     restart: always
     command: /usr/bin/frpc -c /etc/frp/frpc.ini

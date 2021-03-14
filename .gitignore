@@ -12,7 +12,9 @@
 /FileBeat/log/
 /FileBeat/data/
 
-/Frp/conf/
+/Frp/conf/*
+!/Frp/conf/frps_full.ini
+!/Frp/conf/frpc_full.ini
 /Frp/log/
 /Frp/data/
 
