@@ -19,9 +19,9 @@ My personal docker study notes
 | Minio                       | `63812:9000`  `63813:9000`  `63814:9000`  `63815:9000` |                           |
 | Vmware-Docker-Registry      | `63816:443`                                            |                           |
 | VSCode                      | `63817:8080`                                           |                           |
+| Portainer                   | `63818:9000`  `63819:8000`                             |                           |
+| Portainer-Agent             | `63820`                                                |                           |
 |                             |                                                        |                           |
-| Portainer                   | `40001:9000`  `40002:8000`                             |                           |
-| Portainer-Agent             | -                                                      |                           |
 | Shadowsocks-Websocket-HTTP  | `40004:9100`  `40004:9100/udp`                         |                           |
 | Shadowsocks-Websocket-HTTPS | `40005:9100`  `40005:9100/udp`                         |                           |
 | Swagger-Editor              | `40006:8080`                                           |                           |

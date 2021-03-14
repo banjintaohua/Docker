@@ -5,8 +5,8 @@ services:
     image: portainer/portainer:latest
     command: -H unix:///var/run/docker.sock
     ports:
-      - "50001:9000"
-      - "50002:8000"
+      - "63818:9000"
+      - "63819:8000"
     networks:
       - portainer
     volumes:
@@ -32,7 +32,7 @@ services:
       - portainer
     ports:
       - target: 9001
-        published: 50003
+        published: 63820
         protocol: tcp
         mode: host
     volumes:
