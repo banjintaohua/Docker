@@ -1,9 +1,0 @@
-version: "3.9"
-
-services:
-  bark-server:
-    image: finab/bark-server
-    volumes:
-      - ./data:/data
-    ports:
-      - "8080:8080"

@@ -2,10 +2,17 @@ version: "3.9"
 
 services:
   bark-server:
-    image: finab/bark-server
+    image: finab/bark-server:${BARK_VERSION:-v2.0.1}
     container_name: bark
     restart: always
     ports:
-      - "8080:8080"
+      - "63801:8080"
+    networks:
+      - develop
     volumes:
       - ./data:/data
+
+networks:
+  develop:
+    name: develop
+    external: true

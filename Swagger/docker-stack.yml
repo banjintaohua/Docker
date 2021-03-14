@@ -43,3 +43,4 @@ networks:
   cluster:
     name: cluster
     driver: overlay
+    external: true
