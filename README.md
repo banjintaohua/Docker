@@ -25,8 +25,8 @@ My personal docker study notes
 | Shadowsocks-Websocket-HTTPS | `63822:9100`  `63822:9100/udp`                         |                           |
 | Swagger-Editor              | `63823:8080`                                           |                           |
 | Swagger-UI                  | `63824:8080`                                           |                           |
+| Hexo                        | `63825:4000` `63826:22`                                |                           |
 |                             |                                                        |                           |
-| Hexo                        | `4000:4000` `4001:22`                                  |                           |
 | Keepalive                   |                                                        |                           |
 | MySQL                       | `3306:3306`                                            |                           |
 | Nginx                       | `80:80`  `443:443`                                     |                           |

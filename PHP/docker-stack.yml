@@ -19,8 +19,8 @@ services:
         failure_action: rollback
       restart_policy:
         condition: any
-        delay: 5s
-        max_attempts: 2
+        delay: 10s
+        window: 60s
 
 networks:
   php-56:

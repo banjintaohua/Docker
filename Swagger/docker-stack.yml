@@ -12,8 +12,8 @@ services:
       replicas: 3
       restart_policy:
         condition: any
-        delay: 5s
-        max_attempts: 3
+        delay: 10s
+        window: 60s
       placement:
         max_replicas_per_node: 1
         constraints:
@@ -31,8 +31,8 @@ services:
       replicas: 3
       restart_policy:
         condition: any
-        delay: 5s
-        max_attempts: 2
+        delay: 10s
+        window: 60s
       placement:
         max_replicas_per_node: 1
         constraints:
