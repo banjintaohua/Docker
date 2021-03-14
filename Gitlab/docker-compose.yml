@@ -7,34 +7,38 @@ services:
     restart: always
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        gitlab_rails['gitlab_shell_ssh_port'] = 8222
-        registry_external_url 'https://${DOCKER_REGISTRY_HOST_NAME}'
-        registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/certificate.pem"
-        registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/certificate.key"
+        gitlab_rails['gitlab_shell_ssh_port'] = 63807
+        registry_external_url "https://${DOCKER_REGISTRY_HOST_NAME}"
+        gitlab_rails['registry_host'] = "${DOCKER_REGISTRY_HOST_NAME}"
+        gitlab_rails['registry_path'] = "/var/lib/registry"
+        registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/wildcard-certificate.crt"
+        registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/wildcard-certificate.key"
     hostname: ${HOST_NAME}
     extra_hosts:
       - ${DOCKER_REGISTRY_HOST_NAME}:${DOCKER_REGISTRY_HOST}
     ports:
-      - "8222:22"
-      - "8181:80"
-      - "8443:443"
+      - "63807:22"
+      - "63808:80"
+      - "63809:443"
     networks:
       - develop
     volumes:
       - ./conf:/etc/gitlab:rw
-      - ../Nginx/conf/ssl/*.***REMOVED***.crt:/etc/gitlab/ssl/certificate.pem:ro
-      - ../Nginx/conf/ssl/*.***REMOVED***.key:/etc/gitlab/ssl/certificate.key:ro
-      - docker-registry:/var/opt/gitlab/gitlab-rails/shared/registry:rw
+      - ../Nginx/conf/ssl/*.***REMOVED***.crt:/etc/gitlab/ssl/wildcard-certificate.crt:ro
+      - ../Nginx/conf/ssl/*.***REMOVED***.key:/etc/gitlab/ssl/wildcard-certificate.key:ro
       - ./log:/var/log/gitlab:rw
       - ./data:/var/opt/gitlab:rw
+      - docker-registry:/var/lib/registry:rw
 
   gitlab-runner:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: example/gitlab-runner:1.0
+    image: registry.***REMOVED***/example/gitlab-runner:1.0
     container_name: gitlab-runner
     restart: always
+    networks:
+      - develop
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # Mac use /Users/Shared instead of /srv
