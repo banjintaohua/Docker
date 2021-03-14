@@ -23,8 +23,8 @@ My personal docker study notes
 | Portainer-Agent             | `63820`                                                |                           |
 | Shadowsocks-Websocket-HTTP  | `63821:9100`  `63821:9100/udp`                         |                           |
 | Shadowsocks-Websocket-HTTPS | `63822:9100`  `63822:9100/udp`                         |                           |
-| Swagger-Editor              | `40006:8080`                                           |                           |
-| Swagger-UI                  | `40007:8080`                                           |                           |
+| Swagger-Editor              | `63823:8080`                                           |                           |
+| Swagger-UI                  | `63824:8080`                                           |                           |
 |                             |                                                        |                           |
 | Hexo                        | `4000:4000` `4001:22`                                  |                           |
 | Keepalive                   |                                                        |                           |

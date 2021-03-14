@@ -4,12 +4,12 @@ services:
   swagger-edit:
     image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-latest}
     ports:
-      - "50006:8080"
+      - "63823:8080"
     networks:
       - cluster
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 3
       restart_policy:
         condition: any
         delay: 5s
@@ -23,12 +23,12 @@ services:
   swagger-ui:
     image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-latest}
     ports:
-      - "50007:8080"
+      - "63824:8080"
     networks:
       - cluster
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 3
       restart_policy:
         condition: any
         delay: 5s
