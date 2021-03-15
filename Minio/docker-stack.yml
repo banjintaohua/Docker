@@ -7,7 +7,7 @@ services:
     volumes:
       - minio1-data:/data
     ports:
-      - "63812:9000"
+      - "63813:9000"
     networks:
       - cluster
     deploy:
@@ -37,7 +37,7 @@ services:
     volumes:
       - minio2-data:/data
     ports:
-      - "63813:9000"
+      - "63814:9000"
     networks:
       - cluster
     deploy:
@@ -67,7 +67,7 @@ services:
     volumes:
       - minio3-data:/data
     ports:
-      - "63814:9000"
+      - "63815:9000"
     networks:
       - cluster
     deploy:
@@ -97,7 +97,7 @@ services:
     volumes:
       - minio4-data:/data
     ports:
-      - "63815:9000"
+      - "63816:9000"
     networks:
       - cluster
     deploy:

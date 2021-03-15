@@ -1,20 +1,29 @@
 version: "3.9"
 
 services:
-  minio:
+  minio-server:
     image: minio/minio:${IMAGE_VERSION:-latest}
     container_name: minio
     restart: always
     ports:
       - "63812:9000"
     volumes:
-      - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
+      - ./data:/data:rw
     networks:
       - develop
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-MINIO_SECRET_KEY}
     command: server /data
+
+  minio-client:
+    container_name: mc
+    image: minio/mc:latest
+    restart: always
+    network_mode: host
+    entrypoint: "tail -f /dev/null"
+    volumes:
+      - ./conf/config.json:/root/.mc/config.json:rw
 
 networks:
   develop:
