@@ -7,7 +7,7 @@ services:
     hostname: ${HOST_NAME}
     restart: always
     ports:
-      - "63816:443"
+      - "63812:443"
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:443
       REGISTRY_HTTP_TLS_CERTIFICATE: /certs/wildcard-certificate.crt

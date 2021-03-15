@@ -4,7 +4,7 @@ services:
   registry:
     image: registry:${REGISTRY_VERSION:-2.7.1}
     ports:
-      - "63816:443"
+      - "63812:443"
     volumes:
       - ./data:/var/lib/registry
       - ./conf/config.yml:/etc/docker/registry/config.yml:rw
