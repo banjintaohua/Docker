@@ -9,8 +9,7 @@ My personal docker study notes
 | Service                     | Port                                                 | Plant                     |
 | --------------------------- | ---------------------------------------------------- | ------------------------- |
 | Bark                        | `63801:8080`                                         |                           |
-| ElasticStack                |                                                      | `63802`  `63803`  `63804` |
-| FileBeat                    | -                                                    | -                         |
+|                             |                                                      | `63802`  `63803`  `63804` |
 | Frp                         | `63805`  `63806`                                     |                           |
 | GitLab                      | `63807:22`  `63808:80`  `63809:443`                  |                           |
 | GitLab-Runner               | -                                                    |                           |
@@ -22,15 +21,16 @@ My personal docker study notes
 | Minio-Client                | -                                                    |                           |
 | Portainer                   | `63818:9000`  `8000:8000`                            |                           |
 | Portainer-Edge-Agent        | `63819:80`                                           |                           |
-|                             |                                                      |                           |
+|                             |                                                      | `63820`                   |
 | Shadowsocks-Websocket-HTTP  | `63821:9100`  `63821:9100/udp`                       |                           |
 | Shadowsocks-Websocket-HTTPS | `63822:9100`  `63822:9100/udp`                       |                           |
 | Swagger-Editor              | `63823:8080`                                         |                           |
 | Swagger-UI                  | `63824:8080`                                         |                           |
 | Hexo                        | `63825:4000` `63826:22`                              |                           |
 | VSCode                      | `63827:8080`                                         |                           |
-| Mac                         |                                                      | `63828`                   |
 |                             |                                                      |                           |
+| ElasticStack                |                                                      |                           |
+| FileBeat                    | -                                                    | -                         |
 | Keepalive                   |                                                      |                           |
 | MySQL                       | `3306:3306`                                          |                           |
 | Nginx                       | `80:80`  `443:443`                                   |                           |

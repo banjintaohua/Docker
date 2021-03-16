@@ -9,22 +9,29 @@ services:
     working_dir: /var/www
     volumes:
       - ./conf/ssl:/etc/ssl:ro
+      - ./conf/.htpasswd:/etc/nginx/.htpasswd:rw
       - ./conf/nginx.conf:/etc/nginx/nginx.conf:rw
       - ./conf/conf.d/:/etc/nginx/conf.d/:rw
       - filebeat:/var/log:rw
     networks:
       - cluster
     deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        failure_action: rollback
+      mode: replicated
+      replicas: 2
       restart_policy:
         condition: any
-        delay: 5s
-        max_attempts: 3
+        delay: 10s
+        window: 60s
       placement:
         max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.labels.nginx == true
+    secrets:
+      - source: wildcard-certificate.crt
+        target: /etc/ssl/*.***REMOVED***.crt
+      - source: wildcard-certificate.key
+        target: /etc/ssl/*.***REMOVED***.key
 
 networks:
   cluster:
@@ -34,4 +41,10 @@ networks:
 volumes:
   filebeat:
     name: filebeat
+    external: true
+
+secrets:
+  wildcard-certificate.crt:
+    external: true
+  wildcard-certificate.key:
     external: true
