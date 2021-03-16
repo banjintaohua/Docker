@@ -7,6 +7,8 @@ services:
     ports:
       - "63818:9000"
       - "63819:8000"
+    extra_hosts:
+      - docker-daemon-vmware:***REMOVED***
     networks:
       - portainer
     volumes:

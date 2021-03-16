@@ -4,7 +4,7 @@ services:
   vscode:
     image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
     ports:
-      - "63817:8080"
+      - "63827:8080"
     user: 0:0
     volumes:
       - vscode:/home/coder/project:rw

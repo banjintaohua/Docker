@@ -11,7 +11,7 @@ services:
     restart: always
     user: 0:0
     ports:
-      - "63817:8080"
+      - "63827:8080"
     environment:
       PASSWORD: ${PASSWORD:ch@ngeme}
     volumes:
