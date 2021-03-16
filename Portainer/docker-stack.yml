@@ -6,7 +6,7 @@ services:
     command: -H unix:///var/run/docker.sock
     ports:
       - "63818:9000"
-      - "63819:8000"
+      - "8000:8000"
     extra_hosts:
       - docker-daemon-vmware:***REMOVED***
     networks:

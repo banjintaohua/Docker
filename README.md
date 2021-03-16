@@ -20,8 +20,9 @@ My personal docker study notes
 | Vmware-Remote-Desktop       |                                                      | `63813`                   |
 | Minio                       | `63814:9000`  `63815:9000` `63816:9000` `63817:9000` |                           |
 | Minio-Client                | -                                                    |                           |
-| Portainer                   | `63818:9000`  `63819:8000`                           |                           |
-| Portainer-Agent             | `63820`                                              |                           |
+| Portainer                   | `63818:9000`  `8000:8000`                            |                           |
+| Portainer-Edge-Agent        | `63819:80`                                           |                           |
+|                             |                                                      |                           |
 | Shadowsocks-Websocket-HTTP  | `63821:9100`  `63821:9100/udp`                       |                           |
 | Shadowsocks-Websocket-HTTPS | `63822:9100`  `63822:9100/udp`                       |                           |
 | Swagger-Editor              | `63823:8080`                                         |                           |
