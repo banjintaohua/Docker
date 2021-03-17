@@ -14,13 +14,13 @@ services:
       - wildcard-certificate.crt
       - wildcard-certificate.key
       - source: registry_auth_htpasswd
-        target: /auth/htpasswd
+        target: /auth/.htpasswd
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:443
       REGISTRY_HTTP_TLS_CERTIFICATE: /run/secrets/wildcard-certificate.crt
       REGISTRY_HTTP_TLS_KEY: /run/secrets/wildcard-certificate.key
       REGISTRY_AUTH: htpasswd
-      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/.htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     deploy:
       replicas: 1
