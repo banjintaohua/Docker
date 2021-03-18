@@ -29,9 +29,9 @@ services:
           - node.labels.nginx == true
     secrets:
       - source: wildcard-certificate.crt
-        target: /etc/ssl/*.***REMOVED***.crt
+        target: /etc/ssl/wildcard-certificate.crt
       - source: wildcard-certificate.key
-        target: /etc/ssl/*.***REMOVED***.key
+        target: /etc/ssl/wildcard-certificate.key
 
 networks:
   cluster:
