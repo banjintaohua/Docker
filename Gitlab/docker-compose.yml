@@ -25,6 +25,9 @@ services:
             'bucket' => 'docker',
             'regionendpoint' => '${MINIO_DOMAIN}',
             'region' => 'ignored-for-minio'
+          },
+          'redirect' => {
+            'disable' => false
           }
         }
     working_dir: /var/lib

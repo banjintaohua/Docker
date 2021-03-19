@@ -16,7 +16,7 @@ services:
       REGISTRY_STORAGE_S3_BUCKET: docker
       REGISTRY_STORAGE_S3_SECURE: "false"
       REGISTRY_STORAGE_S3_region: ignored-for-minio
-      REGISTRY_STORAGE_REDIRECT_DISABLE: "true"
+      REGISTRY_STORAGE_REDIRECT_DISABLE: "false"
       REGISTRY_HTTP_ADDR: 0.0.0.0:443
       REGISTRY_HTTP_TLS_CERTIFICATE: /certs/wildcard-certificate.crt
       REGISTRY_HTTP_TLS_KEY: /certs/wildcard-certificate.key
