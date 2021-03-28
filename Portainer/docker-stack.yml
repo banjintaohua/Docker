@@ -9,6 +9,7 @@ services:
       - "8000:8000"
     extra_hosts:
       - docker-daemon-vmware:***REMOVED***
+      - docker-daemon-bandwagon:***REMOVED***
     networks:
       - portainer
     volumes:
@@ -50,6 +51,7 @@ services:
         constraints:
           - node.platform.os == linux
           - node.hostname != Cloud
+          - node.hostname != Bandwagon
 
 volumes:
   portainer_data:
