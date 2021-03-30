@@ -3,16 +3,26 @@ log:
   fields:
     service: registry
 storage:
-  filesystem:
-    rootdirectory: /var/lib/registry
+  s3:
+    accesskey: "MINIO_ACCESS_KEY"
+    secretkey: "MINIO_SECRET_KEY"
+    regionendpoint: "https://you-minio-storage.com"
+    bucket: docker
+    secure: "false"
+    region: ignored-for-minio
   delete:
-    enabled: true
-  cache:
-    blobdescriptor: inmemory
+    enabled: "true"
+  redirect:
+    disable: "false"
 http:
-  addr: :5000
-  headers:
-    X-Content-Type-Options: [nosniff]
+  addr: 0.0.0.0:443
+  tls:
+    certificate: /certs/wildcard-certificate.crt
+    key: /certs/wildcard-certificate.key
+auth:
+  htpasswd:
+    path: /auth/.htpasswd
+    realm: "Registry Realm"
 health:
   storagedriver:
     enabled: true
