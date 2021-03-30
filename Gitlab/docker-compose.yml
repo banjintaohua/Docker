@@ -37,7 +37,6 @@ services:
       - ../Nginx/conf/ssl/*.***REMOVED***.key:/etc/gitlab/ssl/wildcard-certificate.key:ro
       - ./log:/var/log/gitlab:rw
       - ./data:/var/opt/gitlab:rw
-      - registries:/var/lib/registry:rw
 
   gitlab-runner:
     build:
@@ -56,9 +55,4 @@ services:
 networks:
   develop:
     name: develop
-    external: true
-
-volumes:
-  registries:
-    name: registries
     external: true

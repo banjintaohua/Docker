@@ -26,7 +26,7 @@ services:
         FRP_VERSION: ${FRP_VERSION:-0.35.1}
         OS: ${OS:-linux}
         ARCH: ${ARCH:-amd64}
-    image: registry.***REMOVED***/example/frpc:1.0
+    image: registry.***REMOVED***/example/frpc:vmware
     container_name: frpc-vmware
     restart: always
     command: /usr/bin/frpc -c /etc/frp/frpc.ini
@@ -42,7 +42,7 @@ services:
         FRP_VERSION: ${FRP_VERSION:-0.35.1}
         OS: ${OS:-linux}
         ARCH: ${ARCH:-amd64}
-    image: registry.***REMOVED***/example/frpc:1.0
+    image: registry.***REMOVED***/example/frpc:mac
     container_name: frpc-mac
     restart: always
     command: /usr/bin/frpc -c /etc/frp/frpc.ini

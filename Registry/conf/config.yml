@@ -4,9 +4,9 @@ log:
     service: registry
 storage:
   s3:
-    accesskey: "MINIO_ACCESS_KEY"
-    secretkey: "MINIO_SECRET_KEY"
-    regionendpoint: "https://you-minio-storage.com"
+    accesskey: "minio"
+    secretkey: "***REMOVED***"
+    regionendpoint: "https://minio.***REMOVED***"
     bucket: docker
     secure: "false"
     region: ignored-for-minio

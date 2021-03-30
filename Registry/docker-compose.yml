@@ -28,8 +28,8 @@ services:
     volumes:
       - ./conf/config.yml:/etc/docker/registry/config.yml:rw
       - ./conf/auth:/auth
-      - ../Nginx/conf/ssl/*.***REMOVED***.crt:/certs/wildcard-certificate.crt:ro
-      - ../Nginx/conf/ssl/*.***REMOVED***.key:/certs/wildcard-certificate.key:ro
+      - "../Nginx/conf/ssl/*.***REMOVED***.crt:/certs/wildcard-certificate.crt:ro"
+      - "../Nginx/conf/ssl/*.***REMOVED***.key:/certs/wildcard-certificate.key:ro"
     networks:
       - registry
 
