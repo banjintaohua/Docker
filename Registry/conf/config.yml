@@ -1,30 +1,24 @@
 version: 0.1
-log:
-  fields:
-    service: registry
 storage:
   s3:
-    accesskey: "minio"
-    secretkey: "***REMOVED***"
-    regionendpoint: "https://minio.***REMOVED***"
+    accesskey: minio
+    secretkey: ***REMOVED***
+    regionendpoint: https://minio.***REMOVED***
     bucket: docker
     secure: "false"
     region: ignored-for-minio
+    chunksize: 5242880
   delete:
     enabled: "true"
   redirect:
-    disable: "false"
+    disable: "true"
 http:
   addr: 0.0.0.0:443
+  host: https://registry.***REMOVED***
   tls:
     certificate: /certs/wildcard-certificate.crt
     key: /certs/wildcard-certificate.key
 auth:
   htpasswd:
+    realm: basic-realm
     path: /auth/.htpasswd
-    realm: "Registry Realm"
-health:
-  storagedriver:
-    enabled: true
-    interval: 10s
-    threshold: 3
