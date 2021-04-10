@@ -4,9 +4,7 @@ LABEL maintainer="example"
 
 ENV USER gitlab-runner
 
-RUN ssh-keygen -t rsa -P "" -f /etc/ssh/id_rsa \
-    && chown $USER:$USER /etc/ssh/id_rsa \
-    && echo "StrictHostKeyChecking no" >> etc/ssh/config \
-    && echo "UserKnownHostsFile /dev/null" >> etc/ssh/config
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
+    && echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
 
-WORKDIR /etc/ssh/
+WORKDIR /home/gitlab-runner

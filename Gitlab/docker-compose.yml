@@ -49,8 +49,11 @@ services:
       - develop
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Mac use /Users/Shared instead of /srv
+      # Mac: /Users/Shared/gitlab-runner/config
+      # Linux: /srv/gitlab-runner/config
       - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
+      - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
+      - ./conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
 
 networks:
   develop:

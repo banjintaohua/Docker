@@ -6,22 +6,31 @@ services:
       context: ./build/hexo
       dockerfile: Dockerfile
       args:
-        GIT_HTTP_URL_WITH_USER_AND_PASSWORD: ${GIT_HTTP_URL_WITH_USER_AND_PASSWORD}
-        AUTHORIZED_KEY: ${AUTHORIZED_KEY}
-    image: registry.***REMOVED***/example/notes:1.0
+        GIT_USER: ${GIT_USER}
+        GIT_EMAIL: ${GIT_EMAIL}
+    image: registry.***REMOVED***/example/notes:1.4
     container_name: hexo
     restart: always
     ports:
       - "63825:4000"
       - "63826:22"
     environment:
+      REMOTE_URL: ${REMOTE_URL}
       BRANCH: ${BRANCH:-master}
-    working_dir: /usr/local/opt/hexo/blog/source/_posts
+    working_dir: /usr/local/opt/hexo/blog/source
     command:
       - sh
       - -c
       - |
+        chmod 700 /root/.ssh
+        chmod 600 /root/.ssh/authorized_keys
+        chmod 600 /root/.ssh/id_rsa
+        chmod 600 /root/.ssh/id_rsa.pub
+        test -d /usr/local/opt/hexo/blog/source/_posts/.git || git clone --progress ${REMOTE_URL} /usr/local/opt/hexo/blog/source/_posts
+        rm -f /usr/local/opt/hexo/blog/source/_posts/package.json
         /usr/local/bin/hexo server &
+        /usr/local/bin/hexo clean
+        /usr/local/bin/hexo generate
         /usr/sbin/sshd -D
     volumes:
       - ./conf/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
@@ -30,6 +39,7 @@ services:
       - ./conf/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
       - ./conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
       - ./conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
+      - ./conf/ssh/authorized_keys:/root/.ssh/authorized_keys:rw
     networks:
       - develop
 

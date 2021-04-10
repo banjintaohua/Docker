@@ -5,7 +5,7 @@ services:
     image: portainer/portainer:${PORTAINER_VERSION:-latest}
     command: -H unix:///var/run/docker.sock
     container_name: portainer
-    restart: always
+    restart: "no"
     ports:
       - "63818:9000"
       - "8000:8000"

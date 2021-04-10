@@ -15,8 +15,7 @@ My personal docker study notes
 | GitLab-Runner               | -                                                    |             |                           |
 | Vmware                      | `63810`                                              |             |                           |
 | Vmware-Docker               | `63811`                                              |             |                           |
-| Vmware-Docker-Registry      | `63812:443`                                          | `5000:5000` |                           |
-| Vmware-Remote-Desktop       |                                                      |             | `63813`                   |
+| Vmware-Remote-Desktop       |                                                      |             | `63812:443`               |
 | Minio                       | `63814:9000`  `63815:9000` `63816:9000` `63817:9000` |             |                           |
 | Minio-Client                | -                                                    |             |                           |
 | Portainer                   | `63818:9000`                                         | `8000:8000` |                           |

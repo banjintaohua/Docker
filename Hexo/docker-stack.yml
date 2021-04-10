@@ -2,11 +2,12 @@ version: "3.9"
 
 services:
   hexo:
-    image: registry.***REMOVED***/example/notes:1.0
+    image: registry.***REMOVED***/example/notes:1.4
     ports:
       - "63825:4000"
       - "63826:22"
     environment:
+      REMOTE_URL: ${REMOTE_URL:-git@github.com:example/notes.git}
       BRANCH: ${BRANCH:-master}
     working_dir: /usr/local/opt/hexo/blog/source/_posts
     deploy:
@@ -19,11 +20,16 @@ services:
         constraints:
           - node.platform.os == linux
           - node.hostname != Bandwagon
+          - node.hostname != Peach
     command:
       - sh
       - -c
       - |
+        test -d /usr/local/opt/hexo/blog/source/_posts/.git || git clone --progress $${REMOTE_URL} /usr/local/opt/hexo/blog/source/_posts
+        rm -f /usr/local/opt/hexo/blog/source/_posts/package.json
         /usr/local/bin/hexo server &
+        /usr/local/bin/hexo clean
+        /usr/local/bin/hexo generate
         /usr/sbin/sshd -D
     configs:
       - source: hexo-_config.yml
@@ -35,10 +41,15 @@ services:
       - source: hexo-next-zh-CN.yml
         target: /usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml
     secrets:
+      - source: hexo-ssh-authorized_keys
+        target: /root/.ssh/authorized_keys
+        mode: 0600
       - source: hexo-ssh-id_rsa
         target: /root/.ssh/id_rsa
+        mode: 0600
       - source: hexo-ssh-id_rsa.pub
         target: /root/.ssh/id_rsa.pub
+        mode: 0600
     networks:
       - cluster
 
@@ -53,6 +64,8 @@ configs:
     external: true
 
 secrets:
+  hexo-ssh-authorized_keys:
+    external: true
   hexo-ssh-id_rsa:
     external: true
   hexo-ssh-id_rsa.pub:
