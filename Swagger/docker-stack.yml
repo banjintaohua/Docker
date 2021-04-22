@@ -8,14 +8,12 @@ services:
     networks:
       - cluster
     deploy:
-      mode: replicated
-      replicas: 3
+      mode: global
       restart_policy:
         condition: any
         delay: 10s
         window: 60s
       placement:
-        max_replicas_per_node: 1
         constraints:
           - node.hostname != Bandwagon
           - node.platform.os == linux
@@ -27,14 +25,12 @@ services:
     networks:
       - cluster
     deploy:
-      mode: replicated
-      replicas: 3
+      mode: global
       restart_policy:
         condition: any
         delay: 10s
         window: 60s
       placement:
-        max_replicas_per_node: 1
         constraints:
           - node.hostname != Bandwagon
           - node.platform.os == linux

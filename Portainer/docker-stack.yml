@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   portainer:
-    image: portainer/portainer:latest
-    command: -H unix:///var/run/docker.sock
+    image: portainer/portainer-ce:latest
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
       - "63818:9000"
       - "8000:8000"
@@ -11,9 +11,8 @@ services:
       - docker-daemon-vmware:***REMOVED***
       - docker-daemon-bandwagon:***REMOVED***
     networks:
-      - portainer
+      - portainer_agent_network
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     deploy:
       mode: replicated
@@ -25,22 +24,16 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
+          - node.role == manager
           - node.hostname == Cloud
 
   agent:
     image: portainer/agent
-    environment:
-      AGENT_CLUSTER_ADDR: tasks.agent
-    networks:
-      - portainer
-    ports:
-      - target: 9001
-        published: 63820
-        protocol: tcp
-        mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - portainer_agent_network
     deploy:
       mode: global
       restart_policy:
@@ -50,7 +43,6 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-          - node.hostname != Cloud
           - node.hostname != Bandwagon
 
 volumes:
@@ -58,8 +50,8 @@ volumes:
     name: portainer_data
 
 networks:
-  portainer:
-    name: portainer
+  portainer_agent_network:
+    name: portainer_agent_network
     driver: overlay
     attachable: true
     external: false
