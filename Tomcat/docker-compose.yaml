@@ -2,12 +2,12 @@ version: "3.9"
 services:
   tomcat:
     container_name: tomcat
-    image: tomcat:7.0-jdk8
-    restart: always
+    image: tomcat:9.0.45-jdk11
+    restart: "no"
     ports:
       - "8085:8080"
     volumes:
-      - ./log:/usr/local/tomcat/logs
+      - ./log/tomcat:/usr/local/tomcat/logs
       - ./data:/usr/local/tomcat/webapps
     networks:
       - develop
