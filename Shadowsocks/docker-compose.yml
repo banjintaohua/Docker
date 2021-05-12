@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev:${SHADOWSOCKS_VERSION:-v3.3.5}
+    container_name: ss-client
+    command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
+    working_dir: /etc/shadowsocks-libev
+    network_mode: host
+    restart: always
+    volumes:
+      - ./conf/ss-client/config.json:/etc/shadowsocks-libev/config.json:rw
+      - ./conf/ss-client/v2ray-plugin:/usr/local/bin/v2ray-plugin:ro
+      - ./log/ss-client:/var/log/shadowsocks
+
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     container_name: ss-websocket-http
