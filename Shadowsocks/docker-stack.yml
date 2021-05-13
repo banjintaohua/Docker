@@ -1,6 +1,30 @@
 version: "3.9"
 
 services:
+  shadowsocks:
+    image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
+    command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
+    working_dir: /etc/shadowsocks-libev
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.hostname != Bandwagon
+          - node.platform.os == linux
+    networks:
+      - cluster
+    ports:
+      - "63820:1080"
+      - "63820:1080/udp"
+    configs:
+      - source: ss-cliennt-config
+        target: /etc/shadowsocks-libev/config.json
+        mode: 0644
+
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-http.log 2>&1"
