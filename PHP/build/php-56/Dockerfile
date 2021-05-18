@@ -18,6 +18,9 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     # 加密解密
     && apt-get install -y libmcrypt-dev \
     && docker-php-ext-install mcrypt \
+    # GD 库
+    && apt-get -y install libpng-dev libssl-dev \
+    && docker-php-ext-install gd \
     # Excel 依赖
     && apt-get install -y libzip-dev zlib1g-dev \
     && docker-php-ext-install zip \
