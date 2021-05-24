@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  shadowsocks:
+  ss-client:
     image: shadowsocks/shadowsocks-libev:${SHADOWSOCKS_VERSION:-v3.3.5}
     container_name: ss-client
     command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
