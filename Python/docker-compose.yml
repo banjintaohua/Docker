@@ -7,12 +7,15 @@ services:
       dockerfile: Dockerfile
     image: registry.***REMOVED***/example/python-3.9:scratch
     container_name: python-3.9
+    working_dir: /var/www/app
     restart: always
     ports:
-      - "9006:8080"
+      - "63828:80"
     networks:
       - develop
     command: tail -f /dev/null
+    volumes:
+      - ../../Python/***REMOVED***:/var/www/app:rw
 
 networks:
   develop:

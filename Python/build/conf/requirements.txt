@@ -1,6 +1,4 @@
-six==1.15.0
-schema==0.7.3
+pydevd-pycharm~=211.7442.45
+poetry==1.1
 pymysql==0.10.1
-paramiko==2.7.2
-pexpect==4.8.0
 requests==2.25.0
