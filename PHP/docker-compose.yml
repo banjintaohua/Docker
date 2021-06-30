@@ -17,7 +17,7 @@ services:
       - develop
     depends_on:
       - php-8
-      - php-72
+      - php-74
       - php-56
 
   php-56:
@@ -39,21 +39,22 @@ services:
     networks:
       - develop
 
-  php-72:
+  php-74:
     build:
-      context: ./build/php-72
+      context: ./build/php-74
       dockerfile: Dockerfile
-    image: example/php-72:1.0
-    container_name: php-72
+    image: example/php-74:1.0
+    container_name: php-74
     working_dir: /var/www/***REMOVED***
     user: root
     restart: always
     ports:
       - "9005:9000"
     volumes:
-      - ./log/php-72/php-fpm:/var/log/php-fpm:rw
-      - ./conf/php-72/php.ini:/usr/local/etc/php/php.ini:rw
-      - ./conf/php-72/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - ./log/php-74/php-fpm:/var/log/php-fpm:rw
+      - ./conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
+      - ./conf/php-74/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
     networks:
