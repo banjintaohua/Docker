@@ -31,14 +31,14 @@ My personal docker study notes
 | ElasticStack                |                                                      |             |                           |
 | FileBeat                    | -                                                    |             | -                         |
 | Keepalive                   |                                                      |             |                           |
-| MySQL                       | `3306:3306`                                          |             |                           |
+| MySQL                       | `63829:3306`  `63830:3306`                             |             |                           |
 | Nginx                       | `80:80`  `443:443`                                   |             |                           |
 | PHP-Nginx                   | `8088:80`                                            |             |                           |
 | PHP-56                      | `9002:9000`                                          |             |                           |
 | PHP-72                      | `9005:9000`                                          |             |                           |
 | PHP-8                       | `9004:9000`                                          |             |                           |
 | PostgresSQL                 | `5432:5432`                                          |             |                           |
-| Python                      | `9006:8080`                                          |             |                           |
+| Python                      | `63828:80`                                           |             |                           |
 | RabbitMQ                    |                                                      |             |                           |
 | Redis                       | `6379:6379`                                          |             |                           |
 | Tomcat                      | `8085:8080`                                          |             |                           |

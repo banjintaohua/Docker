@@ -13,6 +13,7 @@ services:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
       - ../../Php/task:***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
+      - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
     networks:
       - develop
     depends_on:

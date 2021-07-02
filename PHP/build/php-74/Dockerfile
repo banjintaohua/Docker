@@ -32,7 +32,36 @@ RUN apt-get update \
     # GD
     && apt-get -y install libpng-dev libssl-dev \
     && docker-php-ext-install gd \
+    # intl 国际化拓展
+    && apt-get -y install libicu-dev \
+    && docker-php-ext-install intl \
+    # SOAP 扩展
+    && apt-get -y install libxml2-dev \
+    && docker-php-ext-install soap \
+    # Excel 依赖
+    && apt-get install -y libzip-dev zlib1g-dev \
+    && docker-php-ext-install zip \
+    # 其他依赖
+    && docker-php-ext-install bcmath gettext pcntl shmop sockets sysvsem xmlrpc opcache \
+    # redis 缓存
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    # memcached 缓存
+    && mkdir -p /usr/src/php/ext/memcached/ \
+    && cd /usr/src/php/ext/memcached/ \
+    && apt-get -y install libmemcached-dev wget unzip \
+    && wget https://github.com/php-memcached-dev/php-memcached/archive/v3.1.5.zip \
+    && unzip v3.1.5.zip \
+    && rm v3.1.5.zip \
+    && mv php-memcached-3.1.5/* ./ \
+    && docker-php-ext-configure memcached \
+    && docker-php-ext-install memcached \
     # XDebug
     && pecl install xdebug-2.9.8
+    # swoole
+    # && pecl install swoole \
+    # && docker-php-ext-enable swoole \
+    # 微信
+    # wxwork_finance_sdk \
 
  WORKDIR /var/www
