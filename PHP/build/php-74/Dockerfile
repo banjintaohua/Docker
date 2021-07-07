@@ -25,12 +25,17 @@ RUN apt-get update \
     # PHP 配置文件
     && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
     && pear config-set php_ini /usr/local/etc/php/php.ini \
+    # swoole
+    && pecl install swoole-4.5.9 \
+    && docker-php-ext-enable swoole \
     # YAF 拓展
     && pecl install yaf \
     # 数据库
     && docker-php-ext-install mysqli pdo_mysql \
     # GD
-    && apt-get -y install libpng-dev libssl-dev \
+    && apt-get -y install libssl-dev \
+    && apt-get install -y libjpeg62-turbo-dev libpng-dev libfreetype6-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install gd \
     # intl 国际化拓展
     && apt-get -y install libicu-dev \
@@ -58,10 +63,13 @@ RUN apt-get update \
     && docker-php-ext-install memcached \
     # XDebug
     && pecl install xdebug-2.9.8
-    # swoole
-    # && pecl install swoole \
-    # && docker-php-ext-enable swoole \
     # 微信
-    # wxwork_finance_sdk \
+    # && cd /usr/src/php/ext \
+    # && git clone https://github.com/pangdahua/php7-wxwork-finance-sdk.git \
+    # && cd php7-wxwork-finance-sdk \
+    # && phpize \
+    # && export INSTALL_PHP_PATH=/usr/local/bin \
+    # && export WXWORK_FINANCE_SDK=/usr/local/php/wxwork \
+    # && ./configure --with-php-config=$INSTALL_PHP_PATH/php-config --with-wxwork-finance-sdk=$WXWORK_FINANCE_SDK \
 
  WORKDIR /var/www
