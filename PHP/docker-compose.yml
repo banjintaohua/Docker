@@ -46,6 +46,8 @@ services:
       dockerfile: Dockerfile
     image: example/php-74:1.0
     container_name: php-74
+    extra_hosts:
+      local.sttx.fjx.kuryun.cn: 172.19.0.3
     working_dir: /var/www/***REMOVED***
     user: root
     restart: always

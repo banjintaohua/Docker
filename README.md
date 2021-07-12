@@ -31,7 +31,8 @@ My personal docker study notes
 | ElasticStack                |                                                      |             |                           |
 | FileBeat                    | -                                                    |             | -                         |
 | Keepalive                   |                                                      |             |                           |
-| MySQL                       | `63829:3306`  `63830:3306`                             |             |                           |
+| MySQL                       | `63829:3306`  `63830:3306`                           |             |                           |
+| Redis                       | `63831:6379`                                         |             |                           |
 | Nginx                       | `80:80`  `443:443`                                   |             |                           |
 | PHP-Nginx                   | `8088:80`                                            |             |                           |
 | PHP-56                      | `9002:9000`                                          |             |                           |
@@ -40,7 +41,6 @@ My personal docker study notes
 | PostgresSQL                 | `5432:5432`                                          |             |                           |
 | Python                      | `63828:80`                                           |             |                           |
 | RabbitMQ                    |                                                      |             |                           |
-| Redis                       | `6379:6379`                                          |             |                           |
 | Tomcat                      | `8085:8080`                                          |             |                           |
 
 

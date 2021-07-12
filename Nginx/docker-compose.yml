@@ -18,7 +18,8 @@ services:
       - ./conf/conf.d/:/etc/nginx/conf.d/:rw
       - filebeat:/var/log:rw
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.3
 
 networks:
   develop:
