@@ -2,11 +2,11 @@ version: "3.9"
 
 services:
     redis:
-      image: redis:latest
+      image: redis:${REDIS_VERSION:-6.0.9}
       container_name: redis
       restart: always
       ports:
-        - "6379:6379"
+        - "63831:6379"
       volumes:
         - ./conf/redis.conf:/etc/redis/redis.conf
         - ./data:/data
