@@ -19,7 +19,7 @@ services:
       - filebeat:/var/log:rw
     networks:
       develop:
-        ipv4_address: 172.19.0.3
+        ipv4_address: 172.19.0.33
 
 networks:
   develop:
