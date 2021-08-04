@@ -27,20 +27,20 @@ My personal docker study notes
 | Swagger-UI                  | `63824:8080`                                         |             |                           |
 | Hexo                        | `63825:4000` `63826:22`                              |             |                           |
 | VSCode                      | `63827:8080`                                         |             |                           |
+| Python                      | `63828:80`                                           |             |                           |
 |                             |                                                      |             |                           |
 | ElasticStack                |                                                      |             |                           |
 | FileBeat                    | -                                                    |             | -                         |
 | Keepalive                   |                                                      |             |                           |
 | MySQL                       | `63829:3306`  `63830:3306`                           |             |                           |
 | Redis                       | `63831:6379`                                         |             |                           |
+| RabbitMQ                    | `63832:15672`  `63833:5672`                          |             |                           |
 | Nginx                       | `80:80`  `443:443`                                   |             |                           |
 | PHP-Nginx                   | `8088:80`                                            |             |                           |
 | PHP-56                      | `9002:9000`                                          |             |                           |
 | PHP-72                      | `9005:9000`                                          |             |                           |
 | PHP-8                       | `9004:9000`                                          |             |                           |
 | PostgresSQL                 | `5432:5432`                                          |             |                           |
-| Python                      | `63828:80`                                           |             |                           |
-| RabbitMQ                    |                                                      |             |                           |
 | Tomcat                      | `8085:8080`                                          |             |                           |
 
 
