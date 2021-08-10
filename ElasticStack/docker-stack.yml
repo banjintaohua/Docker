@@ -3,7 +3,7 @@ version: '3.3'
 services:
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
+    image: elastic/elasticsearch:7.11.1
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -24,8 +24,21 @@ services:
       mode: replicated
       replicas: 1
 
+  kibana:
+    image: elastic/kibana:7.11.1
+    ports:
+      - "5601:5601"
+    configs:
+      - source: kibana_config
+        target: /usr/share/kibana/config/kibana.yml
+    networks:
+      - elk
+    deploy:
+      mode: replicated
+      replicas: 1
+
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.11.1
+    image: elastic/logstash:7.11.1
     ports:
       - "5044:5044"
       - "5000:5000"
@@ -37,19 +50,6 @@ services:
         target: /usr/share/logstash/pipeline/logstash.conf
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.11.1
-    ports:
-      - "5601:5601"
-    configs:
-      - source: kibana_config
-        target: /usr/share/kibana/config/kibana.yml
     networks:
       - elk
     deploy:

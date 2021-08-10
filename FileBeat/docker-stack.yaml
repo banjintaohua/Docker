@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   filebeat:
-    image: docker.elastic.co/beats/filebeat:${ELK_VERSION}
+    image: elastic/filebeat:7.11.1
     user: root
     labels:
       co.elastic.logs/enable: false

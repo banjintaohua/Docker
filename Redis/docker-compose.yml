@@ -4,7 +4,7 @@ services:
     redis:
       image: redis:${REDIS_VERSION:-6.0.9}
       container_name: redis
-      restart: always
+      restart: "no"
       ports:
         - "63831:6379"
       volumes:

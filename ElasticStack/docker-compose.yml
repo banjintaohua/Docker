@@ -7,6 +7,7 @@ services:
       args:
         ELK_VERSION: $ELK_VERSION
     container_name: elasticsearch
+    restart: "no"
     volumes:
       - ./conf/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - elastic-stack:/usr/share/elasticsearch/data
@@ -28,6 +29,7 @@ services:
       args:
         ELK_VERSION: $ELK_VERSION
     container_name: logstash
+    restart: "no"
     volumes:
       - ./conf/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./conf/logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -49,6 +51,7 @@ services:
       args:
         ELK_VERSION: $ELK_VERSION
     container_name: kibana
+    restart: "no"
     volumes:
       - ./conf/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:

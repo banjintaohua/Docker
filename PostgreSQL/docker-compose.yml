@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres
     container_name: postgres
-    restart: always
+    restart: "no"
     ports:
       - "5432:5432"
     volumes:

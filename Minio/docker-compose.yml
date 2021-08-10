@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   minio-server:
-    image: minio/minio:${IMAGE_VERSION:-latest}
+    image: minio/minio:${MINIO_VERSION:-latest}
     container_name: minio
     restart: "no"
     ports:
@@ -19,7 +19,7 @@ services:
 
   minio-client:
     container_name: mc
-    image: minio/mc:latest
+    image: minio/mc:${MC_VERSION:-latest}
     restart: "no"
     network_mode: host
     entrypoint: "tail -f /dev/null"

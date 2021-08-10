@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "fastapi"
-version = "0.1.0"
-description = "fastapi"
-authors = ["foo <bar@mail>"]
+name = "fastapi-realworld-example-app"
+version = "0.0.0"
+description = "Backend logic implementation for https://github.com/gothinkster/realworld with awesome FastAPI"
+authors = ["Nik Sidnev <sidnev.nick@gmail.com>"]
+license = "MIT"
 
 [[tool.poetry.source]]
 default = true
