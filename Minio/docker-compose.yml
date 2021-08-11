@@ -11,7 +11,8 @@ services:
       # - ./data:/data:rw
       - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.34
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-MINIO_SECRET_KEY}

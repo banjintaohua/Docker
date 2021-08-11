@@ -13,7 +13,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.35
 
   edge-agent:
     image: portainer/agent:2.1.0

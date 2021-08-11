@@ -10,8 +10,9 @@ services:
         - "63833:5672"
       volumes:
         - ./data:/var/lib/rabbitmq:rw
-      networks:
-        - develop
+    networks:
+      develop:
+        ipv4_address: 172.19.0.36
       environment:
         RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
         RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-Ch@ngeMe}
