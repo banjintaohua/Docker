@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   hexo:
-    image: registry.***REMOVED***/example/notes:1.4
+    image: registry.***REMOVED***/example/notes:1.5
     ports:
       - "63825:4000"
       - "63826:22"

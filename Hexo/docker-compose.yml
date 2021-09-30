@@ -8,7 +8,7 @@ services:
       args:
         GIT_USER: ${GIT_USER}
         GIT_EMAIL: ${GIT_EMAIL}
-    image: registry.***REMOVED***/example/notes:1.4
+    image: registry.***REMOVED***/example/notes:1.5
     container_name: hexo
     restart: always
     ports:
