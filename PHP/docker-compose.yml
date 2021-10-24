@@ -47,7 +47,7 @@ services:
     image: example/php-74:1.0
     container_name: php-74
     extra_hosts:
-      local.sttx.fjx.kuryun.cn: 172.19.0.33
+      - local.sttx.fjx.kuryun.cn:${STTX_HOST}
     working_dir: /var/www/***REMOVED***
     user: root
     restart: always
@@ -60,6 +60,7 @@ services:
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
+      - ../../Php/server:/var/www/server:rw
     networks:
       - develop
 

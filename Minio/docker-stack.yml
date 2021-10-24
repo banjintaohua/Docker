@@ -77,7 +77,7 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname == VPS
+          - node.hostname == Cloud
     command: server http://minio{1...4}/data
     secrets:
       - access_key
@@ -107,7 +107,7 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname == VPS
+          - node.hostname == Cloud
     command: server http://minio{1...4}/data
     secrets:
       - access_key

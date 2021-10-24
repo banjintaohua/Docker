@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:2.6.2
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
       - "63818:9000"
@@ -10,6 +10,7 @@ services:
     extra_hosts:
       - docker-daemon-vmware:***REMOVED***
       - docker-daemon-bandwagon:***REMOVED***
+      - docker-daemon-vps:***REMOVED***
     networks:
       - portainer_agent_network
     volumes:
@@ -28,7 +29,7 @@ services:
           - node.hostname == Cloud
 
   agent:
-    image: portainer/agent
+    image: portainer/agent:2.1.0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
