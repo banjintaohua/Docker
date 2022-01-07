@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  node:
+    image: node:14.13
+    container_name: node
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./data:/var/www:rw
+    network_mode: host
+    command: tail -f /dev/null
