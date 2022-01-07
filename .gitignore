@@ -4,6 +4,10 @@
 /Bark/log/
 /Bark/data/
 
+/DBGp/conf/
+/DBGp/log/
+/DBGp/data/
+
 /ElasticStack/conf/
 /ElasticStack/log/
 /ElasticStack/data/
