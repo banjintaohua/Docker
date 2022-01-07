@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  dbgp:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/dbgp:1.0
+    container_name: dbgp
+    restart: "always"
+    ports:
+      - ${IDE_PORT:-9001}:${IDE_PORT:-9001}
+      - ${DEBUG_PORT:-9000}:${DEBUG_PORT:-9000}
+    environment:
+      IDE_PORT: ${IDE_PORT:-9001}
+      DEBUG_PORT: ${DEBUG_PORT:-9000}
