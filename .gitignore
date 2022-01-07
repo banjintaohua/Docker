@@ -42,6 +42,10 @@
 /Nginx/log/
 /Nginx/data/
 
+/Node/conf/
+/Node/log/
+/Node/data/
+
 /PHP/conf/
 /PHP/log/
 /PHP/data/
