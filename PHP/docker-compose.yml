@@ -1,25 +1,6 @@
 version: "3.9"
 
 services:
-  nginx:
-    image: nginx:latest
-    container_name: php-nginx
-    restart: always
-    ports:
-      - 8088:80
-    volumes:
-      - ./log/nginx:/var/log/nginx:rw
-      - ./conf/nginx/conf.d/:/etc/nginx/conf.d/:rw
-      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:rw
-      - ../../Php/task:***REMOVED***:rw
-      - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
-      - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
-    networks:
-      - develop
-    depends_on:
-      - php-8
-      - php-74
-      - php-56
 
   php-56:
     build:
@@ -35,7 +16,7 @@ services:
       - ./conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/php-56/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
       - ./conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
-      - ../../Php/task:***REMOVED***:rw
+      - ../../Php/***REMOVED***:***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
     networks:
       - develop
@@ -44,11 +25,11 @@ services:
     build:
       context: ./build/php-74
       dockerfile: Dockerfile
-    image: example/php-74:1.0
+    image: example/php-74:1.1
     container_name: php-74
     extra_hosts:
       - local.sttx.fjx.kuryun.cn:${STTX_HOST}
-    working_dir: /var/www/***REMOVED***
+    working_dir: /var/www/
     user: root
     restart: always
     ports:
@@ -60,7 +41,8 @@ services:
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
-      - ../../Php/server:/var/www/server:rw
+      - ../../Php/***REMOVED***:/var/www/***REMOVED***:rw
+      - ../../Php/***REMOVED***w:/var/www/***REMOVED***w:rw
     networks:
       - develop
 

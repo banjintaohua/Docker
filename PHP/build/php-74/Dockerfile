@@ -61,8 +61,8 @@ RUN apt-get update \
     && mv php-memcached-3.1.5/* ./ \
     && docker-php-ext-configure memcached \
     && docker-php-ext-install memcached \
-    # XDebug
-    && pecl install xdebug-2.9.8
+    # 优先使用 Xdebug3，Xdebug3 的性能比 Xdebug2 的好
+    && pecl install xdebug-3.1.2
     # 微信
     # && cd /usr/src/php/ext \
     # && git clone https://github.com/pangdahua/php7-wxwork-finance-sdk.git \
