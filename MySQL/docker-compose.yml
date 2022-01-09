@@ -4,6 +4,7 @@ services:
   mysql-56:
     image: mysql:5.6
     command: mysqld
+    # command: mysqld_safe
     container_name: mysql-56
     restart: always
     ports:
@@ -20,6 +21,7 @@ services:
   mysql-57:
     image: mysql:5.7
     command: mysqld
+    # command: mysqld_safe
     container_name: mysql-57
     restart: always
     ports:
@@ -33,6 +35,26 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
 
+  mariadb:
+    image: mariadb:10.5.13
+    container_name: mariadb
+    restart: always
+    ports:
+      - "63831:3306"
+    volumes:
+      - ./data/mariadb/:/var/lib/mysql:rw
+      - ./conf/mariadb/mariadb.conf.d:/etc/mysql/mariadb.conf.d:rw
+      - ./log/mariadb/:/var/log/mariadb/:rw
+    networks:
+      - develop
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-password}
+
 networks:
   develop:
-    external: true
+    name: develop
+    external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.19.0.0/16"

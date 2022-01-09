@@ -32,7 +32,7 @@ My personal docker study notes
 | ElasticStack                |                                                      |             |                           |
 | FileBeat                    | -                                                    |             | -                         |
 | Keepalive                   |                                                      |             |                           |
-| MySQL                       | `63829:3306`  `63830:3306`                           |             |                           |
+| MySQL                       | `63829:3306`  `63830:3306` `63831:3306`              |             |                           |
 | Redis                       | `63831:6379`                                         |             |                           |
 | RabbitMQ                    | `63832:15672`  `63833:5672`                          |             |                           |
 | Nginx                       | `80:80`  `443:443`                                   |             |                           |
