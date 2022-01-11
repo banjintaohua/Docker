@@ -26,6 +26,10 @@
 /Gitlab/log/
 /Gitlab/data/
 
+/Go/conf/
+/Go/log/
+/Go/data/
+
 /Hexo/conf/
 /Hexo/log/
 /Hexo/data/
