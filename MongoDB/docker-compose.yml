@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:4.2.18
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/var/lib/mongodb:rw
+      - ./conf/mongod.conf:/etc/mongod.conf:rw
+      - ./log:/var/log/mongodb:rw
+    networks:
+      - develop
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-password}
+
+networks:
+  develop:
+    external: true
