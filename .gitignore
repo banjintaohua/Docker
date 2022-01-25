@@ -42,6 +42,10 @@
 /Minio/log/
 /Minio/data/
 
+/MongoDB/conf/
+/MongoDB/log/
+/MongoDB/data/
+
 /MySQL/conf/
 /MySQL/log/
 /MySQL/data/
