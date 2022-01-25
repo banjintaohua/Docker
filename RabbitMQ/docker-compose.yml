@@ -4,15 +4,15 @@ services:
   rabbit:
       image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
       container_name: rabbit
-      restart: "no"
+      restart: "always"
       ports:
         - "63832:15672"
         - "63833:5672"
       volumes:
         - ./data:/var/lib/rabbitmq:rw
-    networks:
-      develop:
-        ipv4_address: 172.19.0.36
+      networks:
+        develop:
+          ipv4_address: 172.19.0.36
       environment:
         RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
         RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-Ch@ngeMe}

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   node:
-    image: node:14.13
+    image: node:14.18.2
     container_name: node
     restart: always
     working_dir: /var/www
