@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  golang:
+    build:
+      context: ./build/
+      args:
+        GO_VERSION: $GO_VERSION
+    image: golang:1.14.2-debugging
+    container_name: golang
+    restart: always
+    working_dir: /app
+    volumes:
+      - /Users/sea/go:/go:rw
+      - /Users/sea/Documents/Go:/app:rw
+    ports:
+      - "52345:2345"
+      - "8081:8081"
+    networks:
+      - develop
+    command: tail -f /dev/null
+    # command: /usr/local/bin/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 exec /app/foobar
+
+networks:
+  develop:
+    external: true
