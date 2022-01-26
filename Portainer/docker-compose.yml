@@ -2,10 +2,10 @@ version: "3.9"
 
 services:
   portainer:
-    image: portainer/portainer:${PORTAINER_VERSION:-2.6.2}
+    image: portainer/portainer-ce:${PORTAINER_VERSION:-2.6.2}
     command: -H unix:///var/run/docker.sock
     container_name: portainer
-    restart: "no"
+    restart: "always"
     ports:
       - "63818:9000"
       - "8000:8000"

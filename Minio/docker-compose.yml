@@ -9,7 +9,7 @@ services:
       - "63814:9000"
     volumes:
       # - ./data:/data:rw
-      - "/Users/example/Library/Mobile Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
+      - "/Users/example/Library/Mobile\ Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
     networks:
       develop:
         ipv4_address: 172.19.0.34
@@ -25,7 +25,7 @@ services:
     network_mode: host
     entrypoint: "tail -f /dev/null"
     volumes:
-      - ./conf/config.json:/root/.mc/config.json:rw
+      - ./conf:/root/.mc:rw
 
 networks:
   develop:
