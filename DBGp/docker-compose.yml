@@ -10,7 +10,7 @@ services:
     restart: "always"
     ports:
       - ${IDE_PORT:-9001}:${IDE_PORT:-9001}
-      - ${DEBUG_PORT:-9000}:${DEBUG_PORT:-9000}
+      - ${DEBUG_PORT:-9003}:${DEBUG_PORT:-9003}
     environment:
       IDE_PORT: ${IDE_PORT:-9001}
-      DEBUG_PORT: ${DEBUG_PORT:-9000}
+      DEBUG_PORT: ${DEBUG_PORT:-9003}

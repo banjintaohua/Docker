@@ -12,8 +12,8 @@ services:
       - ./conf/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - elastic-stack:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "59200:9200"
+      - "59300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ELASTIC_PASSWORD: changeme
@@ -34,10 +34,10 @@ services:
       - ./conf/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./conf/logstash/pipeline:/usr/share/logstash/pipeline:ro
     ports:
-      - "5044:5044"
-      - "5000:5000/tcp"
-      - "5000:5000/udp"
-      - "9600:9600"
+      - "55044:5044"
+      - "55000:5000/tcp"
+      - "55000:5000/udp"
+      - "59600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./conf/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
-      - "5601:5601"
+      - "55601:5601"
     networks:
       - elk
     depends_on:
@@ -63,9 +63,9 @@ services:
 
 networks:
   elk:
-    name: elk
+    name: develop
     driver: bridge
-    external: false
+    external: true
 
 volumes:
   elastic-stack:
