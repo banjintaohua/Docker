@@ -15,7 +15,7 @@ services:
       - /Users/sea/Documents/Go:/app:rw
     ports:
       - "52345:2345"
-      - "8081:8081"
+      - "52380:8080"
     networks:
       - develop
     command: tail -f /dev/null

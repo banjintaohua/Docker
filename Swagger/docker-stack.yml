@@ -15,7 +15,7 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname != Bandwagon
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
   swagger-ui:
@@ -32,7 +32,7 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname != Bandwagon
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
 networks:

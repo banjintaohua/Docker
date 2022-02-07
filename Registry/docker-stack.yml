@@ -31,7 +31,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == Cloud
+          - node.hostname == GuangZhou-CentOS
 
 networks:
   registry:

@@ -63,9 +63,9 @@ services:
 
 networks:
   elk:
-    name: develop
+    name: elk
     driver: bridge
-    external: true
+    external: false
 
 volumes:
   elastic-stack:

@@ -6,8 +6,8 @@ services:
       container_name: rabbit
       restart: "always"
       ports:
-        - "63832:15672"
-        - "63833:5672"
+        - "127.0.0.1:15672:15672"
+        - "55672:5672"
       volumes:
         - ./data:/var/lib/rabbitmq:rw
         - ./log:/var/log/rabbitmq:rw

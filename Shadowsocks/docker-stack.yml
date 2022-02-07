@@ -13,7 +13,7 @@ services:
         window: 60s
       placement:
         constraints:
-          - node.hostname != Bandwagon
+          - node.hostname != California-CentOS
           - node.platform.os == linux
     networks:
       - cluster
@@ -38,7 +38,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == Bandwagon
+          - node.hostname == California-CentOS
     networks:
       - cluster
     ports:
@@ -62,7 +62,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == Bandwagon
+          - node.hostname == California-CentOS
     networks:
       - cluster
     ports:

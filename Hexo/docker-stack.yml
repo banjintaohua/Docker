@@ -4,8 +4,8 @@ services:
   hexo:
     image: registry.***REMOVED***/example/notes:1.5
     ports:
-      - "63825:4000"
-      - "63826:22"
+      - "54000:4000"
+      - "54022:22"
     environment:
       REMOTE_URL: ${REMOTE_URL:-git@github.com:example/notes.git}
       BRANCH: ${BRANCH:-master}
@@ -20,7 +20,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-          - node.hostname == Cloud
+          - node.hostname == GuangZhou-CentOS
     command:
       - sh
       - -c

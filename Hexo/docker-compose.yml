@@ -12,8 +12,8 @@ services:
     container_name: hexo
     restart: always
     ports:
-      - "63825:4000"
-      - "63826:22"
+      - "54000:4000"
+      - "54022:22"
     environment:
       REMOTE_URL: ${REMOTE_URL}
       BRANCH: ${BRANCH:-master}

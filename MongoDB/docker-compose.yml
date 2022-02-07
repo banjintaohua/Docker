@@ -6,7 +6,7 @@ services:
     container_name: mongodb
     restart: always
     ports:
-      - "27017:27017"
+      - "57017:27017"
     volumes:
       - ./data:/var/lib/mongodb:rw
       - ./conf/mongod.conf:/etc/mongod.conf:rw

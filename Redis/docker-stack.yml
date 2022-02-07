@@ -4,7 +4,7 @@ services:
     redis:
       image: redis:latest
       ports:
-        - "6379:6379"
+        - "56379:6379"
       volumes:
         - redis:/etc/redis/redis.conf
         - redis:/data

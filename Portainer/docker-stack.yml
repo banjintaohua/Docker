@@ -5,12 +5,11 @@ services:
     image: portainer/portainer-ce:2.6.2
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
-      - "63818:9000"
+      - "59000:9000"
       - "8000:8000"
     extra_hosts:
       - docker-daemon-vmware:***REMOVED***
       - docker-daemon-bandwagon:***REMOVED***
-      - docker-daemon-vps:***REMOVED***
     networks:
       - portainer_agent_network
     volumes:
@@ -26,7 +25,7 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.role == manager
-          - node.hostname == Cloud
+          - node.hostname == GuangZhou-CentOS
 
   agent:
     image: portainer/agent:2.1.0
@@ -44,7 +43,7 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-          - node.hostname != Bandwagon
+          - node.hostname != California-CentOS
 
 volumes:
   portainer_data:
