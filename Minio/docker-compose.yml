@@ -6,9 +6,8 @@ services:
     container_name: minio
     restart: "no"
     ports:
-      - "63814:9000"
+      - "59005:9000"
     volumes:
-      # - ./data:/data:rw
       - "/Users/example/Library/Mobile\ Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
     networks:
       develop:

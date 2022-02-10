@@ -5,13 +5,19 @@ services:
     image: portainer/portainer-ce:2.6.2
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
-      - "59000:9000"
-      - "8000:8000"
+      - target: 9000
+        published: 59000
+        protocol: tcp
+        mode: host
+      - target: 8000
+        published: 8000
+        protocol: tcp
+        mode: host
     extra_hosts:
       - docker-daemon-vmware:***REMOVED***
       - docker-daemon-bandwagon:***REMOVED***
     networks:
-      - portainer_agent_network
+      - cluster
     volumes:
       - portainer_data:/data
     deploy:
@@ -25,15 +31,20 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.role == manager
-          - node.hostname == GuangZhou-CentOS
+          - node.hostname == ShangHai-CentOS
 
   agent:
     image: portainer/agent:2.1.0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
+    ports:
+      - target: 9001
+        published: 59001
+        protocol: tcp
+        mode: host
     networks:
-      - portainer_agent_network
+      - cluster
     deploy:
       mode: global
       restart_policy:
@@ -43,15 +54,14 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
-          - node.hostname != California-CentOS
 
 volumes:
   portainer_data:
     name: portainer_data
 
 networks:
-  portainer_agent_network:
-    name: portainer_agent_network
+  cluster:
+    name: cluster
     driver: overlay
     attachable: true
     external: false

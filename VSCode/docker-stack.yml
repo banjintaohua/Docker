@@ -2,17 +2,17 @@ version: "3.9"
 
 services:
   vscode:
-    image: codercom/code-server:${CODE_SERVER_VERSION:-3.9.1}
+    image: codercom/code-server:${CODE_SERVER_VERSION:-4.0.2}
     ports:
-      - "63827:8080"
+      - "58083:8080"
     user: 0:0
+    configs:
+      - source: vscode-config
+        target: /root/.config/code-server/config.yaml
     volumes:
       - vscode:/home/coder/project:rw
-      - vscode:/home/coder/.local/share/code-server:rw
     networks:
       - cluster
-    environment:
-      PASSWORD: ${PASSWORD:-***REMOVED***}
     deploy:
       replicas: 1
       restart_policy:
@@ -23,6 +23,12 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == GuangZhou-CentOS
+          - node.hostname != California-CentOS
+
+configs:
+  vscode-config:
+    name: vscode-config
+    file: ./conf/.config/code-server/config.yaml
 
 volumes:
   vscode:
@@ -32,4 +38,6 @@ volumes:
 networks:
   cluster:
     name: cluster
+    driver: overlay
+    attachable: true
     external: true

@@ -6,7 +6,7 @@ services:
     container_name: "swagger-edit"
     restart: always
     ports:
-      - "63823:8080"
+      - "58081:8080"
     networks:
       - develop
 
@@ -15,7 +15,7 @@ services:
     container_name: "swagger-ui"
     restart: always
     ports:
-      - "63824:8080"
+      - "58082:8080"
     networks:
       - develop
 

@@ -1,23 +1,20 @@
 version: "3.9"
 
 services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
-    working_dir: /var/www
-    volumes:
-      - ./conf/ssl:/etc/ssl:ro
-      - ./conf/.htpasswd:/etc/nginx/.htpasswd:rw
-      - ./conf/nginx.conf:/etc/nginx/nginx.conf:rw
-      - ./conf/conf.d/:/etc/nginx/conf.d/:rw
-      - filebeat:/var/log:rw
+  acme:
+    image: neilpang/acme.sh:3.0.2
     networks:
-      - cluster
+      - host
+    volumes:
+      - acme.sh:/acme.sh:rw
+    command: [ 'daemon' ]
+    # command: acme.sh --issue -k ec-256 --dns dns_cf -d *.domain.com
+    # command: acme.sh --installcert --ecc -d *.domain.com --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
+    secrets:
+      - acme_cloud_flare_env
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
@@ -25,26 +22,127 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
+          - node.hostname == California-CentOS
           - node.platform.os == linux
-          - node.labels.nginx == true
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - target: 80
+        published: 80
+        mode: host
+      - target: 443
+        published: 443
+        protocol: udp
+        mode: host
+    networks:
+      - host
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == California-CentOS
+          - node.platform.os == linux
+    configs:
+      - source: nginx_htpasswd
+        target: /etc/nginx/.htpasswd
+      - source: nginx_config
+        target: /etc/nginx/nginx.conf
+      - source: nginx_bark
+        target: /etc/nginx/conf.d/bark.conf
+      - source: nginx_blog
+        target: /etc/nginx/conf.d/blog.conf
+      - source: nginx_elasticsearch
+        target: /etc/nginx/conf.d/elasticsearch.conf
+      - source: nginx_frps
+        target: /etc/nginx/conf.d/frps.conf
+      - source: nginx_gitlab
+        target: /etc/nginx/conf.d/gitlab.conf
+      - source: nginx_kibana
+        target: /etc/nginx/conf.d/kibana.conf
+      - source: nginx_minio
+        target: /etc/nginx/conf.d/minio.conf
+      - source: nginx_portainer
+        target: /etc/nginx/conf.d/portainer.conf
+      - source: nginx_rabbitmq
+        target: /etc/nginx/conf.d/rabbit.conf
+      - source: nginx_shadowsocks
+        target: /etc/nginx/conf.d/ss-websocket-http.conf
+      - source: nginx_swagger
+        target: /etc/nginx/conf.d/swagger.conf
+      - source: nginx_vscode
+        target: /etc/nginx/conf.d/vscode.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
       - source: wildcard-certificate.key
         target: /etc/ssl/wildcard-certificate.key
 
-networks:
-  cluster:
-    name: cluster
-    external: true
-
-volumes:
-  filebeat:
-    name: filebeat
-    external: true
+configs:
+  nginx_htpasswd:
+    name: nginx_htpasswd
+    file: ./conf/.htpasswd
+  nginx_config:
+    name: nginx_config
+    file: ./conf/nginx.conf
+  nginx_bark:
+    name: nginx_bark
+    file: ./conf/conf.d/bark.conf
+  nginx_blog:
+    name: nginx_blog
+    file: ./conf/conf.d/blog.conf
+  nginx_elasticsearch:
+    name: nginx_elasticsearch
+    file: ./conf/conf.d/elasticsearch.conf
+  nginx_frps:
+    name: nginx_frps
+    file: ./conf/conf.d/frps.conf
+  nginx_gitlab:
+    name: nginx_gitlab
+    file: ./conf/conf.d/gitlab.conf
+  nginx_kibana:
+    name: nginx_kibana
+    file: ./conf/conf.d/kibana.conf
+  nginx_minio:
+    name: nginx_minio
+    file: ./conf/conf.d/minio.conf
+  nginx_portainer:
+    name: nginx_portainer
+    file: ./conf/conf.d/portainer.conf
+  nginx_rabbitmq:
+    name: nginx_rabbitmq
+    file: ./conf/conf.d/rabbit.conf
+  nginx_shadowsocks:
+    name: nginx_shadowsocks
+    file: ./conf/conf.d/ss-websocket-http.conf
+  nginx_swagger:
+    name: nginx_swagger
+    file: ./conf/conf.d/swagger.conf
+  nginx_vscode:
+    name: nginx_vscode
+    file: ./conf/conf.d/vscode.conf
 
 secrets:
+  acme_cloud_flare_env:
+    name: acme_cloud_flare_env
+    file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
     external: true
   wildcard-certificate.key:
+    external: true
+
+volumes:
+  acme.sh:
+    name: acme.sh
+    driver: local
+
+networks:
+  host:
+    name: host
     external: true

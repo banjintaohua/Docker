@@ -1,30 +1,6 @@
 version: "3.9"
 
 services:
-  shadowsocks:
-    image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
-    command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
-    working_dir: /etc/shadowsocks-libev
-    deploy:
-      mode: global
-      restart_policy:
-        condition: any
-        delay: 10s
-        window: 60s
-      placement:
-        constraints:
-          - node.hostname != California-CentOS
-          - node.platform.os == linux
-    networks:
-      - cluster
-    ports:
-      - "63820:1080"
-      - "63820:1080/udp"
-    configs:
-      - source: ss-cliennt-config
-        target: /etc/shadowsocks-libev/config.json
-        mode: 0644
-
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-http.log 2>&1"
@@ -42,8 +18,14 @@ services:
     networks:
       - cluster
     ports:
-      - "63821:9100"
-      - "63821:9100/udp"
+      - target: 51080
+        published: 51080
+        protocol: tcp
+        mode: host
+      - target: 51080
+        published: 51080
+        protocol: udp
+        mode: host
     configs:
       - source: ss-websocket-http-config
         target: /etc/shadowsocks-libev/config.json
@@ -66,8 +48,14 @@ services:
     networks:
       - cluster
     ports:
-      - "63822:9100"
-      - "63822:9100/udp"
+      - target: 51081
+        published: 51081
+        protocol: tcp
+        mode: host
+      - target: 51081
+        published: 51081
+        protocol: udp
+        mode: host
     configs:
       - source: ss-websocket-https-config
         target: /etc/shadowsocks-libev/config.json
@@ -80,10 +68,13 @@ services:
 networks:
   cluster:
     name: cluster
-    external: true
     driver: overlay
+    attachable: true
+    external: true
 
 configs:
+  ss-cliennt-config:
+    external: true
   ss-websocket-http-config:
     external: true
   ss-websocket-https-config:

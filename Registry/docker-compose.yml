@@ -9,7 +9,7 @@ services:
     extra_hosts:
       - minio.***REMOVED***:${MINIO_HOST}
     ports:
-      - "63813:443"
+      - "55000:443"
     environment:
       REGISTRY_STORAGE: s3
       REGISTRY_STORAGE_S3_ACCESSKEY: ${MINIO_ACCESS_KEY}

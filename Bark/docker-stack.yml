@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  bark-server:
+    image: finab/bark-server:v2.0.1
+    ports:
+      - target: 8080
+        published: 58080
+    networks:
+      - cluster
+    volumes:
+      - bark:/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.hostname != California-CentOS
+          - node.platform.os == linux
+
+volumes:
+  bark:
+    name: bark
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

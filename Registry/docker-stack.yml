@@ -4,9 +4,8 @@ services:
   registry:
     image: registry:${REGISTRY_VERSION:-2.7.1}
     ports:
-      - "63812:443"
+      - "55000:443"
     volumes:
-      - ./data:/var/lib/registry
       - ./conf/config.yml:/etc/docker/registry/config.yml:rw
     networks:
       - registry
@@ -31,7 +30,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == GuangZhou-CentOS
+          - node.hostname == ShangHai-CentOS
 
 networks:
   registry:

@@ -5,18 +5,18 @@ services:
     image: portainer/portainer-ce:${PORTAINER_VERSION:-2.6.2}
     command: -H unix:///var/run/docker.sock
     container_name: portainer
-    restart: "always"
+    restart: "no"
     ports:
       - "59000:9000"
       - "8000:8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer:/data
+      - portainer_data:/data
     networks:
       develop:
         ipv4_address: 172.19.0.35
 
-  edge-agent:
+  portainer-edge-agent:
     image: portainer/agent:2.1.0
     container_name: portainer-edge-agent
     restart: "no"
@@ -29,15 +29,15 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
-      - agent:/data
+      - portainer_agent_data:/data
     networks:
       - develop
 
 volumes:
-  portainer:
-    name: portainer
-  agent:
-    name: agent
+  portainer_data:
+    name: portainer_data
+  portainer_agent_data:
+    name: portainer_agent_data
 
 networks:
   develop:

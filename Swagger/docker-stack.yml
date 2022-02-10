@@ -4,11 +4,12 @@ services:
   swagger-edit:
     image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-latest}
     ports:
-      - "63823:8080"
+      - "58081:8080"
     networks:
       - cluster
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
@@ -21,11 +22,12 @@ services:
   swagger-ui:
     image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-latest}
     ports:
-      - "63824:8080"
+      - "58082:8080"
     networks:
       - cluster
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
@@ -39,4 +41,5 @@ networks:
   cluster:
     name: cluster
     driver: overlay
+    attachable: true
     external: true

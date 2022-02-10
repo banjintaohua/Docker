@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  downloader:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: registry.***REMOVED***/example/centos:7
+    container_name: downloader
+    restart: "no"
+    volumes:
+      - ./conf/yum.repos.d:/etc/yum.repos.d:rw
+      - ./conf/yum.conf:/etc/yum.conf:rw
+    networks:
+      - develop
+    command: echo 'please recreate container before download'
+
+  volume_backup:
+    image: registry.***REMOVED***/example/centos:7
+    container_name: volume_backup
+    restart: "no"
+    volumes:
+      - ./data:/backup
+      - portainer_data:/volume
+    command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+
+  volume_restore:
+    depends_on:
+      - volume_backup
+    image: registry.***REMOVED***/example/centos:7
+    container_name: volume_restore
+    restart: "no"
+    volumes:
+      - ./data:/backup
+      - portainer_data:/volume
+    command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+
+
+volumes:
+  portainer_data:
+    name: portainer_data
+    external: true
+
+
+networks:
+  develop:
+    external: true
