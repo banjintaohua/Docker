@@ -5,11 +5,11 @@ services:
     image: finab/bark-server:v2.0.1
     ports:
       - target: 8080
-        published: 58080
+        published: 58084
     networks:
       - cluster
     volumes:
-      - bark:/data
+      - bark_data:/data
     deploy:
       mode: replicated
       replicas: 1
@@ -23,8 +23,9 @@ services:
           - node.platform.os == linux
 
 volumes:
-  bark:
-    name: bark
+  bark_data:
+    name: bark_data
+    external: false
 
 networks:
   cluster:

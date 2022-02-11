@@ -8,7 +8,7 @@ My personal docker study notes
 
 | Service                     | Ports                                   | Port Keep                           |
 | --------------------------- | --------------------------------------- | ----------------------------------- |
-| Bark                        | `58080:8080`                            |                                     |
+| Bark                        | `58084:8080`                            |                                     |
 | DBGp                        | `59002:9001`  `59003:9003`              |                                     |
 | ElasticStack                |                                         |                                     |
 | FileBeat                    |                                         | -                                   |
@@ -30,7 +30,7 @@ My personal docker study notes
 | Portainer                   | `59000:9000`                            | `8000:8000`                         |
 | Portainer-Edge-Agent        | `59001:9001`                            |                                     |
 | PostgresSQL                 |                                         | `55432:5432`                        |
-| Python                      |                                         | `58084:8080`                        |
+| Python                      |                                         |                                     |
 | Qinglong                    | `55700:5700`                            |                                     |
 | RabbitMQ                    | `55672:5672`                            | `15672:15672`                       |
 | Redis                       | `56379:6379`                            |                                     |
@@ -39,7 +39,7 @@ My personal docker study notes
 | Shadowsocks-Websocket-HTTPS | `51081:51081`                           |                                     |
 | Swagger-Editor              | `58081:8080`                            |                                     |
 | Swagger-UI                  | `58082:8080`                            |                                     |
-| Tomcat                      |                                         | `58085:8080`                        |
+| Tomcat                      |                                         |                                     |
 | VSCode                      | `58083:8080`                            |                                     |
 
 

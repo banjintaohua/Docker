@@ -6,7 +6,7 @@ services:
     networks:
       - host
     volumes:
-      - acme.sh:/acme.sh:rw
+      - acme_data:/acme.sh:rw
       - ./conf/ssl/wildcard-certificate.crt:/etc/ssl/wildcard-certificate.crt:rw
       - ./conf/ssl/wildcard-certificate.key:/etc/ssl/wildcard-certificate.key:rw
     command: [ 'daemon' ]
@@ -97,7 +97,7 @@ configs:
     name: nginx_config_v1
     file: ./conf/nginx.conf
   nginx_bark:
-    name: nginx_bark
+    name: nginx_bark_v1
     file: ./conf/conf.d/bark.conf
   nginx_blog:
     name: nginx_blog
@@ -141,15 +141,15 @@ secrets:
     name: acme_cloud_flare_env
     file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
-    name: wildcard-certificate.crt.v2
+    name: wildcard-certificate.crt.v3
     file: ./conf/ssl/wildcard-certificate.crt
   wildcard-certificate.key:
-    name: wildcard-certificate.key.v2
+    name: wildcard-certificate.key.v3
     file: ./conf/ssl/wildcard-certificate.key
 
 volumes:
-  acme.sh:
-    name: acme.sh
+  acme_data:
+    name: acme_data
     driver: local
 
 networks:

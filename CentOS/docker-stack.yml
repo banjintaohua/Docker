@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  volume_backup:
+    image: centos:7
+    networks:
+      - cluster
+    volumes:
+      - ./data:/backup
+      - source_data:/volume
+    command: tail -f /dev/null
+    # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: none
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+  volume_restore:
+    image: centos:7
+    networks:
+      - cluster
+    volumes:
+      - ./data:/backup
+      - target_data:/volume
+    command: tail -f /dev/null
+    # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: none
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+volumes:
+  source_data:
+    name: acme_data
+    external: true
+  target_data:
+    name: test_data
+    external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

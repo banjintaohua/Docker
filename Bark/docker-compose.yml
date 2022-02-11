@@ -6,7 +6,7 @@ services:
     container_name: bark
     restart: always
     ports:
-      - "58080:8080"
+      - "58084:8080"
     networks:
       - develop
     volumes:

@@ -16,31 +16,33 @@ services:
     command: echo 'please recreate container before download'
 
   volume_backup:
-    image: registry.***REMOVED***/example/centos:7
+    image: centos:7
     container_name: volume_backup
     restart: "no"
     volumes:
       - ./data:/backup
-      - portainer_data:/volume
+      - source_data:/volume
     command: tar -cvzf /backup/backup.tar.gz  -C /volume .
 
   volume_restore:
     depends_on:
       - volume_backup
-    image: registry.***REMOVED***/example/centos:7
+    image: centos:7
     container_name: volume_restore
     restart: "no"
     volumes:
       - ./data:/backup
-      - portainer_data:/volume
+      - target_data:/volume
     command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
 
 
 volumes:
-  portainer_data:
+  source_data:
     name: portainer_data
     external: true
-
+  target_data:
+    name: test_data
+    external: true
 
 networks:
   develop:

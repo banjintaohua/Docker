@@ -9,9 +9,9 @@ services:
     networks:
       - develop
     ports:
-      - "63807:22"
-      - "63808:80"
-      - "63809:443"
+      - "57891:22"
+      - "58080:80"
+      - "58443:443"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         gitlab_rails['gitlab_shell_ssh_port'] = 63807
