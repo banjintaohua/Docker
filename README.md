@@ -20,7 +20,7 @@ My personal docker study notes
 | Hexo                        |                                         | `54000:4000` `63826:22`             |
 | Minio                       | `59005:9000`                            | `59004`                             |
 | Minio-Client                | -                                       |                                     |
-| MongoDB                     |                                         |                                     |
+| MongoDB                     | `57017:27017`                           |                                     |
 | MySQL                       | `53306:3306`  `53307:3306` `53308:3306` |                                     |
 | Nginx                       | `80:80`  `443:443`                      |                                     |
 | Node                        |                                         |                                     |
@@ -32,8 +32,8 @@ My personal docker study notes
 | PostgresSQL                 |                                         | `55432:5432`                        |
 | Python                      |                                         | `58084:8080`                        |
 | Qinglong                    | `55700:5700`                            |                                     |
-| RabbitMQ                    |                                         | `15672:15672`  `55672:5672`         |
-| Redis                       |                                         | `56379:6379`                        |
+| RabbitMQ                    | `55672:5672`                            | `15672:15672`                       |
+| Redis                       | `56379:6379`                            |                                     |
 | Shadowsocks-Client          | `51079:51079`                           |                                     |
 | Shadowsocks-Websocket-HTTP  | `51080:51080`                           |                                     |
 | Shadowsocks-Websocket-HTTPS | `51081:51081`                           |                                     |

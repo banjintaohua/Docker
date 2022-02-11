@@ -24,7 +24,7 @@ services:
     network_mode: host
     entrypoint: "tail -f /dev/null"
     volumes:
-      - ./conf:/root/.mc:rw
+      - ./conf/mc:/root/.mc:rw
 
 networks:
   develop:

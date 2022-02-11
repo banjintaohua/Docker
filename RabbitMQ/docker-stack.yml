@@ -1,16 +1,16 @@
 version: "3.9"
 
 services:
-    redis:
-      image: redis:${REDIS_VERSION:-6.0.9}
+  rabbitmq:
+      image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
       ports:
-        - "56379:6379"
-      command: "redis-server /usr/local/etc/redis/redis.conf"
+        - "15672:15672"
+        - "55672:5672"
       volumes:
-        - redis_data:/data
+        - rabbitmq_data:/var/lib/rabbitmq:rw
       configs:
-        - source: redis_config
-          target: /usr/local/etc/redis/redis.conf
+        - source: rabbitmq_config
+          target: /etc/rabbitmq/conf.d/rabbitmq.conf
       networks:
         - cluster
       deploy:
@@ -33,13 +33,13 @@ networks:
     external: true
 
 configs:
-  redis_config:
-    name: redis_config
+  rabbitmq_config:
+    name: rabbitmq_config
     external: false
-    file: ./conf/redis.conf
+    file: ./conf/rabbitmq.conf
 
 volumes:
-  redis_data:
-    name: redis_data
+  rabbitmq_data:
+    name: rabbitmq_data
     driver: local
     external: false

@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:4.2.18
+    ports:
+      - "57017:27017"
+    volumes:
+      - mongodb_data:/var/lib/mongodb:rw
+    configs:
+      - source: mongodb_config
+        target: /etc/mongod.conf
+    networks:
+      - cluster
+    secrets:
+      - mongo_initdb_root_username
+      - mongo_initdb_root_password
+    environment:
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_initdb_root_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_initdb_root_password
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+
+configs:
+  mongodb_config:
+    name: mongodb_config
+    external: false
+    file: ./conf/mongod.conf
+
+secrets:
+  mongo_initdb_root_username:
+    name: mongo_initdb_root_username
+    external: false
+    file: ./conf/secrets/mongo_initdb_root_username.txt
+  mongo_initdb_root_password:
+    name: mongo_initdb_root_password
+    external: false
+    file: ./conf/secrets/mongo_initdb_root_password.txt
+
+volumes:
+  mongodb_data:
+    name: mongodb_data
+    driver: local
+    external: false

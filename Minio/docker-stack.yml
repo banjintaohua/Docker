@@ -40,9 +40,13 @@ networks:
 
 secrets:
   minio_access_key:
-    external: true
+    name: minio_access_key
+    external: false
+    file: ./conf/secrets/minio_access_key.txt
   minio_secret_key:
-    external: true
+    name: minio_secret_key
+    external: false
+    file: ./conf/secrets/minio_secret_key.txt
 
 volumes:
   minio_data:

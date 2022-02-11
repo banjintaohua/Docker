@@ -8,11 +8,11 @@ services:
       ports:
         - "56379:6379"
       volumes:
-        - ./conf/redis.conf:/etc/redis/redis.conf
+        - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
         - ./data:/data
       networks:
         - develop
-      command: "redis-server /etc/redis/redis.conf"
+      command: "redis-server /usr/local/etc/redis/redis.conf"
 
 networks:
   develop:

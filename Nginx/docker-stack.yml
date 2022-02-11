@@ -124,7 +124,7 @@ configs:
     name: nginx_qinglong_v1
     file: ./conf/conf.d/qinglong.conf
   nginx_rabbitmq:
-    name: nginx_rabbitmq
+    name: nginx_rabbitmq_v1
     file: ./conf/conf.d/rabbit.conf
   nginx_shadowsocks:
     name: nginx_shadowsocks
