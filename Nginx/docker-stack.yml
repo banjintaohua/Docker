@@ -7,9 +7,12 @@ services:
       - host
     volumes:
       - acme.sh:/acme.sh:rw
+      - ./conf/ssl/wildcard-certificate.crt:/etc/ssl/wildcard-certificate.crt:rw
+      - ./conf/ssl/wildcard-certificate.key:/etc/ssl/wildcard-certificate.key:rw
     command: [ 'daemon' ]
-    # command: acme.sh --issue -k ec-256 --dns dns_cf -d *.domain.com
-    # command: acme.sh --installcert --ecc -d *.domain.com --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
+    # command: source /run/secrets/acme_cloud_flare_env
+    # command: acme.sh --register-account -m $CF_Email --issue -k ec-256 --dns dns_cf -d *.example.online
+    # command: acme.sh --installcert --ecc -d *.example.online --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
     secrets:
       - acme_cloud_flare_env
     deploy:
@@ -22,7 +25,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == California-CentOS
+          - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
 
   nginx:
@@ -70,6 +73,8 @@ services:
         target: /etc/nginx/conf.d/minio.conf
       - source: nginx_portainer
         target: /etc/nginx/conf.d/portainer.conf
+      - source: nginx_qinglong
+        target: /etc/nginx/conf.d/qinglong.conf
       - source: nginx_rabbitmq
         target: /etc/nginx/conf.d/rabbit.conf
       - source: nginx_shadowsocks
@@ -89,7 +94,7 @@ configs:
     name: nginx_htpasswd
     file: ./conf/.htpasswd
   nginx_config:
-    name: nginx_config
+    name: nginx_config_v1
     file: ./conf/nginx.conf
   nginx_bark:
     name: nginx_bark
@@ -101,7 +106,7 @@ configs:
     name: nginx_elasticsearch
     file: ./conf/conf.d/elasticsearch.conf
   nginx_frps:
-    name: nginx_frps
+    name: nginx_frps_v1
     file: ./conf/conf.d/frps.conf
   nginx_gitlab:
     name: nginx_gitlab
@@ -115,6 +120,9 @@ configs:
   nginx_portainer:
     name: nginx_portainer
     file: ./conf/conf.d/portainer.conf
+  nginx_qinglong:
+    name: nginx_qinglong_v1
+    file: ./conf/conf.d/qinglong.conf
   nginx_rabbitmq:
     name: nginx_rabbitmq
     file: ./conf/conf.d/rabbit.conf
@@ -133,9 +141,11 @@ secrets:
     name: acme_cloud_flare_env
     file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
-    external: true
+    name: wildcard-certificate.crt.v2
+    file: ./conf/ssl/wildcard-certificate.crt
   wildcard-certificate.key:
-    external: true
+    name: wildcard-certificate.key.v2
+    file: ./conf/ssl/wildcard-certificate.key
 
 volumes:
   acme.sh:

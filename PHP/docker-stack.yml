@@ -4,12 +4,9 @@ services:
   php-fpm:
     image: php:5.6.40-fpm
     ports:
-      - 9002:9000
+      - "59006:9000"
     volumes:
-      - php-56:***REMOVED***:rw
-      - php-56:/var/log/php-fpm:rw
-      - php-56:/usr/local/etc/php/php.ini:ro
-      - php-56:/usr/local/etc/php/conf.d/dexbug.ini:ro
+      - php-56:/var/www:rw
     networks:
       - php-56
     deploy:

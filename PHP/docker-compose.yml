@@ -10,7 +10,7 @@ services:
     container_name: php-56
     restart: always
     ports:
-      - "9002:9000"
+      - "59006:9000"
     volumes:
       - ./log/php-56/php-fpm:/var/log/php-fpm:rw
       - ./conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
@@ -33,7 +33,7 @@ services:
     user: root
     restart: always
     ports:
-      - "9005:9000"
+      - "59007:9000"
     volumes:
       - ./log/php-74/php-fpm:/var/log/php-fpm:rw
       - ./conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
@@ -51,7 +51,7 @@ services:
     container_name: php-8
     restart: always
     ports:
-      - "127.0.0.1:9004:9000"
+      - "127.0.0.1:59008:9000"
     networks:
       - develop
 

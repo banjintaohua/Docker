@@ -20,16 +20,10 @@ services:
       - ../../Php/***REMOVED***w:/var/www/***REMOVED***w:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
-      # - filebeat:/var/log:rw
     networks:
       develop:
         ipv4_address: 172.19.0.33
 
 networks:
   develop:
-    external: true
-
-volumes:
-  filebeat:
-    name: filebeat
     external: true

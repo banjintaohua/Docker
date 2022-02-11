@@ -15,26 +15,10 @@ services:
     network_mode: host
     command: /usr/bin/frps -c /etc/frp/frps.ini
     volumes:
-      - ./conf/cloud/frps.ini:/etc/frp/frps.ini:rw
+      - ./conf/server/frps.ini:/etc/frp/frps.ini:rw
       - ./log:/var/log/frp
 
-  frpc-vmware:
-    build:
-      context: ./build
-      dockerfile: Dockerfile
-      args:
-        FRP_VERSION: ${FRP_VERSION:-0.35.1}
-        OS: ${OS:-linux}
-        ARCH: ${ARCH:-amd64}
-    image: registry.***REMOVED***/example/frpc:vmware
-    container_name: frpc-vmware
-    restart: always
-    command: /usr/bin/frpc -c /etc/frp/frpc.ini
-    volumes:
-      - ./conf/vmware/frpc.ini:/etc/frp/frpc.ini:rw
-      - ./log:/var/log/frp
-
-  frpc-mac:
+  frpc:
     build:
       context: ./build
       dockerfile: Dockerfile
@@ -43,9 +27,9 @@ services:
         OS: ${OS:-linux}
         ARCH: ${ARCH:-amd64}
     image: registry.***REMOVED***/example/frpc:mac
-    container_name: frpc-mac
+    container_name: frpc
     restart: always
     command: /usr/bin/frpc -c /etc/frp/frpc.ini
     volumes:
-      - ./conf/mac/frpc.ini:/etc/frp/frpc.ini:rw
+      - ./conf/client/frpc.ini:/etc/frp/frpc.ini:rw
       - ./log:/var/log/frp

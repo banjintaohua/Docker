@@ -2,7 +2,7 @@ FROM alpine:3.12
 
 LABEL maintainer="example"
 
-ENV IDE_PORT=9001
+ENV IDE_PORT=9002
 ENV DEBUG_PORT=9003
 
 # 在 XDebug 官网下载 Go 版本实现的 DBGp 代理

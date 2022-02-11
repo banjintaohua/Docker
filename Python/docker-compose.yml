@@ -10,7 +10,7 @@ services:
     working_dir: /var/www/app
     restart: always
     ports:
-      - "63828:80"
+      - "63828:8080"
     networks:
       - develop
     command: tail -f /dev/null

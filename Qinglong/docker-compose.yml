@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  qinglong:
+    image: whyour/qinglong:latest
+    container_name: qinglong
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:55700:5700"
+    networks:
+      develop:
+        ipv4_address: 172.19.0.37
+    volumes:
+      - ./conf:/ql/config
+      - ./log:/ql/log
+      - ./data/db:/ql/db
+      - ./data/scripts:/ql/scripts
+      - ./data/repo:/ql/repo
+      - ./data/raw:/ql/raw
+
+
+networks:
+  develop:
+    external: true

@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  frps:
+    image: snowdreamtech/frps:0.35.1
+    networks:
+      - host
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+    configs:
+      - source: frps_config
+        target: /etc/frp/frps.ini
+
+configs:
+  frps_config:
+    name: frps_config
+    file: ./conf/server/frps.ini
+
+networks:
+  host:
+    name: host
+    external: true

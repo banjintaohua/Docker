@@ -1,20 +1,24 @@
 version: "3.9"
 
 services:
-  db:
+  mysql_56:
     image: mysql:5.6
-    volumes:
-      - mysql-56:/var/lib/mysql:rw
-      - mysql-56:/etc/mysql/conf.d:rw
-      - mysql-56:/var/log/mysql/:rw
     ports:
-      - "3307:3306"
+      - "53306:3306"
+    volumes:
+      - mysql_56:/var/lib/mysql:rw
+    configs:
+      - source: mysql_56_config
+        target: /etc/mysql/conf.d/my.cnf
+    secrets:
+      - mysql_56_root_password
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_56_root_password
+      # MYSQL_ROOT_HOST: localhost
     networks:
-      - mysql-56
+      - cluster
     deploy:
-      replicas: 2
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
@@ -22,14 +26,103 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - 'node.role == worker'
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+  mysql_57:
+    image: mysql:5.7
+    ports:
+      - "53307:3306"
+    volumes:
+      - mysql_57:/var/lib/mysql:rw
+    configs:
+      - source: mysql_57_config
+        target: /etc/mysql/conf.d/my.cnf
+    secrets:
+      - mysql_57_root_password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_57_root_password
+      # MYSQL_ROOT_HOST: localhost
+    networks:
+      - cluster
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+  mariadb:
+    image: mariadb:10.5.13
+    ports:
+      - "53308:3306"
+    volumes:
+      - mariadb:/var/lib/mysql:rw
+    secrets:
+      - mariadb_root_password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+      # MYSQL_ROOT_HOST: localhost
+    networks:
+      - cluster
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
-  mysql-56:
-    name: mysql-56
+  cluster:
+    name: cluster
     driver: overlay
+    attachable: true
+    external: true
+
+configs:
+  mysql_56_config:
+    name: mysql_56_config
+    external: false
+    file: ./conf/mysql-56/my.cnf
+  mysql_57_config:
+    name: mysql_57_config
+    external: false
+    file: ./conf/mysql-57/my.cnf
+
+secrets:
+  mysql_56_root_password:
+    name: mysql_56_root_password
+    external: false
+    file: ./conf/secrets/mysql_56_root_password.txt
+  mysql_57_root_password:
+    name: mysql_57_root_password
+    external: false
+    file: ./conf/secrets/mysql_57_root_password.txt
+  mariadb_root_password:
+    name: mariadb_root_password
+    external: false
+    file: ./conf/secrets/mariadb_root_password.txt
 
 volumes:
-  mysql-56:
-    name: mysql-56
+  mysql_56:
+    name: mysql_56
     driver: local
+    external: false
+  mysql_57:
+    name: mysql_57
+    driver: local
+    external: false
+  mariadb:
+    name: mariadb
+    driver: local
+    external: false
