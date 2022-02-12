@@ -5,26 +5,39 @@ services:
     image: php:5.6.40-fpm
     ports:
       - "59006:9000"
+    configs:
+      - source: mysql_57_config
+        target: /etc/mysql/conf.d/my.cnf
     volumes:
       - php-56:/var/www:rw
     networks:
-      - php-56
+      - cluster
     deploy:
-      replicas: 3
-      update_config:
-        parallelism: 2
-        failure_action: rollback
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
         window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
-  php-56:
-    name: php-56
+  cluster:
+    name: cluster
     driver: overlay
+    attachable: true
+    external: true
 
 volumes:
   php-56:
+    name: php-56
+    driver: local
+  php-7:
+    name: php-56
+    driver: local
+  php-8:
     name: php-56
     driver: local

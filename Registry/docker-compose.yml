@@ -4,35 +4,27 @@ services:
   registry:
     image: registry:${REGISTRY_VERSION}
     container_name: registry
-    hostname: ${HOST_NAME}
     restart: always
-    extra_hosts:
-      - minio.***REMOVED***:${MINIO_HOST}
     ports:
-      - "55000:443"
+      - "55000:5000"
     environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
       REGISTRY_STORAGE: s3
       REGISTRY_STORAGE_S3_ACCESSKEY: ${MINIO_ACCESS_KEY}
       REGISTRY_STORAGE_S3_SECRETKEY: ${MINIO_SECRET_KEY}
-      REGISTRY_STORAGE_S3_REGIONENDPOINT: ${MINIO_DOMAIN}
+      REGISTRY_STORAGE_S3_REGION: ignored-for-minio
+      REGISTRY_STORAGE_S3_REGIONENDPOINT: ${MINIO_IP_WITH_PORT}
       REGISTRY_STORAGE_S3_BUCKET: ${MINIO_BUCKET}
       REGISTRY_STORAGE_S3_SECURE: "false"
-      REGISTRY_STORAGE_S3_REGION: ignored-for-minio
       REGISTRY_STORAGE_S3_CHUNKSIZE: 51214400
       REGISTRY_STORAGE_DELETE_ENABLED: "true"
       REGISTRY_STORAGE_REDIRECT_DISABLE: "false"
-      REGISTRY_HTTP_ADDR: 0.0.0.0:443
-      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/wildcard-certificate.crt
-      REGISTRY_HTTP_TLS_KEY: /certs/wildcard-certificate.key
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: basic-realm
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/.htpasswd
     working_dir: /var/lib
     volumes:
-      - ./conf/config.yml:/etc/docker/registry/config.yml:rw
       - ./conf/auth:/auth
-      - "../Nginx/conf/ssl/wildcard-certificate.crt:/certs/wildcard-certificate.crt:ro"
-      - "../Nginx/conf/ssl/wildcard-certificate.key:/certs/wildcard-certificate.key:ro"
     networks:
       - registry
 
@@ -40,8 +32,3 @@ networks:
   registry:
     name: develop
     external: true
-
-volumes:
-  registries:
-    name: registries
-    external: false

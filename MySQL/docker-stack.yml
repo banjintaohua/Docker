@@ -6,7 +6,7 @@ services:
     ports:
       - "53306:3306"
     volumes:
-      - mysql_56:/var/lib/mysql:rw
+      - mysql_56_data:/var/lib/mysql:rw
     configs:
       - source: mysql_56_config
         target: /etc/mysql/conf.d/my.cnf
@@ -34,7 +34,7 @@ services:
     ports:
       - "53307:3306"
     volumes:
-      - mysql_57:/var/lib/mysql:rw
+      - mysql_57_data:/var/lib/mysql:rw
     configs:
       - source: mysql_57_config
         target: /etc/mysql/conf.d/my.cnf
@@ -62,7 +62,7 @@ services:
     ports:
       - "53308:3306"
     volumes:
-      - mariadb:/var/lib/mysql:rw
+      - mariadb_data:/var/lib/mysql:rw
     secrets:
       - mariadb_root_password
     environment:
@@ -114,15 +114,15 @@ secrets:
     file: ./conf/secrets/mariadb_root_password.txt
 
 volumes:
-  mysql_56:
-    name: mysql_56
+  mysql_56_data:
+    name: mysql_56_data
     driver: local
     external: false
-  mysql_57:
-    name: mysql_57
+  mysql_57_data:
+    name: mysql_57_data
     driver: local
     external: false
-  mariadb:
-    name: mariadb
+  mariadb_data:
+    name: mariadb_data
     driver: local
     external: false

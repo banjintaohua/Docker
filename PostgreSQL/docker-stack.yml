@@ -2,16 +2,57 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres
+    image: postgres:${POSTGRES_VERSION:-13.5}
     ports:
       - "55432:5432"
     volumes:
-      - ./data/:/var/lib/postgresql/data/:rw
-    networks:
-      - develop
+      - postgres_data:/var/lib/postgresql/data/:rw
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
+    configs:
+      - source: postgres_config
+        target: /etc/postgresql/postgresql.conf
+    secrets:
+      - postgres_password
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-example}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    networks:
+      - cluster
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
-  develop:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
     external: true
+
+configs:
+  postgres_config:
+    name: postgres_config
+    external: false
+    file: ./conf/postgresql.conf
+
+secrets:
+  postgres_password:
+    name: postgres_password
+    external: false
+    file: ./conf/secrets/postgres_password.txt
+
+volumes:
+  postgres_data:
+    name: postgres_data
+    driver: local
+    external: false

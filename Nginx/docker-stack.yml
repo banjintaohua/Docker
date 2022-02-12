@@ -61,6 +61,8 @@ services:
         target: /etc/nginx/conf.d/bark.conf
       - source: nginx_blog
         target: /etc/nginx/conf.d/blog.conf
+      - source: nginx_docker_registry
+        target: /etc/nginx/conf.d/docker_registry.conf
       - source: nginx_elasticsearch
         target: /etc/nginx/conf.d/elasticsearch.conf
       - source: nginx_frps
@@ -91,7 +93,7 @@ services:
 
 configs:
   nginx_htpasswd:
-    name: nginx_htpasswd
+    name: nginx_htpasswd_v1
     file: ./conf/.htpasswd
   nginx_config:
     name: nginx_config_v1
@@ -102,6 +104,9 @@ configs:
   nginx_blog:
     name: nginx_blog
     file: ./conf/conf.d/blog.conf
+  nginx_docker_registry:
+    name: nginx_docker_registry_v2
+    file: ./conf/conf.d/docker_registry.conf
   nginx_elasticsearch:
     name: nginx_elasticsearch
     file: ./conf/conf.d/elasticsearch.conf
@@ -109,7 +114,7 @@ configs:
     name: nginx_frps_v1
     file: ./conf/conf.d/frps.conf
   nginx_gitlab:
-    name: nginx_gitlab
+    name: nginx_gitlab_v1
     file: ./conf/conf.d/gitlab.conf
   nginx_kibana:
     name: nginx_kibana

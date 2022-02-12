@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:13.12.15-ce.0
+    networks:
+      - cluster
+    ports:
+      - "57891:22"
+      - "58080:80"
+      - "58443:443"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+    working_dir: /var/lib
+    configs:
+      - source: gitlab_config
+        target: /omnibus_config.rb
+    secrets:
+      - gitlab_root_password
+      - source: wildcard-certificate.crt
+        target: /etc/gitlab/ssl/wildcard-certificate.crt
+      - source: wildcard-certificate.key
+        target: /etc/gitlab/ssl/wildcard-certificate.key
+    volumes:
+      - gitlab_data:/var/opt/gitlab:rw
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == GuangZhou-CentOS
+          - node.platform.os == linux
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+
+configs:
+  gitlab_config:
+    name: gitlab_config
+    external: false
+    file: ./conf/gitlab/gitlab.rb
+
+secrets:
+  gitlab_root_password:
+    file: ./conf/root_password.txt
+  wildcard-certificate.crt:
+    name: wildcard-certificate.crt.v3
+    file: ./conf/ssl/wildcard-certificate.crt
+  wildcard-certificate.key:
+    name: wildcard-certificate.key.v3
+    file: ./conf/ssl/wildcard-certificate.key
+
+volumes:
+  gitlab_data:
+    name: gitlab_data
+    driver: local
+    external: false

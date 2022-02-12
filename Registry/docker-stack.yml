@@ -5,22 +5,16 @@ services:
     image: registry:${REGISTRY_VERSION:-2.7.1}
     ports:
       - "55000:443"
-    volumes:
-      - ./conf/config.yml:/etc/docker/registry/config.yml:rw
     networks:
-      - registry
+      - cluster
+    configs:
+      - source: docker_registry_config
+        target: /etc/docker/registry/config.yml
     secrets:
+      - source: docker_registry_auth_htpasswd
+        target: /auth/.htpasswd
       - wildcard-certificate.crt
       - wildcard-certificate.key
-      - source: registry_auth_htpasswd
-        target: /auth/.htpasswd
-    environment:
-      REGISTRY_HTTP_ADDR: 0.0.0.0:443
-      REGISTRY_HTTP_TLS_CERTIFICATE: /run/secrets/wildcard-certificate.crt
-      REGISTRY_HTTP_TLS_KEY: /run/secrets/wildcard-certificate.key
-      REGISTRY_AUTH: htpasswd
-      REGISTRY_AUTH_HTPASSWD_PATH: /auth/.htpasswd
-      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     deploy:
       replicas: 1
       restart_policy:
@@ -31,21 +25,29 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
-  registry:
-    name: registry
+  cluster:
+    name: cluster
     driver: overlay
+    attachable: true
+    external: true
 
-volumes:
-  docker-registry:
-    name: docker-registry
-    driver: local
+configs:
+  docker_registry_config:
+    name: docker_registry_config_v1
+    external: false
+    file: ./conf/config.yml
 
 secrets:
+  docker_registry_auth_htpasswd:
+    name: docker_registry_auth_htpasswd
+    external: false
+    file: ./conf/auth/.htpasswd
   wildcard-certificate.crt:
+    name: wildcard-certificate.crt
     external: true
   wildcard-certificate.key:
-    external: true
-  registry_auth_htpasswd:
+    name: wildcard-certificate.key
     external: true
