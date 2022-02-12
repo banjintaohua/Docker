@@ -90,12 +90,16 @@ services:
 
 configs:
   elastic_config:
+    name: elastic_config_v1
     file: ./conf/elasticsearch/elasticsearch.yml
   logstash_config:
+    name: logstash_config_v1
     file: ./conf/logstash/logstash.yml
   logstash_pipeline:
+    name: logstash_pipeline_v1
     file: ./conf/logstash/pipeline/logstash.conf
   kibana_config:
+    name: kibana_config_v1
     file: ./conf/kibana/kibana.yml
 
 secrets:
