@@ -2,16 +2,37 @@ version: "3.9"
 
 services:
   python:
-    build:
-      context: ./build
-      dockerfile: Dockerfile
-    image: registry.example.online/example/python-3.9:scratch
+    image: registry.example.online/example/python-3.9:fastapi
+    working_dir: /var/www/app
     ports:
-      - "9006:8080"
+      - "58085:8080"
     networks:
-      - develop
-    command: tail -f /dev/null
+      - cluster
+    volumes:
+      - ./data/fastapi:/var/www/app:rw
+    command: [ "run" ]
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname != California-CentOS
+          - node.platform.os == linux
+
+volumes:
+  bark_data:
+    name: bark_data
+    external: false
 
 networks:
-  develop:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
     external: true

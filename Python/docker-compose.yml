@@ -5,15 +5,16 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: registry.example.online/example/python-3.9:scratch
+    image: registry.example.online/example/python-3.9:fastapi
     container_name: python-3.9
     working_dir: /var/www/app
     restart: always
     ports:
-      - "63828:8080"
+      - "58085:8080"
     networks:
       - develop
-    command: tail -f /dev/null
+    # command: tail -f /dev/null
+    command: [ "dev" ]
     volumes:
       - ../../Python/***REMOVED***:/var/www/app:rw
 

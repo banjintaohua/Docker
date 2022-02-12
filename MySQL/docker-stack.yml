@@ -22,6 +22,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
@@ -51,6 +52,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
@@ -77,6 +79,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:

@@ -6,7 +6,7 @@ services:
     container_name: registry
     restart: always
     ports:
-      - "55000:5000"
+      - "55050:5000"
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:5000
       REGISTRY_STORAGE: s3

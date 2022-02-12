@@ -2,29 +2,30 @@ version: "3.9"
 
 services:
   rabbitmq:
-      image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
-      ports:
-        - "15672:15672"
-        - "55672:5672"
-      volumes:
-        - rabbitmq_data:/var/lib/rabbitmq:rw
-      configs:
-        - source: rabbitmq_config
-          target: /etc/rabbitmq/conf.d/rabbitmq.conf
-      networks:
-        - cluster
-      deploy:
-        mode: replicated
-        replicas: 1
-        restart_policy:
-          condition: any
-          delay: 10s
-          window: 60s
-        placement:
-          max_replicas_per_node: 1
-          constraints:
-            - node.hostname == ShangHai-CentOS
-            - node.platform.os == linux
+    image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
+    ports:
+      - "15672:15672"
+      - "55672:5672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq:rw
+    configs:
+      - source: rabbitmq_config
+        target: /etc/rabbitmq/conf.d/rabbitmq.conf
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
   cluster:

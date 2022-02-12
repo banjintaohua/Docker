@@ -23,6 +23,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
@@ -31,13 +32,14 @@ services:
           - node.hostname == GuangZhou-CentOS
           - node.platform.os == linux
 
-  gitlab_runner:
+  gitlab-runner:
     image: gitlab/gitlab-runner:alpine
     deploy:
       mode: replicated
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:

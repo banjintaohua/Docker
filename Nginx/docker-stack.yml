@@ -20,6 +20,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
@@ -45,6 +46,7 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
@@ -105,19 +107,19 @@ configs:
     name: nginx_blog_v1
     file: ./conf/conf.d/blog.conf
   nginx_docker_registry:
-    name: nginx_docker_registry_v3
+    name: nginx_docker_registry_v4
     file: ./conf/conf.d/docker_registry.conf
   nginx_elasticsearch:
-    name: nginx_elasticsearch
+    name: nginx_elasticsearch_v1
     file: ./conf/conf.d/elasticsearch.conf
   nginx_frps:
     name: nginx_frps_v1
     file: ./conf/conf.d/frps.conf
   nginx_gitlab:
-    name: nginx_gitlab_v3
+    name: nginx_gitlab_v4
     file: ./conf/conf.d/gitlab.conf
   nginx_kibana:
-    name: nginx_kibana
+    name: nginx_kibana_v1
     file: ./conf/conf.d/kibana.conf
   nginx_minio:
     name: nginx_minio

@@ -1,44 +1,43 @@
-version: '3.3'
+version: '3.9'
 
 services:
 
   elasticsearch:
-    image: elastic/elasticsearch:7.11.1
+    image: elastic/elasticsearch:7.17.0
     ports:
       - "59200:9200"
       - "59300:9300"
     configs:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
+    secrets:
+      - elastic_password
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/elastic_password
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
-      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/7.17/bootstrap-checks.html
       discovery.type: single-node
-      # Force publishing on the 'elk' overlay.
+      # Force publishing on the 'cluster' overlay.
       network.publish_host: _eth0_
     networks:
-      - elk
+      - cluster
     deploy:
       mode: replicated
       replicas: 1
-
-  kibana:
-    image: elastic/kibana:7.11.1
-    ports:
-      - "55601:5601"
-    configs:
-      - source: kibana_config
-        target: /usr/share/kibana/config/kibana.yml
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == GuangZhou-Ubuntu
+          - node.platform.os == linux
 
   logstash:
-    image: elastic/logstash:7.11.1
+    image: elastic/logstash:7.17.0
     ports:
       - "55044:5044"
       - "55000:5000"
@@ -51,22 +50,63 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
-      - elk
+      - cluster
     deploy:
       mode: replicated
       replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == GuangZhou-Ubuntu
+          - node.platform.os == linux
+
+  kibana:
+    image: elastic/kibana:7.17.0
+    ports:
+      - "55601:5601"
+    configs:
+      - source: kibana_config
+        target: /usr/share/kibana/config/kibana.yml
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == GuangZhou-Ubuntu
+          - node.platform.os == linux
 
 configs:
-
   elastic_config:
-    file: ./elasticsearch/config/elasticsearch.yml
+    file: ./conf/elasticsearch/elasticsearch.yml
   logstash_config:
-    file: ./logstash/config/logstash.yml
+    file: ./conf/logstash/logstash.yml
   logstash_pipeline:
-    file: ./logstash/pipeline/logstash.conf
+    file: ./conf/logstash/pipeline/logstash.conf
   kibana_config:
-    file: ./kibana/config/kibana.yml
+    file: ./conf/kibana/kibana.yml
+
+secrets:
+  elastic_password:
+    name: elastic_password
+    external: false
+    file: ./conf/secrets/elastic_password.txt
 
 networks:
-  elk:
+  cluster:
+    name: cluster
     driver: overlay
+    attachable: true
+    external: true

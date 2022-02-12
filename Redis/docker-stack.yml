@@ -1,30 +1,31 @@
 version: "3.9"
 
 services:
-    redis:
-      image: redis:${REDIS_VERSION:-6.0.9}
-      ports:
-        - "56379:6379"
-      command: "redis-server /usr/local/etc/redis/redis.conf"
-      volumes:
-        - redis_data:/data
-      configs:
-        - source: redis_config
-          target: /usr/local/etc/redis/redis.conf
-      networks:
-        - cluster
-      deploy:
-        mode: replicated
-        replicas: 1
-        restart_policy:
-          condition: any
-          delay: 10s
-          window: 60s
-        placement:
-          max_replicas_per_node: 1
-          constraints:
-            - node.hostname == ShangHai-CentOS
-            - node.platform.os == linux
+  redis:
+    image: redis:${REDIS_VERSION:-6.0.9}
+    ports:
+      - "56379:6379"
+    command: "redis-server /usr/local/etc/redis/redis.conf"
+    volumes:
+      - redis_data:/data
+    configs:
+      - source: redis_config
+        target: /usr/local/etc/redis/redis.conf
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
 
 networks:
   cluster:

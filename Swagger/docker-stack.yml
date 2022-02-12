@@ -12,9 +12,11 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
+        max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
@@ -30,9 +32,11 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+        max_attempts: 3
         delay: 10s
         window: 60s
       placement:
+        max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux

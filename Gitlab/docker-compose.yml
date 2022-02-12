@@ -21,9 +21,9 @@ services:
       - ./data:/var/opt/gitlab:rw
       - ./log:/var/log/gitlab:rw
 
-  gitlab_runner:
+  gitlab-runner:
     image: gitlab/gitlab-runner:alpine
-    container_name: gitlab_runner
+    container_name: gitlab-runner
     restart: always
     networks:
       - develop
