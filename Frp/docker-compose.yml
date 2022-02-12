@@ -2,14 +2,7 @@ version: "3.9"
 
 services:
   frps:
-    build:
-      context: ./build
-      dockerfile: Dockerfile
-      args:
-        FRP_VERSION: ${FRP_VERSION:-0.35.1}
-        OS: ${OS:-linux}
-        ARCH: ${ARCH:-amd64}
-    image: registry.***REMOVED***/example/frps:1.0
+    image: snowdreamtech/frps:0.35.1
     container_name: frps
     restart: always
     network_mode: host
@@ -19,16 +12,11 @@ services:
       - ./log:/var/log/frp
 
   frpc:
-    build:
-      context: ./build
-      dockerfile: Dockerfile
-      args:
-        FRP_VERSION: ${FRP_VERSION:-0.35.1}
-        OS: ${OS:-linux}
-        ARCH: ${ARCH:-amd64}
-    image: registry.***REMOVED***/example/frpc:mac
+    image: snowdreamtech/frps:0.35.1
     container_name: frpc
     restart: always
+    networks:
+      - develop
     command: /usr/bin/frpc -c /etc/frp/frpc.ini
     volumes:
       - ./conf/client/frpc.ini:/etc/frp/frpc.ini:rw

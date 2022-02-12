@@ -2,17 +2,18 @@ version: "3.9"
 
 services:
   hexo:
-    image: registry.***REMOVED***/example/notes:1.5
+    image: registry.example.online/example/notes:2.1
     ports:
       - "54000:4000"
-      - "54022:22"
+      - "57892:22"
     environment:
       REMOTE_URL: ${REMOTE_URL:-git@github.com:example/notes.git}
       BRANCH: ${BRANCH:-master}
       HEXO_DEBUG: ${HEXO_DEBUG}
     working_dir: /usr/local/opt/hexo/blog/source/_posts
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
@@ -21,56 +22,59 @@ services:
         constraints:
           - node.platform.os == linux
           - node.hostname == GuangZhou-CentOS
-    command:
-      - sh
-      - -c
-      - |
-        test -d /usr/local/opt/hexo/blog/source/_posts/.git || git clone --progress $${REMOTE_URL} /usr/local/opt/hexo/blog/source/_posts
-        rm -f /usr/local/opt/hexo/blog/source/_posts/package.json
-        cd /usr/local/opt/hexo/blog/source
-        /usr/local/bin/hexo clean
-        /usr/local/bin/hexo generate $${HEXO_DEBUG}
-        nohup /usr/local/bin/hexo server 2>&1 &
-        /usr/sbin/sshd -D
     configs:
-      - source: hexo-_config.yml
+      - source: hexo_config.yml
         target: /usr/local/opt/hexo/blog/_config.yml
-      - source: hexo-next-_config.yml
+      - source: hexo_next_config.yml
         target: /usr/local/opt/hexo/blog/themes/next/_config.yml
-      - source: hexo-next-Pisces.styl
+      - source: hexo_next_Pisces.styl
         target: /usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl
-      - source: hexo-next-zh-CN.yml
+      - source: hexo_next_zh_CN.yml
         target: /usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml
     secrets:
-      - source: hexo-ssh-authorized_keys
+      - source: hexo_ssh_authorized_keys
         target: /root/.ssh/authorized_keys
         mode: 0600
-      - source: hexo-ssh-id_rsa
+      - source: hexo_ssh_id_rsa
         target: /root/.ssh/id_rsa
         mode: 0600
-      - source: hexo-ssh-id_rsa.pub
+      - source: hexo_ssh_id_rsa_pub
         target: /root/.ssh/id_rsa.pub
         mode: 0600
     networks:
       - cluster
 
 configs:
-  hexo-_config.yml:
-    external: true
-  hexo-next-_config.yml:
-    external: true
-  hexo-next-Pisces.styl:
-    external: true
-  hexo-next-zh-CN.yml:
-    external: true
+  hexo_config.yml:
+    name: hexo_config.yml
+    external: false
+    file: ./conf/_config.yml
+  hexo_next_config.yml:
+    name: hexo_next_config.yml
+    external: false
+    file: ./conf/next/_config.yml
+  hexo_next_Pisces.styl:
+    name: hexo_next_Pisces.styl
+    external: false
+    file: ./conf/next/Pisces.styl
+  hexo_next_zh_CN.yml:
+    name: hexo_next_zh_CN.yml
+    external: false
+    file: ./conf/next/zh-CN.yml
 
 secrets:
-  hexo-ssh-authorized_keys:
-    external: true
-  hexo-ssh-id_rsa:
-    external: true
-  hexo-ssh-id_rsa.pub:
-    external: true
+  hexo_ssh_authorized_keys:
+    name: hexo_ssh_authorized_keys
+    external: false
+    file: ./conf/ssh/authorized_keys
+  hexo_ssh_id_rsa:
+    name: hexo_ssh_id_rsa
+    external: false
+    file: ./conf/ssh/id_rsa
+  hexo_ssh_id_rsa_pub:
+    name: hexo_ssh_id_rsa_pub
+    external: false
+    file: ./conf/ssh/id_rsa.pub
 
 networks:
   cluster:

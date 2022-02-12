@@ -102,10 +102,10 @@ configs:
     name: nginx_bark_v1
     file: ./conf/conf.d/bark.conf
   nginx_blog:
-    name: nginx_blog
+    name: nginx_blog_v1
     file: ./conf/conf.d/blog.conf
   nginx_docker_registry:
-    name: nginx_docker_registry_v2
+    name: nginx_docker_registry_v3
     file: ./conf/conf.d/docker_registry.conf
   nginx_elasticsearch:
     name: nginx_elasticsearch
@@ -114,7 +114,7 @@ configs:
     name: nginx_frps_v1
     file: ./conf/conf.d/frps.conf
   nginx_gitlab:
-    name: nginx_gitlab_v1
+    name: nginx_gitlab_v3
     file: ./conf/conf.d/gitlab.conf
   nginx_kibana:
     name: nginx_kibana

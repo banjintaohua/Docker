@@ -2,60 +2,39 @@ version: "3.9"
 
 services:
   gitlab:
-    image: gitlab/gitlab-ce:${GITLAB_VERSION}
+    image: gitlab/gitlab-ce:${GITLAB_VERSION-13.12.15-ce.0}
     container_name: gitlab
     restart: always
     hostname: ${HOST_NAME}
     networks:
-      develop:
-        ipv4_address: 172.19.0.38
+      - develop
     ports:
       - "57891:22"
       - "58080:80"
-      - "58443:443"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url '${HOST_DOMAIN}'
+        external_url "http://${HOST_NAME}"
         gitlab_rails['gitlab_shell_ssh_port'] = 57891
-        registry_external_url '${DOCKER_REGISTRY_HOST_NAME}'
-        registry_nginx['ssl_certificate'] = '/etc/gitlab/ssl/wildcard-certificate.crt'
-        registry_nginx['ssl_certificate_key'] = '/etc/gitlab/ssl/wildcard-certificate.key'
-        registry['storage'] = {
-          's3' => {
-            'accesskey' => '${MINIO_ACCESS_KEY}',
-            'secretkey' => '${MINIO_SECRET_KEY}',
-            'bucket' => 'docker',
-            'regionendpoint' => '${MINIO_IP_WITH_PORT}',
-            'region' => 'ignored-for-minio'
-          },
-          'redirect' => {
-            'disable' => false
-          }
-        }
     working_dir: /var/lib
     volumes:
       - ./conf/gitlab:/etc/gitlab:rw
-      - ../Nginx/conf/ssl/wildcard-certificate.crt:/etc/gitlab/ssl/wildcard-certificate.crt:ro
-      - ../Nginx/conf/ssl/wildcard-certificate.key:/etc/gitlab/ssl/wildcard-certificate.key:ro
-      - ./log:/var/log/gitlab:rw
       - ./data:/var/opt/gitlab:rw
+      - ./log:/var/log/gitlab:rw
 
-#  gitlab-runner:
-#    build:
-#      context: ./build
-#      dockerfile: Dockerfile
-#    image: registry.***REMOVED***/example/gitlab-runner:1.0
-#    container_name: gitlab-runner
-#    restart: always
-#    networks:
-#      - develop
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock:ro
-#      # Mac: /Users/Shared/gitlab-runner/config
-#      # Linux: /srv/gitlab-runner/config
-#      - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
-#      - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
-#      - ./conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
+  gitlab_runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: gitlab_runner
+    restart: always
+    networks:
+      - develop
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Mac: /Users/Shared/gitlab-runner/config
+      # - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
+      # Linux: /srv/gitlab-runner/config
+      - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
+      - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
+      - ./conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
 
 networks:
   develop:

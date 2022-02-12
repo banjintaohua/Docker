@@ -9,19 +9,21 @@ My personal docker study notes
 | Service                     | Ports                                   | Port Keep               |
 | --------------------------- | --------------------------------------- | ----------------------- |
 | Bark                        | `58084:8080`                            |                         |
+| CentOS                      |                                         | -                       |
 | DBGp                        | `59002:9001`  `59003:9003`              |                         |
 | ElasticStack                |                                         |                         |
 | FileBeat                    |                                         | -                       |
 | Frp                         | `57000:7000`  `57500:7500`              |                         |
 | Frp-Remote-Desktop          | `53389:3389`                            |                         |
-| GitLab                      | `58080:80`  `57891:22`  `58443:443`     |                         |
+| GitLab                      | `58080:80`  `57891:22`                  |                         |
 | GitLab-Runner               |                                         | -                       |
 | Go                          |                                         |                         |
-| Hexo                        |                                         | `54000:4000` `63826:22` |
+| Hexo                        |                                         | `54000:4000` `57892:22` |
 | Minio                       | `59005:9000`                            | `59004`                 |
 | Minio-Client                | -                                       |                         |
 | MongoDB                     | `57017:27017`                           |                         |
 | MySQL                       | `53306:3306`  `53307:3306` `53308:3306` |                         |
+| NFS                         |                                         |                         |
 | Nginx                       | `80:80`  `443:443`                      |                         |
 | Node                        |                                         |                         |
 | PHP-56                      |                                         | `59006:9000`            |
@@ -29,11 +31,12 @@ My personal docker study notes
 | PHP-8                       |                                         | `59008:9000`            |
 | Portainer                   | `59000:9000`                            | `8000:8000`             |
 | Portainer-Edge-Agent        | `59001:9001`                            |                         |
-| PostgresSQL                 |                                         | `55432:5432`            |
+| PostgresSQL                 | `55432:5432`                            |                         |
 | Python                      |                                         | `58085:8080`            |
 | Qinglong                    | `55700:5700`                            |                         |
 | RabbitMQ                    | `55672:5672`                            | `15672:15672`           |
 | Redis                       | `56379:6379`                            |                         |
+| Registry                    | `55000:443`                             | `55000:5000`            |
 | Shadowsocks-Client          | `51079:51079`                           |                         |
 | Shadowsocks-Websocket-HTTP  | `51080:51080`                           |                         |
 | Shadowsocks-Websocket-HTTPS | `51081:51081`                           |                         |

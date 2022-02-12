@@ -6,6 +6,7 @@ services:
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-http.log 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
+      mode: replicated
       replicas: 1
       restart_policy:
         condition: any
@@ -36,6 +37,7 @@ services:
     command: "ss-server -c /etc/shadowsocks-libev/config.json > /var/log/ss-websocket-https 2>&1"
     working_dir: /etc/shadowsocks-libev
     deploy:
+      mode: replicated
       replicas: 1
       restart_policy:
         condition: any

@@ -16,6 +16,7 @@ services:
       - wildcard-certificate.crt
       - wildcard-certificate.key
     deploy:
+      mode: replicated
       replicas: 1
       restart_policy:
         condition: any
@@ -36,7 +37,7 @@ networks:
 
 configs:
   docker_registry_config:
-    name: docker_registry_config_v1
+    name: docker_registry_config_v2
     external: false
     file: ./conf/config.yml
 

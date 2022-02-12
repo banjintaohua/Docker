@@ -19,6 +19,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_initdb_root_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_initdb_root_password
     deploy:
+      mode: replicated
       replicas: 1
       restart_policy:
         condition: any

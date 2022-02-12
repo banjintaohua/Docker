@@ -11,6 +11,8 @@ services:
     volumes:
       - minio_data:/data
     deploy:
+      mode: replicated
+      replicas: 1
       restart_policy:
         condition: any
         delay: 10s
