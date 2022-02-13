@@ -66,8 +66,10 @@ services:
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
+        mode: 0600
       - source: wildcard-certificate.key
         target: /etc/ssl/wildcard-certificate.key
+        mode: 0600
 
 networks:
   cluster:

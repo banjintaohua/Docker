@@ -13,8 +13,10 @@ services:
     networks:
       - cluster
     secrets:
-      - mongo_initdb_root_username
-      - mongo_initdb_root_password
+      - source: mongo_initdb_root_password
+        mode: 0600
+      - source: mongo_initdb_root_username
+        mode: 0600
     environment:
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_initdb_root_username
       MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_initdb_root_password

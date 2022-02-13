@@ -15,7 +15,8 @@ services:
       - source: gitlab_config
         target: /omnibus_config.rb
     secrets:
-      - gitlab_root_password
+      - source: gitlab_root_password
+        mode: 0600
     volumes:
       - gitlab_data:/var/opt/gitlab:rw
     deploy:

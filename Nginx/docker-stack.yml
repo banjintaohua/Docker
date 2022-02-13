@@ -14,7 +14,8 @@ services:
     # command: acme.sh --register-account -m $CF_Email --issue -k ec-256 --dns dns_cf -d *.example.online
     # command: acme.sh --installcert --ecc -d *.example.online --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
     secrets:
-      - acme_cloud_flare_env
+      - source: acme_cloud_flare_env
+        mode: 0600
     deploy:
       mode: replicated
       replicas: 1
@@ -90,8 +91,10 @@ services:
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
+        mode: 0600
       - source: wildcard-certificate.key
         target: /etc/ssl/wildcard-certificate.key
+        mode: 0600
 
 configs:
   nginx_htpasswd:
@@ -110,7 +113,7 @@ configs:
     name: nginx_docker_registry_v4
     file: ./conf/conf.d/docker_registry.conf
   nginx_elasticsearch:
-    name: nginx_elasticsearch_v1
+    name: nginx_elasticsearch_v2
     file: ./conf/conf.d/elasticsearch.conf
   nginx_frps:
     name: nginx_frps_v1

@@ -11,7 +11,8 @@ services:
       - source: mysql_56_config
         target: /etc/mysql/conf.d/my.cnf
     secrets:
-      - mysql_56_root_password
+      - source: mysql_56_root_password
+        mode: 0600
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_56_root_password
       # MYSQL_ROOT_HOST: localhost
@@ -41,7 +42,8 @@ services:
       - source: mysql_57_config
         target: /etc/mysql/conf.d/my.cnf
     secrets:
-      - mysql_57_root_password
+      - source: mysql_57_root_password
+        mode: 0600
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_57_root_password
       # MYSQL_ROOT_HOST: localhost
@@ -68,7 +70,8 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql:rw
     secrets:
-      - mariadb_root_password
+      - source: mariadb_root_password
+        mode: 0600
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       # MYSQL_ROOT_HOST: localhost

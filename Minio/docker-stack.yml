@@ -24,8 +24,10 @@ services:
           - node.hostname == ShangHai-CentOS
     command: server /data
     secrets:
-      - minio_access_key
-      - minio_secret_key
+      - source: minio_access_key
+        mode: 0600
+      - source: minio_secret_key
+        mode: 0600
     environment:
       MINIO_ACCESS_KEY_FILE: /run/secrets/minio_access_key
       MINIO_SECRET_KEY_FILE: /run/secrets/minio_secret_key

@@ -7,14 +7,17 @@ services:
     ports:
       - "59200:9200"
       - "59300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
     configs:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
     secrets:
-      - elastic_password
+      - source: elastic_password
+        mode: 0600
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/elastic_password
+      ELASTIC_PASSWORD_FILE: /run/secrets/elastic_password
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/7.17/bootstrap-checks.html
       discovery.type: single-node
@@ -90,16 +93,16 @@ services:
 
 configs:
   elastic_config:
-    name: elastic_config_v1
+    name: elastic_config_v3
     file: ./conf/elasticsearch/elasticsearch.yml
   logstash_config:
-    name: logstash_config_v1
+    name: logstash_config_v3
     file: ./conf/logstash/logstash.yml
   logstash_pipeline:
-    name: logstash_pipeline_v1
+    name: logstash_pipeline_v3
     file: ./conf/logstash/pipeline/logstash.conf
   kibana_config:
-    name: kibana_config_v1
+    name: kibana_config_v4
     file: ./conf/kibana/kibana.yml
 
 secrets:
@@ -114,3 +117,8 @@ networks:
     driver: overlay
     attachable: true
     external: true
+
+volumes:
+  elasticsearch_data:
+    name: elasticsearch_data
+    external: false

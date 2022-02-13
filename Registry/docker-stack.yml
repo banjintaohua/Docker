@@ -13,8 +13,11 @@ services:
     secrets:
       - source: docker_registry_auth_htpasswd
         target: /auth/.htpasswd
-      - wildcard-certificate.crt
-      - wildcard-certificate.key
+        mode: 0600
+      - source: wildcard-certificate.crt
+        mode: 0600
+      - source: wildcard-certificate.key
+        mode: 0600
     deploy:
       mode: replicated
       replicas: 1

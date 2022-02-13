@@ -10,13 +10,13 @@ services:
     restart: "no"
     volumes:
       - ./conf/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - elastic-stack:/usr/share/elasticsearch/data
+      - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - "59200:9200"
       - "59300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD-changeme}
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
@@ -68,6 +68,6 @@ networks:
     external: false
 
 volumes:
-  elastic-stack:
-    name: elastic-stack
+  elasticsearch_data:
+    name: elasticsearch_data
     external: false
