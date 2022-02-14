@@ -5,11 +5,11 @@ services:
     build:
       context: ./build/
       args:
-        GO_VERSION: $GO_VERSION
-    image: golang:1.14.2-debugging
+        IMAGE_VERSION: $IMAGE_VERSION
+    image: example/golang:1.17.3-debugging
     container_name: golang
-    restart: always
-    working_dir: /app
+    restart: "no"
+    working_dir: /release
     volumes:
       - /Users/sea/go:/go:rw
       - /Users/sea/Documents/Go:/app:rw
@@ -18,8 +18,8 @@ services:
       - "58086:8080"
     networks:
       - develop
-    command: tail -f /dev/null
-    # command: /usr/local/bin/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 exec /app/foobar
+    command: [ "run" ]
+    # command: /release/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 --accept-multiclient exec /release/server
 
 networks:
   develop:

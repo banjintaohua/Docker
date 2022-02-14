@@ -2,14 +2,13 @@ version: "3.9"
 
 services:
   python:
-    image: registry.example.online/example/python-3.9:fastapi
-    working_dir: /var/www/app
+    image: example/golang:1.17.3-debugging
+    working_dir: /release
     ports:
-      - "58085:8080"
+      - "52345:2345"
+      - "58086:8080"
     networks:
       - cluster
-    volumes:
-      - ./data/fastapi:/var/www/app:rw
     command: [ "run" ]
     deploy:
       mode: replicated
