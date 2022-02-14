@@ -18,7 +18,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
   && git clone https://github.com/go-delve/delve /tmp/delve \
   && cd /tmp/delve/cmd/dlv \
   && go build -o /usr/local/bin/dlv \
-  && rm -rf /tmp/*
+  && rm -rf /tmp/* /var/cache/apk/*
   # && go build -gcflags="all=-N -l" -o /app/foobar
 
 EXPOSE 2345

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  dbgp-proxy:
+    image: example/dbgp-proxy:alpine
+    ports:
+      - "59002:9001"
+      - "59003:9003"
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
+          - node.hostname != California-CentOS
+    networks:
+      - cluster
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    external: true

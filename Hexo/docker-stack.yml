@@ -23,15 +23,15 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.platform.os == linux
-          - node.hostname == GuangZhou-CentOS
+          - node.hostname != California-CentOS
     configs:
-      - source: hexo_config.yml
+      - source: hexo_config_yml
         target: /usr/local/opt/hexo/blog/_config.yml
-      - source: hexo_next_config.yml
+      - source: hexo_next_config_yml
         target: /usr/local/opt/hexo/blog/themes/next/_config.yml
-      - source: hexo_next_Pisces.styl
+      - source: hexo_next_Pisces_styl
         target: /usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl
-      - source: hexo_next_zh_CN.yml
+      - source: hexo_next_zh_CN_yml
         target: /usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml
     secrets:
       - source: hexo_ssh_authorized_keys
@@ -47,20 +47,20 @@ services:
       - cluster
 
 configs:
-  hexo_config.yml:
-    name: hexo_config.yml
+  hexo_config_yml:
+    name: hexo_config_yml_v1
     external: false
     file: ./conf/_config.yml
-  hexo_next_config.yml:
-    name: hexo_next_config.yml
+  hexo_next_config_yml:
+    name: hexo_next_config_yml_v1
     external: false
     file: ./conf/next/_config.yml
-  hexo_next_Pisces.styl:
-    name: hexo_next_Pisces.styl
+  hexo_next_Pisces_styl:
+    name: hexo_next_Pisces_styl_v1
     external: false
     file: ./conf/next/Pisces.styl
-  hexo_next_zh_CN.yml:
-    name: hexo_next_zh_CN.yml
+  hexo_next_zh_CN_yml:
+    name: hexo_next_zh_CN_yml_v1
     external: false
     file: ./conf/next/zh-CN.yml
 
