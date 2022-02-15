@@ -4,8 +4,8 @@ services:
   bark-server:
     image: finab/bark-server:v2.0.1
     ports:
-      - target: 8080
-        published: 58084
+      - published: 58084
+        target: 8080
     networks:
       - cluster
     volumes:

@@ -2,22 +2,22 @@ version: "3.9"
 
 services:
   rabbitmq:
-      image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
-      container_name: rabbitmq
-      restart: "always"
-      ports:
-        - "127.0.0.1:15672:15672"
-        - "55672:5672"
-      volumes:
-        - ./data:/var/lib/rabbitmq:rw
-        - ./log:/var/log/rabbitmq:rw
-        - ./conf:/etc/rabbitmq/conf.d:rw
-      networks:
-        develop:
-          ipv4_address: 172.19.0.36
-      environment:
-        RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
-        RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-Ch@ngeMe}
+    image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
+    container_name: rabbitmq
+    restart: "always"
+    ports:
+      - "127.0.0.1:15672:15672"
+      - "55672:5672"
+    volumes:
+      - ./data:/var/lib/rabbitmq:rw
+      - ./log:/var/log/rabbitmq:rw
+      - ./conf:/etc/rabbitmq/conf.d:rw
+    networks:
+      develop:
+        ipv4_address: 172.19.0.36
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-Ch@ngeMe}
 
 networks:
   develop:

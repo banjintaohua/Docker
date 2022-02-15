@@ -22,7 +22,7 @@ services:
       - KIBANA_HOST=${KIBANA_HOST}
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
-    command: ["--strict.perms=false"]
+    command: [ "--strict.perms=false" ]
 
 networks:
   elk:
