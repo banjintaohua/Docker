@@ -11,3 +11,10 @@ services:
     ports:
       - ${IDE_PORT:-9001}:9001
       - ${DEBUG_PORT:-9003}:9003
+    networks:
+      - develop
+
+networks:
+  develop:
+    name: develop
+    external: true
