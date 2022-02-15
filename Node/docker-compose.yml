@@ -4,7 +4,7 @@ services:
   node:
     image: node:14.18.2
     container_name: node
-    restart: always
+    restart: "no"
     working_dir: /var/www
     volumes:
       - ./data:/var/www:rw

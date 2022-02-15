@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  node-js:
+    image: node:14.18.2
+    ports:
+      - "58087:8080"
+    volumes:
+      - ./data:/var/www:rw
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
