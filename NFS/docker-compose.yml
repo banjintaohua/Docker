@@ -1,29 +1,20 @@
 version: "3.9"
 
 services:
-  nfs:
-    image: erichough/nfs-server
-    container_name: nfs
+  nfs-server:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: example/nfs-server:erichough
+    container_name: nfs-server
     restart: "no"
-    ports:
-      - "52049:2049"
+    network_mode: host
     cap_add:
       - SYS_ADMIN
-      - SETPCAP
+      - SYS_MODULE
     environment:
-      NFS_EXPORT_0: '/nfs-share  *(rw,sync,no_root_squash,no_all_squash,no_subtree_check,nohide,crossmnt)'
-    command: tail -f /dev/null
-    working_dir: /nfs-share
+      NFS_LOG_LEVEL: 'DEBUG'
     volumes:
-      - /your/path:/nfs-share
-    networks:
-      - develop
-
-networks:
-  develop:
-    external: true
-
-volumes:
-  filebeat:
-    name: filebeat
-    external: true
+      - ./data:/nfs/share
+      - ./conf/intranet_exports.txt:/etc/exports:ro
+      - /lib/modules:/lib/modules:ro

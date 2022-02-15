@@ -16,7 +16,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
   && apk add git \
   && apk add gcc \
   && apk add libc-dev \
-  && go install github.com/go-delve/delve/cmd/dlv@latest
+  && go install github.com/go-delve/delve/cmd/dlv@latest \
+  && rm -rf /tmp/* /var/cache/apk/*
 
 
 
@@ -43,7 +44,7 @@ RUN go build -gcflags="all=-N -l" -o /release/server \
 # stage3: run server with dlv
 # FROM centos:7 as runner
 # FROM scratch as runner
-FROM delve as runner
+FROM golang:${IMAGE_VERSION:-1.17.3-alpine} as runner
 
 WORKDIR /
 

@@ -6,7 +6,7 @@ services:
       context: ./build/
       args:
         IMAGE_VERSION: $IMAGE_VERSION
-    image: example/golang:1.17.3-debugging
+    image: example/golang:1.17.3-dlv
     container_name: golang
     restart: "no"
     working_dir: /release
