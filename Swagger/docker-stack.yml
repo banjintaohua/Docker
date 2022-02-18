@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   swagger-edit:
-    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-latest}
+    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-v3.52.5}
     ports:
       - "58081:8080"
     networks:
@@ -22,7 +22,7 @@ services:
           - node.platform.os == linux
 
   swagger-ui:
-    image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-latest}
+    image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-v3.52.5}
     ports:
       - "58082:8080"
     networks:

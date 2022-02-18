@@ -7,13 +7,17 @@ services:
       - host
     volumes:
       - acme_data:/acme.sh:rw
-      - ./conf/ssl/wildcard-certificate.crt:/etc/ssl/wildcard-certificate.crt:rw
-      - ./conf/ssl/wildcard-certificate.key:/etc/ssl/wildcard-certificate.key:rw
     command: [ 'daemon' ]
     # command: source /run/secrets/acme_cloud_flare_env
     # command: acme.sh --register-account -m $CF_Email --issue -k ec-256 --dns dns_cf -d *.example.online
     # command: acme.sh --installcert --ecc -d *.example.online --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
     secrets:
+      - source: wildcard-certificate.crt
+        target: /etc/ssl/wildcard-certificate.crt
+        mode: 0600
+      - source: wildcard-certificate.key
+        target: /etc/ssl/wildcard-certificate.key
+        mode: 0600
       - source: acme_cloud_flare_env
         mode: 0600
     deploy:
@@ -31,7 +35,7 @@ services:
           - node.platform.os == linux
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.20.2
     ports:
       - published: 80
         target: 80
@@ -147,13 +151,13 @@ configs:
 
 secrets:
   acme_cloud_flare_env:
-    name: acme_cloud_flare_env
+    name: acme_cloud_flare_env_v1
     file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
-    name: wildcard-certificate.crt.v3
+    name: wildcard_certificate_crt_v1
     file: ./conf/ssl/wildcard-certificate.crt
   wildcard-certificate.key:
-    name: wildcard-certificate.key.v3
+    name: wildcard_certificate_key_1
     file: ./conf/ssl/wildcard-certificate.key
 
 volumes:

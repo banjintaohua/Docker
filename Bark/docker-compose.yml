@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   bark-server:
-    image: finab/bark-server:${BARK_VERSION:-latest}
+    image: finab/bark-server:${BARK_VERSION:-v2.0.1}
     container_name: bark
     restart: always
     ports:

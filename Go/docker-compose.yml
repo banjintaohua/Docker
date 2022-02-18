@@ -5,7 +5,7 @@ services:
     build:
       context: ./build/
       args:
-        IMAGE_VERSION: $IMAGE_VERSION
+        GO_VERSION: $GO_VERSION
     image: example/golang:1.17.3-dlv
     container_name: golang
     restart: "no"

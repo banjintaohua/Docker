@@ -12,7 +12,7 @@ services:
     labels:
       co.elastic.logs/enable: false
     networks:
-      - elk
+      - develop
     volumes:
       - ./conf/filebeat.yml:/usr/share/filebeat/filebeat.yml:rw
       - ./conf/modules.d:/usr/share/filebeat/modules.d:rw
@@ -25,8 +25,9 @@ services:
     command: [ "--strict.perms=false" ]
 
 networks:
-  elk:
-    name: elk
+  develop:
+    name: develop
+    driver: bridge
     external: true
 
 volumes:

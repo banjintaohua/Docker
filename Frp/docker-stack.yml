@@ -24,7 +24,7 @@ services:
 
 configs:
   frps_config:
-    name: frps_config
+    name: frps_config_v1
     file: ./conf/server/frps.ini
 
 networks:

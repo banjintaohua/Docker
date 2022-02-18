@@ -93,13 +93,13 @@ services:
 
 configs:
   elastic_config:
-    name: elastic_config_v3
+    name: elastic_config_v1
     file: ./conf/elasticsearch/elasticsearch.yml
   logstash_config:
-    name: logstash_config_v3
+    name: logstash_config_v1
     file: ./conf/logstash/logstash.yml
   logstash_pipeline:
-    name: logstash_pipeline_v3
+    name: logstash_pipeline_v1
     file: ./conf/logstash/pipeline/logstash.conf
   kibana_config:
     name: kibana_config_v4
@@ -107,7 +107,7 @@ configs:
 
 secrets:
   elastic_password:
-    name: elastic_password
+    name: elastic_password_v1
     external: false
     file: ./conf/secrets/elastic_password.txt
 

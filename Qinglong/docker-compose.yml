@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   qinglong:
-    image: whyour/qinglong:latest
+    image: whyour/qinglong:${QINGLONG_VERSION:-2.11}
     container_name: qinglong
     restart: unless-stopped
     ports:

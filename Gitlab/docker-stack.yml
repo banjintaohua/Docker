@@ -58,12 +58,14 @@ networks:
 
 configs:
   gitlab_config:
-    name: gitlab_config
+    name: gitlab_config_v1
     external: false
     file: ./conf/gitlab/gitlab.rb
 
 secrets:
   gitlab_root_password:
+    name: gitlab_root_password_v1
+    external: false
     file: ./conf/root_password.txt
 
 volumes:

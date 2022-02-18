@@ -1,6 +1,6 @@
 # stage1: Build Delve
-ARG IMAGE_VERSION
-FROM golang:${IMAGE_VERSION:-1.17.3-alpine} AS delve
+ARG GO_VERSION
+FROM golang:${GO_VERSION:-1.17.3-alpine} AS delve
 
 # ENV GOOS darwin
 # ENV GOARCH amd64
@@ -44,7 +44,7 @@ RUN go build -gcflags="all=-N -l" -o /release/server \
 # stage3: run server with dlv
 # FROM centos:7 as runner
 # FROM scratch as runner
-FROM golang:${IMAGE_VERSION:-1.17.3-alpine} as runner
+FROM golang:${GO_VERSION:-1.17.3-alpine} as runner
 
 WORKDIR /
 
