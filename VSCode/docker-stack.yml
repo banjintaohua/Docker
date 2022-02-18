@@ -29,7 +29,7 @@ services:
 
 configs:
   vscode-config:
-    name: vscode-config
+    name: vscode-config_v1
     file: ./conf/.config/code-server/config.yaml
 
 volumes:

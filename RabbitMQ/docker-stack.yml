@@ -36,8 +36,7 @@ networks:
 
 configs:
   rabbitmq_config:
-    name: rabbitmq_config
-    external: false
+    name: rabbitmq_config_v1
     file: ./conf/rabbitmq.conf
 
 volumes:

@@ -36,8 +36,7 @@ networks:
 
 configs:
   redis_config:
-    name: redis_config
-    external: false
+    name: redis_config_v1
     file: ./conf/redis.conf
 
 volumes:

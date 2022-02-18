@@ -46,12 +46,10 @@ networks:
 
 secrets:
   minio_access_key:
-    name: minio_access_key
-    external: false
+    name: minio_access_key_v1
     file: ./conf/secrets/minio_access_key.txt
   minio_secret_key:
-    name: minio_secret_key
-    external: false
+    name: minio_secret_key_v1
     file: ./conf/secrets/minio_secret_key.txt
 
 volumes:

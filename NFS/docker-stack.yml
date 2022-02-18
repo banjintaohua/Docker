@@ -14,7 +14,7 @@ services:
     environment:
       NFS_LOG_LEVEL: 'INFO'
     configs:
-      - source: exports_config
+      - source: nfs_exports_config
         target: /etc/exports
     deploy:
       mode: replicated
@@ -31,8 +31,8 @@ services:
           - node.platform.os == linux
 
 configs:
-  exports_config:
-    name: exports_config
+  nfs_exports_config:
+    name: nfs_exports_config_v1
     file: ./conf/public_exports.txt
 
 networks:

@@ -88,8 +88,8 @@ configs:
 
 secrets:
   wildcard-certificate.crt:
-    name: wildcard-certificate.crt.v2
+    name: wildcard-certificate.crt.v1
     external: true
   wildcard-certificate.key:
-    name: wildcard-certificate.key.v2
+    name: wildcard-certificate.key.v1
     external: true

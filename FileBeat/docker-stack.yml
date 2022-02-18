@@ -7,9 +7,11 @@ services:
     labels:
       co.elastic.logs/enable: false
     networks:
-      - elk
+      - cluster
+    configs:
+      - source: filebeat_config
+        target: /usr/share/filebeat/filebeat.yml
     volumes:
-      - ./conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - filebeat:/usr/share/filebeat/data
     environment:
       - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
@@ -18,9 +20,16 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
     command: [ "--strict.perms=false" ]
 
+configs:
+  filebeat_config:
+    name: filebeat_config_v1
+    file: ./conf/filebeat.yml
+
 networks:
-  elk:
-    name: elk
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
     external: true
 
 volumes:

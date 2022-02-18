@@ -100,26 +100,21 @@ networks:
 
 configs:
   mysql_56_config:
-    name: mysql_56_config
-    external: false
+    name: mysql_56_config_v1
     file: ./conf/mysql-56/my.cnf
   mysql_57_config:
-    name: mysql_57_config
-    external: false
+    name: mysql_57_config_v1
     file: ./conf/mysql-57/my.cnf
 
 secrets:
   mysql_56_root_password:
-    name: mysql_56_root_password
-    external: false
+    name: mysql_56_root_password_v1
     file: ./conf/secrets/mysql_56_root_password.txt
   mysql_57_root_password:
-    name: mysql_57_root_password
-    external: false
+    name: mysql_57_root_password_v1
     file: ./conf/secrets/mysql_57_root_password.txt
   mariadb_root_password:
-    name: mariadb_root_password
-    external: false
+    name: mariadb_root_password_v1
     file: ./conf/secrets/mariadb_root_password.txt
 
 volumes:

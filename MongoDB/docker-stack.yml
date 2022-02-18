@@ -49,12 +49,10 @@ configs:
 
 secrets:
   mongo_initdb_root_username:
-    name: mongo_initdb_root_username
-    external: false
+    name: mongo_initdb_root_username_v1
     file: ./conf/secrets/mongo_initdb_root_username.txt
   mongo_initdb_root_password:
-    name: mongo_initdb_root_password
-    external: false
+    name: mongo_initdb_root_password_v1
     file: ./conf/secrets/mongo_initdb_root_password.txt
 
 volumes:

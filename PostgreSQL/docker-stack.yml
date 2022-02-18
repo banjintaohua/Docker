@@ -44,13 +44,13 @@ networks:
 
 configs:
   postgres_config:
-    name: postgres_config
+    name: postgres_config_v1
     external: false
     file: ./conf/postgresql.conf
 
 secrets:
   postgres_password:
-    name: postgres_password
+    name: postgres_password_v1
     external: false
     file: ./conf/secrets/postgres_password.txt
 

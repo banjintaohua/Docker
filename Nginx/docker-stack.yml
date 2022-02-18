@@ -113,25 +113,25 @@ configs:
     name: nginx_blog_v1
     file: ./conf/conf.d/blog.conf
   nginx_docker_registry:
-    name: nginx_docker_registry_v4
+    name: nginx_docker_registry_v1
     file: ./conf/conf.d/docker_registry.conf
   nginx_elasticsearch:
-    name: nginx_elasticsearch_v2
+    name: nginx_elasticsearch_v1
     file: ./conf/conf.d/elasticsearch.conf
   nginx_frps:
     name: nginx_frps_v1
     file: ./conf/conf.d/frps.conf
   nginx_gitlab:
-    name: nginx_gitlab_v4
+    name: nginx_gitlab_v1
     file: ./conf/conf.d/gitlab.conf
   nginx_kibana:
     name: nginx_kibana_v1
     file: ./conf/conf.d/kibana.conf
   nginx_minio:
-    name: nginx_minio
+    name: nginx_minio_v1
     file: ./conf/conf.d/minio.conf
   nginx_portainer:
-    name: nginx_portainer
+    name: nginx_portainer_v1
     file: ./conf/conf.d/portainer.conf
   nginx_qinglong:
     name: nginx_qinglong_v1
@@ -140,13 +140,13 @@ configs:
     name: nginx_rabbitmq_v1
     file: ./conf/conf.d/rabbit.conf
   nginx_shadowsocks:
-    name: nginx_shadowsocks
+    name: nginx_shadowsocks_v1
     file: ./conf/conf.d/ss-websocket-http.conf
   nginx_swagger:
-    name: nginx_swagger
+    name: nginx_swagger_v1
     file: ./conf/conf.d/swagger.conf
   nginx_vscode:
-    name: nginx_vscode
+    name: nginx_vscode_v1
     file: ./conf/conf.d/vscode.conf
 
 secrets:
