@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  filebeat:
+    image: elastic/filebeat:7.17.0
+    # Run as 'root' instead of 'filebeat' (uid 1000) to allow reading
+    # 'docker.sock' and the host's filesystem.
+    user: root
+    command:
+      # Log to stderr.
+      - -e
+      # Disable config file permissions checks. Allows mounting
+      # 'config/filebeat.yml' even if it's not owned by root.
+      # see: https://www.elastic.co/guide/en/beats/libbeat/7.17/config-file-permissions.html
+      - --strict.perms=false
+    configs:
+      - source: filebeat_config
+        target: /usr/share/filebeat/filebeat.yml
+      - source: filebeat_module_config_nginx
+        target: /usr/share/filebeat/modules.d/nginx.yml
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx_log:/var/log/nginx:ro
+      - frps_log:/var/log/frp:ro
+    networks:
+      - cluster
+
+configs:
+  filebeat_config:
+    name: filebeat_config_v1
+    file: ./conf/filebeat/filebeat.yml
+  filebeat_module_config_nginx:
+    name: filebeat_module_config_nginx_v1
+    file: ./conf/filebeat/modules.d/nginx.yml
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+
+volumes:
+  nginx_log:
+    name: nginx_log
+  frps_log:
+    name: frps_log

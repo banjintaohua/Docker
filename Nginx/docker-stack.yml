@@ -45,6 +45,8 @@ services:
         mode: host
     networks:
       - host
+    volumes:
+      - nginx_log:/var/log/nginx:ro
     deploy:
       mode: replicated
       replicas: 1
@@ -163,6 +165,9 @@ secrets:
 volumes:
   acme_data:
     name: acme_data
+    driver: local
+  nginx_log:
+    name: nginx_log
     driver: local
 
 networks:
