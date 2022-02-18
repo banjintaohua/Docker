@@ -27,9 +27,9 @@ services:
     volumes:
       - ./conf/auth:/auth
     networks:
-      - registry
+      - develop
 
 networks:
-  registry:
+  develop:
     name: develop
     external: true

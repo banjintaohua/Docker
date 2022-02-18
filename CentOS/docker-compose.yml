@@ -22,6 +22,8 @@ services:
     volumes:
       - ./data:/backup
       - source_data:/volume
+    networks:
+      - develop
     command: tar -cvzf /backup/backup.tar.gz  -C /volume .
 
   volume_restore:
@@ -33,6 +35,8 @@ services:
     volumes:
       - ./data:/backup
       - target_data:/volume
+    networks:
+      - develop
     command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
 
 

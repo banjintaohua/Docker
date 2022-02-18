@@ -10,3 +10,10 @@ services:
     volumes:
       - ./conf/.config:/home/coder/.config:rw
       - ./data/project:/home/coder/project:rw
+    networks:
+      - develop
+
+networks:
+  develop:
+    name: develop
+    external: true

@@ -21,4 +21,5 @@ services:
 
 networks:
   develop:
+    name: develop
     external: true
