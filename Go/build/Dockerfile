@@ -50,8 +50,6 @@ WORKDIR /
 
 COPY --from=builder /release /release
 
-RUN ls -al /release
-
 EXPOSE 2345 8080
 
 # CMD ["/release/dlv", "--listen=:2345", "--headless=true", "--check-go-version=false", "--api-version=2", "--accept-multiclient", "exec", "/release/server"]
