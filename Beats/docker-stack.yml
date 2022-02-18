@@ -25,6 +25,17 @@ services:
       - frps_log:/var/log/frp:ro
     networks:
       - cluster
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.platform.os == linux
 
 configs:
   filebeat_config:
