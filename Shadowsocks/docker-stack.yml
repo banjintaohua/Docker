@@ -29,7 +29,7 @@ services:
         constraints:
           - node.hostname == California-CentOS
     configs:
-      - source: ss-websocket-http-config
+      - source: shadowsocks_libev_over_http_config
         target: /etc/shadowsocks-libev/config.json
         mode: 0644
 
@@ -61,7 +61,7 @@ services:
         constraints:
           - node.hostname == California-CentOS
     configs:
-      - source: ss-websocket-https-config
+      - source: shadowsocks_libev_over_https_config
         target: /etc/shadowsocks-libev/config.json
     secrets:
       - source: wildcard-certificate.crt
@@ -79,17 +79,17 @@ networks:
     external: true
 
 configs:
-  ss-cliennt-config:
-    external: true
-  ss-websocket-http-config:
-    external: true
-  ss-websocket-https-config:
-    external: true
+  shadowsocks_libev_over_http_config:
+    name: shadowsocks_libev_over_http_config_v1
+    file: ./conf/ss-websocket-http/config.json
+  shadowsocks_libev_over_https_config:
+    name: shadowsocks_libev_over_https_config_v1
+    file: ./conf/ss-websocket-https/config.json
 
 secrets:
   wildcard-certificate.crt:
-    name: wildcard-certificate.crt.v1
+    name: wildcard_certificate_crt_v1
     external: true
   wildcard-certificate.key:
-    name: wildcard-certificate.key.v1
+    name: wildcard_certificate_key_1
     external: true

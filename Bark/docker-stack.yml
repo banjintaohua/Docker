@@ -27,7 +27,6 @@ services:
 volumes:
   bark_data:
     name: bark_data
-    external: false
 
 networks:
   cluster:

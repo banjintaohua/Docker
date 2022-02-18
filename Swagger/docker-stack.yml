@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   swagger-edit:
-    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-v3.52.5}
+    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-v3.18.2}
     ports:
       - "58081:8080"
     networks:

@@ -91,12 +91,12 @@ networks:
     external: true
 
 volumes:
-  php-56:
-    name: php-56
+  php_56_data:
+    name: php_56_data
     driver: local
-  php-74:
-    name: php-74
+  php_74_data:
+    name: php_74_data
     driver: local
-  php-80:
-    name: php-80
+  php_80_data:
+    name: php_80_data
     driver: local

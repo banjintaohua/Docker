@@ -46,7 +46,7 @@ volumes:
     name: acme_data
     external: true
   target_data:
-    name: test_data
+    name: acme_data_backup
     external: false
 
 networks:

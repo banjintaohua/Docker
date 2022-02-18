@@ -7,10 +7,10 @@ services:
       - "58083:8080"
     user: 0:0
     configs:
-      - source: vscode-config
+      - source: vscode_config
         target: /root/.config/code-server/config.yaml
     volumes:
-      - vscode:/home/coder/project:rw
+      - vscode_data:/home/coder/project:rw
     networks:
       - cluster
     deploy:
@@ -28,12 +28,12 @@ services:
           - node.hostname != California-CentOS
 
 configs:
-  vscode-config:
-    name: vscode-config_v1
+  vscode_config:
+    name: vscode_config_v1
     file: ./conf/.config/code-server/config.yaml
 
 volumes:
-  vscode:
+  vscode_data:
     driver: local
     name: vscode
 

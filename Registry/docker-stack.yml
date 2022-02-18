@@ -49,8 +49,8 @@ secrets:
     name: docker_registry_auth_htpasswd_v1
     file: ./conf/auth/.htpasswd
   wildcard-certificate.crt:
-    name: wildcard-certificate.crt.v1
+    name: wildcard_certificate_crt_v1
     external: true
   wildcard-certificate.key:
-    name: wildcard-certificate.key.v1
+    name: wildcard_certificate_key_1
     external: true

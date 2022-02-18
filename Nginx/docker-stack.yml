@@ -66,33 +66,33 @@ services:
       - source: nginx_config
         target: /etc/nginx/nginx.conf
       - source: nginx_bark
-        target: /etc/nginx/conf.d/bark.conf
+        target: /etc/nginx/conf.d/service.d/bark.conf
       - source: nginx_blog
-        target: /etc/nginx/conf.d/blog.conf
+        target: /etc/nginx/conf.d/service.d/blog.conf
       - source: nginx_docker_registry
-        target: /etc/nginx/conf.d/docker_registry.conf
+        target: /etc/nginx/conf.d/service.d/docker_registry.conf
       - source: nginx_elasticsearch
-        target: /etc/nginx/conf.d/elasticsearch.conf
+        target: /etc/nginx/conf.d/service.d/elasticsearch.conf
       - source: nginx_frps
-        target: /etc/nginx/conf.d/frps.conf
+        target: /etc/nginx/conf.d/service.d/frps.conf
       - source: nginx_gitlab
-        target: /etc/nginx/conf.d/gitlab.conf
+        target: /etc/nginx/conf.d/service.d/gitlab.conf
       - source: nginx_kibana
-        target: /etc/nginx/conf.d/kibana.conf
+        target: /etc/nginx/conf.d/service.d/kibana.conf
       - source: nginx_minio
-        target: /etc/nginx/conf.d/minio.conf
+        target: /etc/nginx/conf.d/service.d/minio.conf
       - source: nginx_portainer
-        target: /etc/nginx/conf.d/portainer.conf
+        target: /etc/nginx/conf.d/service.d/portainer.conf
       - source: nginx_qinglong
-        target: /etc/nginx/conf.d/qinglong.conf
+        target: /etc/nginx/conf.d/service.d/qinglong.conf
       - source: nginx_rabbitmq
-        target: /etc/nginx/conf.d/rabbit.conf
+        target: /etc/nginx/conf.d/service.d/rabbit.conf
       - source: nginx_shadowsocks
-        target: /etc/nginx/conf.d/ss-websocket-http.conf
+        target: /etc/nginx/conf.d/service.d/shadowsocket.conf
       - source: nginx_swagger
-        target: /etc/nginx/conf.d/swagger.conf
+        target: /etc/nginx/conf.d/service.d/swagger.conf
       - source: nginx_vscode
-        target: /etc/nginx/conf.d/vscode.conf
+        target: /etc/nginx/conf.d/service.d/vscode.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
@@ -108,48 +108,51 @@ configs:
   nginx_config:
     name: nginx_config_v1
     file: ./conf/nginx.conf
+  nginx_default_config:
+    name: nginx_default_config_v1
+    file: ./conf/conf.d/default.conf
   nginx_bark:
     name: nginx_bark_v1
-    file: ./conf/conf.d/bark.conf
+    file: ./conf/conf.d/service.d/bark.conf
   nginx_blog:
     name: nginx_blog_v1
-    file: ./conf/conf.d/blog.conf
+    file: ./conf/conf.d/service.d/blog.conf
   nginx_docker_registry:
     name: nginx_docker_registry_v1
-    file: ./conf/conf.d/docker_registry.conf
+    file: ./conf/conf.d/service.d/docker_registry.conf
   nginx_elasticsearch:
     name: nginx_elasticsearch_v1
-    file: ./conf/conf.d/elasticsearch.conf
+    file: ./conf/conf.d/service.d/elasticsearch.conf
   nginx_frps:
     name: nginx_frps_v1
-    file: ./conf/conf.d/frps.conf
+    file: ./conf/conf.d/service.d/frps.conf
   nginx_gitlab:
     name: nginx_gitlab_v1
-    file: ./conf/conf.d/gitlab.conf
+    file: ./conf/conf.d/service.d/gitlab.conf
   nginx_kibana:
     name: nginx_kibana_v1
-    file: ./conf/conf.d/kibana.conf
+    file: ./conf/conf.d/service.d/kibana.conf
   nginx_minio:
     name: nginx_minio_v1
-    file: ./conf/conf.d/minio.conf
+    file: ./conf/conf.d/service.d/minio.conf
   nginx_portainer:
     name: nginx_portainer_v1
-    file: ./conf/conf.d/portainer.conf
+    file: ./conf/conf.d/service.d/portainer.conf
   nginx_qinglong:
     name: nginx_qinglong_v1
-    file: ./conf/conf.d/qinglong.conf
+    file: ./conf/conf.d/service.d/qinglong.conf
   nginx_rabbitmq:
     name: nginx_rabbitmq_v1
-    file: ./conf/conf.d/rabbit.conf
+    file: ./conf/conf.d/service.d/rabbit.conf
   nginx_shadowsocks:
     name: nginx_shadowsocks_v1
-    file: ./conf/conf.d/ss-websocket-http.conf
+    file: ./conf/conf.d/service.d/shadowsocket.conf
   nginx_swagger:
     name: nginx_swagger_v1
-    file: ./conf/conf.d/swagger.conf
+    file: ./conf/conf.d/service.d/swagger.conf
   nginx_vscode:
     name: nginx_vscode_v1
-    file: ./conf/conf.d/vscode.conf
+    file: ./conf/conf.d/service.d/vscode.conf
 
 secrets:
   acme_cloud_flare_env:
