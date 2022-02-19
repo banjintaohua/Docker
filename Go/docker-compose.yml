@@ -18,6 +18,11 @@ services:
       - "58086:8080"
     networks:
       - develop
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
     command: [ "run" ]
     # command: /release/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 --accept-multiclient exec /release/server
 
