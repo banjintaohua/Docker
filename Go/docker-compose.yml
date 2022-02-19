@@ -8,7 +8,7 @@ services:
         GO_VERSION: $GO_VERSION
     image: example/golang:1.17.3-dlv
     container_name: golang
-    restart: "no"
+    restart: "always"
     working_dir: /release
     volumes:
       - /Users/sea/go:/go:rw
