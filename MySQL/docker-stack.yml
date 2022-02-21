@@ -5,6 +5,7 @@ services:
     image: mysql:5.6
     ports:
       - "53306:3306"
+    working_dir: /var/lib/mysql
     volumes:
       - mysql_56_data:/var/lib/mysql:rw
     configs:
@@ -36,6 +37,7 @@ services:
     image: mysql:5.7
     ports:
       - "53307:3306"
+    working_dir: /var/lib/mysql
     volumes:
       - mysql_57_data:/var/lib/mysql:rw
     configs:
@@ -67,6 +69,7 @@ services:
     image: mariadb:10.5.13
     ports:
       - "53308:3306"
+    working_dir: /var/lib/mysql
     volumes:
       - mariadb_data:/var/lib/mysql:rw
     secrets:
