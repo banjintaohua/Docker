@@ -18,10 +18,12 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    # command: tail -f /dev/null
-    command: [ "run" ]
+    command: tail -f /dev/null
+    # command: [ "run" ]
     volumes:
       - ../../Python/***REMOVED***:/var/www/app:rw
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

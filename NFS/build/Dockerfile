@@ -3,7 +3,7 @@ FROM alpine:3.12
 COPY ./entrypoint.sh /usr/local/bin
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk add --update --no-cache nfs-utils bash \
+    && apk add --update --no-cache nfs-utils bash tzdata \
     && rm -rf /tmp/* /var/cache/apk/* \
     # NFSv4 \
     # http://wiki.linux-nfs.org/wiki/index.php/Nfsv4_configuration

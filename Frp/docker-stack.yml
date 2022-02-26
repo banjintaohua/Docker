@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frps:
-    image: snowdreamtech/frps:0.35.1
+    image: example/frps:0.35.1
     networks:
       - host
     volumes:
@@ -20,6 +20,8 @@ services:
         constraints:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
     configs:
       - source: frps_config
         target: /etc/frp/frps.ini

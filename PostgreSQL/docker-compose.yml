@@ -13,6 +13,7 @@ services:
     networks:
       - develop
     environment:
+      TZ: "Asia/Shanghai"
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     command:
       - "postgres"

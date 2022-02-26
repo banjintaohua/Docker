@@ -9,6 +9,7 @@ services:
       - "57891:22"
       - "58080:80"
     environment:
+      TZ: "Asia/Shanghai"
       GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
     working_dir: /var/lib
     configs:
@@ -48,6 +49,8 @@ services:
         constraints:
           - node.hostname == GuangZhou-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   cluster:

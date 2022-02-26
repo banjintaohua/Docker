@@ -43,7 +43,7 @@ RUN go build -gcflags="all=-N -l" -o /release/server \
 
 # stage3: run server with dlv
 # FROM centos:7 as runner
-# FROM scratch as runner
+# FROM alpine:3.12 as runner
 FROM golang:${GO_VERSION:-1.17.3-alpine} as runner
 
 WORKDIR /
@@ -53,7 +53,7 @@ COPY --from=builder /release /release
 # Health check by curl
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
   && apk update \
-  && apk add curl \
+  && apk add curl tzdata \
   && rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE 2345 8080

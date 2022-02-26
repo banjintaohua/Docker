@@ -3,6 +3,7 @@ version: "3.9"
 services:
   code-server:
     image: codercom/code-server:${CODE_SERVER_VERSION:-4.0.2}
+    container_name: code-server
     restart: "no"
     user: 0:0
     ports:
@@ -12,6 +13,8 @@ services:
       - ./data/project:/home/coder/project:rw
     networks:
       - develop
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

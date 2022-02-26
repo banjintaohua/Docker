@@ -25,6 +25,8 @@ services:
         constraints:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
   php-74:
     image: php:7.4.20-fpm
@@ -50,6 +52,8 @@ services:
         constraints:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
   php-80:
     image: php:8.0.2-fpm
@@ -72,6 +76,8 @@ services:
         constraints:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
 configs:
   php_56_xdebug_config:

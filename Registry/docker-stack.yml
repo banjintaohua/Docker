@@ -8,6 +8,8 @@ services:
     networks:
       - cluster
     configs:
+      - source: localtime_shanghai
+        target: /etc/localtime
       - source: docker_registry_config
         target: /etc/docker/registry/config.yml
     secrets:
@@ -40,6 +42,9 @@ networks:
     external: true
 
 configs:
+  localtime_shanghai:
+    name: localtime_shanghai
+    external: true
   docker_registry_config:
     name: docker_registry_config_v1
     file: ./conf/config.yml

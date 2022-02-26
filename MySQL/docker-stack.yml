@@ -15,6 +15,7 @@ services:
       - source: mysql_56_root_password
         mode: 0600
     environment:
+      TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_56_root_password
       # MYSQL_ROOT_HOST: localhost
     networks:
@@ -47,6 +48,7 @@ services:
       - source: mysql_57_root_password
         mode: 0600
     environment:
+      TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_57_root_password
       # MYSQL_ROOT_HOST: localhost
     networks:
@@ -76,6 +78,7 @@ services:
       - source: mariadb_root_password
         mode: 0600
     environment:
+      TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
       # MYSQL_ROOT_HOST: localhost
     networks:

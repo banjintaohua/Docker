@@ -13,6 +13,8 @@ services:
       - ${DEBUG_PORT:-9003}:9003
     networks:
       - develop
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

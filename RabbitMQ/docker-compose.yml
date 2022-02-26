@@ -9,6 +9,7 @@ services:
       - "127.0.0.1:15672:15672"
       - "55672:5672"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - ./data:/var/lib/rabbitmq:rw
       - ./log:/var/log/rabbitmq:rw
       - ./conf:/etc/rabbitmq/conf.d:rw

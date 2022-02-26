@@ -26,6 +26,8 @@ services:
         constraints:
           - node.hostname == GuangZhou-CentOS
           - node.hostname != California-CentOS
+    environment:
+      TZ: "Asia/Shanghai"
 
 configs:
   vscode_config:

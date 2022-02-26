@@ -15,6 +15,7 @@ services:
       - "54000:4000"
       - "57892:22"
     environment:
+      TZ: "Asia/Shanghai"
       REMOTE_URL: ${REMOTE_URL}
       BRANCH: ${BRANCH:-master}
       HEXO_DEBUG: ${HEXO_DEBUG}

@@ -19,6 +19,8 @@ services:
         constraints:
           - node.platform.os == linux
           - node.hostname != California-CentOS
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - cluster
 

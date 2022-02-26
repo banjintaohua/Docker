@@ -14,6 +14,8 @@ services:
       # see: https://www.elastic.co/guide/en/beats/libbeat/7.17/config-file-permissions.html
       - --strict.perms=false
     configs:
+      - source: localtime_shanghai
+        target: /etc/localtime
       - source: filebeat_config
         target: /usr/share/filebeat/filebeat.yml
       - source: filebeat_module_config_nginx
@@ -38,6 +40,9 @@ services:
           - node.platform.os == linux
 
 configs:
+  localtime_shanghai:
+    name: localtime_shanghai
+    external: true
   filebeat_config:
     name: filebeat_config_v1
     file: ./conf/filebeat/filebeat.yml

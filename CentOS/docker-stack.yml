@@ -10,6 +10,8 @@ services:
       - source_data:/volume
     command: tail -f /dev/null
     # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+    environment:
+      TZ: "Asia/Shanghai"
     deploy:
       mode: replicated
       replicas: 1
@@ -30,6 +32,8 @@ services:
       - target_data:/volume
     command: tail -f /dev/null
     # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    environment:
+      TZ: "Asia/Shanghai"
     deploy:
       mode: replicated
       replicas: 1

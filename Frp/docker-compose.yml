@@ -2,22 +2,32 @@ version: "3.9"
 
 services:
   frps:
-    image: snowdreamtech/frps:0.35.1
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+      args:
+        OS: $OS
+        ARCH: $ARCH
+        FRP_VERSION: $FRP_VERSION
+    image: example/frps:0.35.1
     container_name: frps
     restart: always
     network_mode: host
     command: /usr/bin/frps -c /etc/frp/frps.ini
+    environment:
+      TZ: "Asia/Shanghai"
     volumes:
       - ./conf/server/frps.ini:/etc/frp/frps.ini:rw
       - ./log:/var/log/frp
 
   frpc:
-    image: snowdreamtech/frps:0.35.1
+    image: example/frps:0.35.1
     container_name: frpc
     restart: always
-    networks:
-      - develop
+    network_mode: host
     command: /usr/bin/frpc -c /etc/frp/frpc.ini
+    environment:
+      TZ: "Asia/Shanghai"
     volumes:
       - ./conf/client/frpc.ini:/etc/frp/frpc.ini:rw
       - ./log:/var/log/frp

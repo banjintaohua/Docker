@@ -7,7 +7,7 @@ ENV DEBUG_PORT=9003
 
 # 在 XDebug 官网下载 Go 版本实现的 DBGp 代理
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk add --update --no-cache libc6-compat \
+    && apk add --update --no-cache libc6-compat tzdata \
     && wget -O /usr/bin/dbgpProxy https://xdebug.org/files/binaries/dbgpProxy \
     && chmod 755 /usr/bin/dbgpProxy \
     && rm -rf /tmp/* /var/cache/apk/*

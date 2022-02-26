@@ -23,6 +23,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    environment:
+      TZ: "Asia/Shanghai"
     command: [ "run" ]
     # command: /release/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 --accept-multiclient exec /release/server
 

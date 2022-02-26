@@ -17,7 +17,8 @@ services:
       - ./data/scripts:/ql/scripts
       - ./data/repo:/ql/repo
       - ./data/raw:/ql/raw
-
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

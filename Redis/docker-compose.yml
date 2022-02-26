@@ -13,6 +13,8 @@ services:
     networks:
       - develop
     command: "redis-server /usr/local/etc/redis/redis.conf"
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

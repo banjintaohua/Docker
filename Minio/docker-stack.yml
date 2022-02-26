@@ -8,6 +8,9 @@ services:
       - "59005:9000"
     networks:
       - cluster
+    configs:
+      - source: localtime_shanghai
+        target: /etc/localtime
     volumes:
       - minio_data:/data
     deploy:
@@ -42,6 +45,11 @@ networks:
     name: cluster
     driver: overlay
     attachable: true
+    external: true
+
+configs:
+  localtime_shanghai:
+    name: localtime_shanghai
     external: true
 
 secrets:

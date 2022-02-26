@@ -10,3 +10,5 @@ services:
       - ./data:/var/www:rw
     network_mode: host
     command: tail -f /dev/null
+    environment:
+      TZ: "Asia/Shanghai"

@@ -8,6 +8,9 @@ services:
         target: 8080
     networks:
       - cluster
+    configs:
+      - source: localtime_shanghai
+        target: /etc/localtime
     volumes:
       - bark_data:/data
     deploy:
@@ -22,7 +25,13 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
+          - node.hostname == GuangZhou-CentOS
           - node.platform.os == linux
+
+configs:
+  localtime_shanghai:
+    name: localtime_shanghai
+    file: ./conf/localtime
 
 volumes:
   bark_data:

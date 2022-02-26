@@ -9,6 +9,7 @@ services:
     container_name: elasticsearch
     restart: "no"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - ./conf/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
@@ -31,6 +32,7 @@ services:
     container_name: logstash
     restart: "no"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - ./conf/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./conf/logstash/pipeline:/usr/share/logstash/pipeline:ro
     ports:
@@ -53,6 +55,7 @@ services:
     container_name: kibana
     restart: "no"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - ./conf/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
       - "55601:5601"

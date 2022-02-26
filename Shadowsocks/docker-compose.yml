@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   ss-client:
-    image: shadowsocks/shadowsocks-libev:${SHADOWSOCKS_VERSION:-v3.3.5}
+    image: shadowsocks/shadowsocks-libev:v3.3.5
     container_name: ss-client
     command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
     working_dir: /etc/shadowsocks-libev
@@ -12,6 +12,8 @@ services:
       - ./conf/ss-client/config.json:/etc/shadowsocks-libev/config.json:rw
       - ./conf/ss-client/v2ray-plugin:/usr/local/bin/v2ray-plugin:ro
       - ./log/ss-client:/var/log/shadowsocks
+    environment:
+      TZ: "Asia/Shanghai"
 
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
@@ -27,6 +29,8 @@ services:
     volumes:
       - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-http:/var/log/shadowsocks
+    environment:
+      TZ: "Asia/Shanghai"
 
   ss-websocket-https:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
@@ -43,6 +47,8 @@ services:
       - ../Nginx/conf/ssl:/etc/ssl:ro
       - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
       - ./log/ss-websocket-https:/var/log/shadowsocks
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   vpn:

@@ -12,6 +12,7 @@ services:
       - "57891:22"
       - "58080:80"
     environment:
+      TZ: "Asia/Shanghai"
       GITLAB_OMNIBUS_CONFIG: |
         external_url "http://${HOST_NAME}"
         gitlab_rails['gitlab_shell_ssh_port'] = 57891
@@ -35,6 +36,8 @@ services:
       - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
       - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
       - ./conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

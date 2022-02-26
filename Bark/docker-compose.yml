@@ -11,6 +11,7 @@ services:
       - develop
     volumes:
       - ./data:/data
+      - ./conf/localtime:/etc/localtime
 
 networks:
   develop:

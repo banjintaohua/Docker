@@ -18,6 +18,8 @@ services:
       - ./conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
       - ../../Php/***REMOVED***:***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - develop
 
@@ -43,6 +45,8 @@ services:
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Php/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Php/***REMOVED***w:/var/www/***REMOVED***w:rw
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       - develop
 
@@ -54,6 +58,8 @@ services:
       - "127.0.0.1:59008:9000"
     networks:
       - develop
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

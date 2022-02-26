@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   nfs-server:
-    image: erichough/nfs-server:2.2.1
+    image: example/nfs-server:erichough
     networks:
       - host
     cap_add:
@@ -12,6 +12,7 @@ services:
       - ./data:/nfs/share
       - /lib/modules:/lib/modules:ro
     environment:
+      TZ: "Asia/Shanghai"
       NFS_LOG_LEVEL: 'INFO'
     configs:
       - source: nfs_exports_config

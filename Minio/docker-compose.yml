@@ -8,6 +8,7 @@ services:
     ports:
       - "59005:9000"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - "/Users/example/Library/Mobile\ Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
     networks:
       develop:
@@ -24,6 +25,7 @@ services:
     network_mode: host
     entrypoint: "tail -f /dev/null"
     volumes:
+      - ./conf/localtime:/etc/localtime
       - ./conf/mc:/root/.mc:rw
 
 networks:

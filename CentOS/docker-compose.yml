@@ -13,7 +13,9 @@ services:
       - ./conf/yum.conf:/etc/yum.conf:rw
     networks:
       - develop
-    command: echo 'please recreate container before download'
+    environment:
+      TZ: "Asia/Shanghai"
+    command: tail -f /dev/null
 
   volume_backup:
     image: centos:7
@@ -24,7 +26,10 @@ services:
       - source_data:/volume
     networks:
       - develop
-    command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+    environment:
+      TZ: "Asia/Shanghai"
+    command: tail -f /dev/null
+    # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
 
   volume_restore:
     depends_on:
@@ -37,16 +42,17 @@ services:
       - target_data:/volume
     networks:
       - develop
-    command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    environment:
+      TZ: "Asia/Shanghai"
+    command: tail -f /dev/null
+    # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
 
 
 volumes:
   source_data:
     name: portainer_data
-    external: true
   target_data:
     name: test_data
-    external: true
 
 networks:
   develop:

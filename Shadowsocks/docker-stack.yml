@@ -31,6 +31,8 @@ services:
     configs:
       - source: shadowsocks_libev_over_http_config
         target: /etc/shadowsocks-libev/config.json
+    environment:
+      TZ: "Asia/Shanghai"
 
   ss-websocket-https:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
@@ -68,6 +70,8 @@ services:
         mode: 0600
       - source: wildcard-certificate.key
         target: /etc/ssl/wildcard-certificate.key
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   cluster:

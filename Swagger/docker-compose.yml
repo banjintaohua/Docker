@@ -9,6 +9,8 @@ services:
       - "58081:8080"
     networks:
       - develop
+    environment:
+      TZ: "Asia/Shanghai"
 
   swagger-ui:
     image: swaggerapi/swagger-ui:${SWAGGER_UI_VERSION:-v3.52.5}
@@ -18,6 +20,8 @@ services:
       - "58082:8080"
     networks:
       - develop
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   develop:

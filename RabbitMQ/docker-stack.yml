@@ -9,6 +9,8 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq:rw
     configs:
+      - source: localtime_shanghai
+        target: /etc/localtime
       - source: rabbitmq_config
         target: /etc/rabbitmq/conf.d/rabbitmq.conf
     networks:
@@ -35,6 +37,9 @@ networks:
     external: true
 
 configs:
+  localtime_shanghai:
+    name: localtime_shanghai
+    external: true
   rabbitmq_config:
     name: rabbitmq_config_v1
     file: ./conf/rabbitmq.conf

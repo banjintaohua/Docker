@@ -13,6 +13,7 @@ services:
       - SYS_ADMIN
       - SYS_MODULE
     environment:
+      TZ: "Asia/Shanghai"
       NFS_LOG_LEVEL: 'DEBUG'
     volumes:
       - ./data:/nfs/share

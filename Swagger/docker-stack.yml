@@ -20,6 +20,8 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
   swagger-ui:
     image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-v3.52.5}
@@ -40,6 +42,8 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
 
 networks:
   cluster:

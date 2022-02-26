@@ -20,6 +20,8 @@ services:
       - ../../Php/***REMOVED***w:/var/www/***REMOVED***w:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
+    environment:
+      TZ: "Asia/Shanghai"
     networks:
       develop:
         ipv4_address: 172.19.0.33
