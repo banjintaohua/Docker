@@ -24,11 +24,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # stage2: Build server
 FROM delve AS builder
 
-# Multiple copy statements also should not be an issue in this stage
-#
-#COPY --from=delve /go/bin/dlv /release/dlv
-#COPY --from=delve /foo/bar /foo/bar
-#
 COPY --from=delve /go/bin/dlv /release/dlv
 
 ADD . /build
@@ -48,6 +43,11 @@ FROM golang:${GO_VERSION:-1.17.3-alpine} as runner
 
 WORKDIR /
 
+# Multiple copy statements also should not be an issue in this stage
+#
+#COPY --from=delve /go/bin/dlv /release/dlv
+#COPY --from=delve /foo/bar /foo/bar
+#
 COPY --from=builder /release /release
 
 # Health check by curl

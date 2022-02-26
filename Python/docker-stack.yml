@@ -9,7 +9,7 @@ services:
     networks:
       - cluster
     volumes:
-      - ./data/fastapi:/var/www/app:rw
+      - nfs_data:/var/www/python:rw
     command: [ "run" ]
     deploy:
       mode: replicated
@@ -26,6 +26,14 @@ services:
           - node.platform.os == linux
     environment:
       TZ: "Asia/Shanghai"
+
+volumes:
+  nfs_data:
+    name: nfs_data
+    driver_opts:
+      type: "nfs"
+      o: "addr=nfs.example.online,nolock,soft,rw"
+      device: ":/nfs/share"
 
 networks:
   cluster:

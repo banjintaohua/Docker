@@ -6,7 +6,7 @@ services:
     ports:
       - "58087:8080"
     volumes:
-      - ./data:/var/www:rw
+      - nfs_data:/var/www/node:rw
     networks:
       - cluster
     deploy:
@@ -24,6 +24,14 @@ services:
           - node.platform.os == linux
     environment:
       TZ: "Asia/Shanghai"
+
+volumes:
+  nfs_data:
+    name: nfs_data
+    driver_opts:
+      type: "nfs"
+      o: "addr=nfs.example.online,nolock,soft,rw"
+      device: ":/nfs/share"
 
 networks:
   cluster:

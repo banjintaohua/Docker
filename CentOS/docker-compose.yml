@@ -11,6 +11,7 @@ services:
     volumes:
       - ./conf/yum.repos.d:/etc/yum.repos.d:rw
       - ./conf/yum.conf:/etc/yum.conf:rw
+    working_dir: /backup
     networks:
       - develop
     environment:
@@ -24,35 +25,18 @@ services:
     volumes:
       - ./data:/backup
       - source_data:/volume
+    working_dir: /backup
     networks:
       - develop
     environment:
       TZ: "Asia/Shanghai"
-    command: tail -f /dev/null
     # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
-
-  volume_restore:
-    depends_on:
-      - volume_backup
-    image: centos:7
-    container_name: volume_restore
-    restart: "no"
-    volumes:
-      - ./data:/backup
-      - target_data:/volume
-    networks:
-      - develop
-    environment:
-      TZ: "Asia/Shanghai"
-    command: tail -f /dev/null
     # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
-
+    command: tail -f /dev/null
 
 volumes:
   source_data:
-    name: portainer_data
-  target_data:
-    name: test_data
+    name: bark_data
 
 networks:
   develop:

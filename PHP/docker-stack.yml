@@ -9,7 +9,7 @@ services:
       - source: php_56_xdebug_config
         target: /usr/local/etc/php/conf.d/dexbug.ini
     volumes:
-      - ./data/php-56:/var/www:rw
+      - nfs_data:/var/www/php:rw
     networks:
       - cluster
     deploy:
@@ -36,7 +36,7 @@ services:
       - source: php_74_xdebug_config
         target: /usr/local/etc/php/conf.d/dexbug.ini
     volumes:
-      - ./data/php-74:/var/www:rw
+      - nfs_data:/var/www/php:rw
     networks:
       - cluster
     deploy:
@@ -60,7 +60,7 @@ services:
     ports:
       - "59008:9000"
     volumes:
-      - ./data/php-80:/var/www:rw
+      - nfs_data:/var/www/php:rw
     networks:
       - cluster
     deploy:
@@ -97,6 +97,12 @@ networks:
     external: true
 
 volumes:
+  nfs_data:
+    name: nfs_data
+    driver_opts:
+      type: "nfs"
+      o: "addr=nfs.example.online,nolock,soft,rw"
+      device: ":/nfs/share"
   php_56_data:
     name: php_56_data
     driver: local

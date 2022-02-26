@@ -6,52 +6,33 @@ services:
     networks:
       - cluster
     volumes:
-      - ./data:/backup
+      - nfs_data:/backup
       - source_data:/volume
     command: tail -f /dev/null
     # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
-    environment:
-      TZ: "Asia/Shanghai"
-    deploy:
-      mode: replicated
-      replicas: 1
-      restart_policy:
-        condition: none
-      placement:
-        max_replicas_per_node: 1
-        constraints:
-          - node.hostname == ShangHai-CentOS
-          - node.platform.os == linux
-
-  volume_restore:
-    image: centos:7
-    networks:
-      - cluster
-    volumes:
-      - ./data:/backup
-      - target_data:/volume
-    command: tail -f /dev/null
     # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    working_dir: /backup
     environment:
       TZ: "Asia/Shanghai"
     deploy:
-      mode: replicated
-      replicas: 1
+      mode: global
       restart_policy:
         condition: none
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == ShangHai-CentOS
+          - node.hostname != ShangHai-CentOS
           - node.platform.os == linux
 
 volumes:
+  nfs_data:
+    name: nfs_data
+    driver_opts:
+      type: "nfs"
+      o: "addr=nfs.example.online,nolock,soft,rw"
+      device: ":/nfs/share"
   source_data:
-    name: acme_data
-    external: true
-  target_data:
-    name: acme_data_backup
-    external: false
+    name: bark_data
 
 networks:
   cluster:
