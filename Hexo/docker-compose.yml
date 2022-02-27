@@ -3,7 +3,7 @@ version: "3.9"
 services:
   hexo:
     build:
-      context: ./build/hexo
+      context: ./build
       dockerfile: Dockerfile
       args:
         GIT_USER: ${GIT_USER}

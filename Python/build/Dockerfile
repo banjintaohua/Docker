@@ -4,11 +4,11 @@ WORKDIR /var/www/app
 
 COPY . /tmp/build
 
-RUN mv /tmp/build/entrypoint.sh /usr/local/bin/entrypoint.sh \
+RUN mv /tmp/build/fastapi/entrypoint.sh /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/entrypoint.sh \
     && mkdir /root/.pip/ \
-    && mv /tmp/build/pip.conf /root/.pip/ \
-    && cd /tmp/build \
+    && mv /tmp/build/fastapi/pip.conf /root/.pip/ \
+    && cd /tmp/build/fastapi \
     && pip install poetry==1.1 \
     && poetry config virtualenvs.create false --local \
     && poetry install \
