@@ -16,8 +16,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
   && apk add git \
   && apk add gcc \
   && apk add libc-dev \
-  && go install github.com/go-delve/delve/cmd/dlv@latest \
-  && rm -rf /tmp/* /var/cache/apk/*
+  && go install github.com/go-delve/delve/cmd/dlv@latest
 
 
 

@@ -2,7 +2,32 @@
 
 My personal docker study notes
 
+```
+Bark
+├── .env
+├── build
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   └── entrypoint.sh
+├── conf
+│   └── localtime
+├── data
+│   └── bark.db
+├── docker-compose.yml
+└── docker-stack.yml
+```
 
+
+
+best practice
+1. `.dockerignore`
+2. single application
+3. `entrypoint.sh` with `exec`
+4. `HEALTHCHECK`
+5. assign image version
+6. clean cache. `rm -rf /tmp/* /var/cache/apk/*`
+7. `WORKDIR`
+8. `EXPOSE`
 
 ### Port
 
