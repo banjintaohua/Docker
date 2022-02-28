@@ -22,6 +22,7 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != ShangHai-CentOS
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
 volumes:
