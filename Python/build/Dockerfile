@@ -11,7 +11,8 @@ RUN mv /tmp/build/entrypoint.sh /usr/local/bin/entrypoint.sh \
     && cd /tmp/build/fastapi \
     && pip install poetry==1.1.9 \
     && poetry config virtualenvs.create false --local \
-    && poetry install --no-dev \
+    # && poetry install --no-dev \
+    && poetry install \
     && rm -rf /tmp/*
 
 ENTRYPOINT ["entrypoint.sh"]

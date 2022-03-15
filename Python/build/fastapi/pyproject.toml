@@ -37,7 +37,7 @@ pytest-env = "^0.6.2"
 docker = "^4.3"
 httpx = "^0.16.1"
 asgi-lifespan = "^1.0.1"
-pydevd-pycharm = "211.7442.45"
+pydevd-pycharm = "^213.6777.50"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
