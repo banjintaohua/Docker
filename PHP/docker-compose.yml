@@ -45,6 +45,7 @@ services:
       - ../../Epiboly/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Php/***REMOVED***:/var/www/***REMOVED***:rw
       - ../../Php/***REMOVED***w:/var/www/***REMOVED***w:rw
+      - ../../Php/peach:/var/www/peach:rw
     environment:
       TZ: "Asia/Shanghai"
     networks:

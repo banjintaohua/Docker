@@ -28,4 +28,8 @@ services:
 
 networks:
   develop:
-    external: true
+    name: develop
+    external: false
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
