@@ -13,9 +13,6 @@ services:
         target: 8000
         protocol: tcp
         mode: host
-    extra_hosts:
-      - docker-daemon-vmware:***REMOVED***
-      - docker-daemon-bandwagon:***REMOVED***
     networks:
       - cluster
     volumes:
