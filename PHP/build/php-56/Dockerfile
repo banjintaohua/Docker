@@ -29,4 +29,4 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
     # 断点调试
     && pecl install xdebug-2.5.5
 
-WORKDIR /usr/local/www/data
+WORKDIR /var/www
