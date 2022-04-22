@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  camunda:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: camunda-bpm-platform:tomcat-7.10.0
+    container_name: camunda
+    ports:
+      - "58088:8080"
+    working_dir: /camunda
+    volumes:
+      - ./log/:/camunda/logs/:rw
+    restart: "no"
+    networks:
+      - develop
+    environment:
+      DB_DRIVER: com.mysql.cj.jdbc.Driver
+      DB_URL: "jdbc:mysql://mariadb:3306/camunda?sendFractionalSeconds=false"
+      DB_USERNAME: ${DB_USERNAME:-camunda}
+      DB_PASSWORD: ${DB_PASSWORD:-camunda}
+      WAIT_FOR: "mariadb:3306"
+      TZ: "Asia/Shanghai"
+
+networks:
+  develop:
+    external: true

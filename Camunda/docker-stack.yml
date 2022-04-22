@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  camunda:
+    image: camunda/camunda-bpm-platform:tomcat-7.10.0
+    ports:
+      - "58088:8080"
+    working_dir: /camunda
+    secrets:
+      - source: camunda_db_password
+        mode: 0600
+    volumes:
+      - camunda_logs:/camunda/logs/:rw
+    environment:
+      DB_DRIVER: com.mysql.cj.jdbc.Driver
+      DB_URL: "jdbc:mysql://tasks.mariadb:3306/camunda?sendFractionalSeconds=false"
+      DB_USERNAME: camunda
+      DB_PASSWORD_FILE: /run/secrets/camunda_db_password
+      WAIT_FOR: "tasks.mariadb:3306"
+      TZ: "Asia/Shanghai"
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+
+secrets:
+  camunda_db_password:
+    name: camunda_db_password
+    file: ./conf/secrets/camunda_db_password.txt
+
+volumes:
+  camunda_logs:
+    name: camunda_logs
+    driver: local
+    external: false
