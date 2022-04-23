@@ -11,11 +11,16 @@ services:
         mode: 0600
     volumes:
       - camunda_logs:/camunda/logs/:rw
+    configs:
+      - source: bpm_platform
+        target: /camunda/conf/bpm-platform.xml
     environment:
-      DB_DRIVER: com.mysql.cj.jdbc.Driver
-      DB_URL: "jdbc:mysql://tasks.mariadb:3306/camunda?sendFractionalSeconds=false"
-      DB_USERNAME: camunda
-      DB_PASSWORD_FILE: /run/secrets/camunda_db_password
+      DB_DRIVER: "com.mysql.jdbc.Driver"
+      DB_URL: "jdbc:mysql://tasks.mariadb:3306/camunda?useUnicode=true&characterEncoding=UTF-8"
+      DB_USERNAME: "camunda"
+      DB_PASSWORD_FILE: "/run/secrets/camunda_db_password"
+      DB_VALIDATE_ON_BORROW: "true"
+      DB_VALIDATION_QUERY: "SELECT 1"
       WAIT_FOR: "tasks.mariadb:3306"
       TZ: "Asia/Shanghai"
     networks:
@@ -40,6 +45,11 @@ networks:
     driver: overlay
     attachable: true
     external: true
+
+configs:
+  bpm_platform:
+    name: bpm_platform_v1
+    file: ./conf/bpm-platform.xml
 
 secrets:
   camunda_db_password:

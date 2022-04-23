@@ -12,14 +12,17 @@ services:
     working_dir: /camunda
     volumes:
       - ./log/:/camunda/logs/:rw
+      - ./conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
     restart: "no"
     networks:
       - develop
     environment:
-      DB_DRIVER: com.mysql.cj.jdbc.Driver
-      DB_URL: "jdbc:mysql://mariadb:3306/camunda?sendFractionalSeconds=false"
+      DB_DRIVER: ${DB_DRIVER}
+      DB_URL: ${DB_URL}
       DB_USERNAME: ${DB_USERNAME:-camunda}
       DB_PASSWORD: ${DB_PASSWORD:-camunda}
+      DB_VALIDATE_ON_BORROW: "true"
+      DB_VALIDATION_QUERY: "SELECT 1"
       WAIT_FOR: "mariadb:3306"
       TZ: "Asia/Shanghai"
 
