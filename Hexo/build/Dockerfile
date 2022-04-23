@@ -1,6 +1,6 @@
 FROM node:12.14.0-alpine
 
-LABEL maintainer="example"
+LABEL maintainer="banjintaohua"
 
 ARG GIT_EMAIL
 ARG GIT_USER

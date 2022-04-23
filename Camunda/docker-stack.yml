@@ -14,6 +14,8 @@ services:
     configs:
       - source: bpm_platform
         target: /camunda/conf/bpm-platform.xml
+      - source: engine_rest_web_v1
+        target: /camunda/webapps/engine-rest/WEB-INF/web.xml
     environment:
       DB_DRIVER: "com.mysql.jdbc.Driver"
       DB_URL: "jdbc:mysql://tasks.mariadb:3306/camunda?useUnicode=true&characterEncoding=UTF-8"
@@ -50,6 +52,9 @@ configs:
   bpm_platform:
     name: bpm_platform_v1
     file: ./conf/bpm-platform.xml
+  engine_rest_web_v1:
+    name: engine_rest_web_v1
+    file: ./conf/web.xml
 
 secrets:
   camunda_db_password:

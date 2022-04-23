@@ -16,8 +16,8 @@ services:
       - ./conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
       - ./conf/php-56/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
       - ./conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
-      - ../../Php:/var/www:rw
-    working_dir: /var/www/
+      - ../../Php:/var/www/php:rw
+    working_dir: /var/www/php
     environment:
       TZ: "Asia/Shanghai"
     networks:
@@ -39,8 +39,8 @@ services:
       - ./log/php-74/php-fpm:/var/log/php-fpm:rw
       - ./conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
       - ./conf/php-74/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
-      - ../../Php:/var/www:rw
-    working_dir: /var/www/
+      - ../../Php:/var/www/php:rw
+    working_dir: /var/www/php
     environment:
       TZ: "Asia/Shanghai"
     networks:
@@ -52,7 +52,7 @@ services:
     restart: always
     ports:
       - "127.0.0.1:59008:9000"
-    working_dir: /var/www/
+    working_dir: /var/www/php
     networks:
       - develop
     environment:

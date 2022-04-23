@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-LABEL maintainer="example"
+LABEL maintainer="banjintaohua"
 
 ARG FRP_VERSION
 ARG OS

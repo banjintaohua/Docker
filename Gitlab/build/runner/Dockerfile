@@ -1,6 +1,6 @@
 FROM gitlab/gitlab-runner
 
-LABEL maintainer="example"
+LABEL maintainer="banjintaohua"
 
 ENV USER gitlab-runner
 

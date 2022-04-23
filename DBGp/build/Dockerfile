@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-LABEL maintainer="example"
+LABEL maintainer="banjintaohua"
 
 ENV IDE_PORT=9001
 ENV DEBUG_PORT=9003

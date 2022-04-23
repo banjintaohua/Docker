@@ -13,6 +13,7 @@ services:
     volumes:
       - ./log/:/camunda/logs/:rw
       - ./conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
+      - ./conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
     restart: "no"
     networks:
       - develop
