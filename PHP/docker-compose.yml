@@ -31,6 +31,7 @@ services:
     container_name: php-74
     extra_hosts:
       - ${EXTRA_HOSTS}
+      - ${HOST_DOCKER_INTERNAL}
     user: root
     restart: always
     ports:

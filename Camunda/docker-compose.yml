@@ -14,9 +14,10 @@ services:
       - ./log/:/camunda/logs/:rw
       - ./conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
       - ./conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
-    restart: "no"
+    restart: "always"
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.38
     environment:
       DB_DRIVER: ${DB_DRIVER}
       DB_URL: ${DB_URL}
