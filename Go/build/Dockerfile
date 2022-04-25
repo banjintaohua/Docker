@@ -40,6 +40,8 @@ RUN go build -gcflags="all=-N -l" -o /release/server \
 # FROM alpine:3.12 as runner
 FROM golang:${GO_VERSION:-1.17.3-alpine} as runner
 
+LABEL maintainer="banjintaohua"
+
 WORKDIR /
 
 # Multiple copy statements also should not be an issue in this stage

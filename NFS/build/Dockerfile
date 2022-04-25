@@ -1,5 +1,7 @@
 FROM alpine:3.12
 
+LABEL maintainer="banjintaohua"
+
 COPY ./entrypoint.sh /usr/local/bin
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \

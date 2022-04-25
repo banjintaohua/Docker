@@ -1,5 +1,7 @@
 FROM centos:7
 
+LABEL maintainer="banjintaohua"
+
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
     && curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo \
     && yum clean all \

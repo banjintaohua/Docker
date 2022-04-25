@@ -6,7 +6,7 @@ services:
     build:
       context: ./build/php-56
       dockerfile: Dockerfile
-    image: example/php-56:1.0
+    image: banjintaohua/php-56:1.0
     container_name: php-56
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
     build:
       context: ./build/php-74
       dockerfile: Dockerfile
-    image: example/php-74:1.1
+    image: banjintaohua/php-74:1.1
     container_name: php-74
     extra_hosts:
       - ${EXTRA_HOSTS}
