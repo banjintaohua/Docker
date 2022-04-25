@@ -5,9 +5,9 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: example/python-3.9:fastapi
+    image: banjintaohua/python-3.9:fastapi
     container_name: python-3.9
-    working_dir: /var/www/app
+    working_dir: ${APP_DIR-/var/www}
     restart: "always"
     ports:
       - "58085:8080"
@@ -18,49 +18,54 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    command: tail -f /dev/null
-    # command: [ "run" ]
+    # command: tail -f /dev/null
+    command: [ "run" ]
     volumes:
-      - ../../Python/***REMOVED***:/var/www/app:rw
+      - ../../Python:/var/www/python:rw
     environment:
       TZ: "Asia/Shanghai"
+      PYTHONPATH: ${APP_DIR}
+      APP_DIR: ${APP_DIR}
 
   celery_worker:
-    image: example/python-3.9:fastapi
+    image: banjintaohua/python-3.9:fastapi
     container_name: celery_worker
-    working_dir: /var/www/app
+    working_dir: ${CELERY_APP_DIR-/var/www}
     depends_on:
       - "python"
     restart: "no"
     networks:
       - develop
     healthcheck:
-      test: [ "CMD", "celery", "-A", "demo", "status" ]
+      test: [ "CMD", "celery", "-A", "task", "status" ]
       interval: 30s
       timeout: 20s
       retries: 3
     # command: tail -f /dev/null
-    command: celery -A demo worker -l info
+    command: celery -A task worker -l info
     volumes:
-      - ../../Python/demo:/var/www/app:rw
+      - ../../Python:/var/www/python:rw
     environment:
       TZ: "Asia/Shanghai"
-      PYTHONPATH: "/var/www/app"
+      PYTHONPATH: ${CELERY_APP_DIR}
+      APP_DIR: ${CELERY_APP_DIR}
 
 #  celery_beat:
-#    image: example/python-3.9:fastapi
+#    image: banjintaohua/python-3.9:fastapi
 #    container_name: celery_beat
-#    working_dir: /var/www/app
+#    working_dir: ${CELERY_APP_DIR-/var/www}
 #    depends_on:
 #      - "python"
 #    restart: "no"
 #    networks:
 #      - develop
-#    command: celery -A demo beat -l info
+#    command: celery -A task beat -l info
 #    volumes:
-#      - ../../Python/demo:/var/www/app:rw
+#      - ../../Python:/var/www/python:rw
 #    environment:
 #      TZ: "Asia/Shanghai"
+#      PYTHONPATH: ${CELERY_APP_DIR}
+#      APP_DIR: ${CELERY_APP_DIR}
 
 networks:
   develop:

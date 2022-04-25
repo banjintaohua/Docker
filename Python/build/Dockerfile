@@ -1,8 +1,12 @@
 FROM python:3.9.1
 
-WORKDIR /var/www/app
+LABEL maintainer="banjintaohua"
+
+WORKDIR /var/www
 
 COPY . /tmp/build
+
+ENV APP_DIR="/var/www"
 
 RUN mv /tmp/build/entrypoint.sh /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/entrypoint.sh \
@@ -11,7 +15,6 @@ RUN mv /tmp/build/entrypoint.sh /usr/local/bin/entrypoint.sh \
     && cd /tmp/build/fastapi \
     && pip install poetry==1.1.9 \
     && poetry config virtualenvs.create false --local \
-    # && poetry install --no-dev \
     && poetry install \
     && rm -rf /tmp/*
 

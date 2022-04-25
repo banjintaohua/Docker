@@ -3,7 +3,7 @@ version: "3.9"
 services:
   python:
     image: registry.example.online/example/python-3.9:fastapi
-    working_dir: /var/www/app
+    working_dir: /var/www/peach
     ports:
       - "58085:8080"
     networks:

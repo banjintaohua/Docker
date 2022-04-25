@@ -18,7 +18,10 @@ if [[ -n ${REMOTE_URL} ]]; then
   git clone --progress "${REMOTE_URL}" /var/www/app
 fi
 
-cd /var/www/app
+if [[ -z $APP_DIR ]]; then
+  APP_DIR="/var/www"
+fi
+cd $APP_DIR
 
 case "$1" in
 "dev")

@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "fastapi-realworld-example-app"
-version = "0.0.0"
-description = "Backend logic implementation for https://github.com/gothinkster/realworld with awesome FastAPI"
-authors = ["Nik Sidnev <sidnev.nick@gmail.com>"]
+name = "peach"
+version = "0.1.0"
+description = "peach framework"
+authors = ["banjintaohua <fjxzyx@gmail.com>"]
 license = "MIT"
 
 [[tool.poetry.source]]
@@ -37,7 +37,7 @@ pytest-env = "^0.6.2"
 docker = "^4.3"
 httpx = "^0.16.1"
 asgi-lifespan = "^1.0.1"
-pydevd-pycharm = "^213.6777.50"
+pydevd-pycharm = "^221.5080.212"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
