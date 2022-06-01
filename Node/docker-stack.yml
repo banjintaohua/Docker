@@ -30,7 +30,7 @@ volumes:
     name: nfs_data
     driver_opts:
       type: "nfs"
-      o: "addr=nfs.example.online,nolock,soft,rw"
+      o: "addr=nfs.example.com,nolock,soft,rw"
       device: ":/nfs/share"
 
 networks:
