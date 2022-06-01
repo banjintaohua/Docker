@@ -6,7 +6,7 @@ services:
       context: ./build/
       args:
         GO_VERSION: $GO_VERSION
-    image: example/golang:1.17.3-dlv
+    image: banjintaohua/golang:1.17.3-dlv
     container_name: golang
     restart: "always"
     working_dir: /release

@@ -52,7 +52,7 @@ services:
     container_name: php-8
     restart: always
     ports:
-      - "127.0.0.1:59008:9000"
+      - "59008:9000"
     working_dir: /var/www/php
     networks:
       - develop
