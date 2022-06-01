@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: camunda-bpm-platform:tomcat-7.10.0
+    image: banjintaohua/camunda-bpm-platform:tomcat-7.10.0
     container_name: camunda
     ports:
       - "58088:8080"
@@ -14,7 +14,7 @@ services:
       - ./log/:/camunda/logs/:rw
       - ./conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
       - ./conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
-    restart: "always"
+    restart: on-failure
     networks:
       develop:
         ipv4_address: 172.19.0.38
