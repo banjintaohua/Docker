@@ -1,0 +1,22 @@
+version: 0.1
+storage:
+  s3:
+    accesskey: minio
+    secretkey: minio
+    regionendpoint: http://regionendpoint:port
+    bucket: docker
+    secure: "false"
+    region: ignored-for-minio
+    chunksize: 31457280
+  delete:
+    enabled: "true"
+http:
+  addr: 0.0.0.0:443
+  host: https://registry.foobar.com
+  tls:
+    certificate: /run/secrets/wildcard-certificate.crt
+    key: /run/secrets/wildcard-certificate.key
+auth:
+  htpasswd:
+    realm: basic-realm
+    path: /auth/.htpasswd
