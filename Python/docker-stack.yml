@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   python:
-    image: registry.example.online/example/python-3.9:fastapi
+    image: banjintaohua/python-3.9:fastapi
     working_dir: /var/www/peach
     ports:
       - "58085:8080"
@@ -32,7 +32,7 @@ volumes:
     name: nfs_data
     driver_opts:
       type: "nfs"
-      o: "addr=nfs.example.online,nolock,soft,rw"
+      o: "addr=nfs.example.com,nolock,soft,rw"
       device: ":/nfs/share"
 
 networks:
