@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   nfs-server:
-    image: example/nfs-server:erichough
+    image: banjintaohua/nfs-server:erichough
     networks:
       - host
     cap_add:

@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: example/nfs-server:erichough
+    image: banjintaohua/nfs-server:erichough
     container_name: nfs-server
     restart: "no"
     network_mode: host

@@ -1,0 +1,1 @@
+/nfs/share  192.168.8.8(rw,sync,no_root_squash,no_all_squash)
