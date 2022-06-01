@@ -27,6 +27,8 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ../Nginx/log:/var/log/nginx:ro
+    environment:
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD-changeme}
     networks:
       - develop
 
