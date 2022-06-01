@@ -5,3 +5,6 @@
 */log/*
 */data/*
 */.env
+
+!/Redis/data/dump.sh
+!/Redis/data/load.sh
