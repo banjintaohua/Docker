@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   hexo:
-    image: registry.example.online/example/notes:2.1
+    image: registry.banjintaohua.online/banjintaohua/notes:2.1
     ports:
       - "54000:4000"
       - "57892:22"
