@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: example/dbgp-proxy:alpine
+    image: banjintaohua/dbgp-proxy:alpine
     container_name: dbgp-proxy
     restart: "always"
     ports:
