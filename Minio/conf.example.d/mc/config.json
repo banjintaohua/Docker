@@ -1,0 +1,12 @@
+{
+	"version": "10",
+	"aliases": {
+		"Cluster": {
+			"url": "https://minio.example.com",
+			"accessKey": "minio",
+			"secretKey": "minio",
+			"api": "s3v4",
+			"path": "auto"
+		}
+	}
+}
