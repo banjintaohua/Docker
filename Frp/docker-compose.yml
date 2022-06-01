@@ -9,7 +9,7 @@ services:
         OS: $OS
         ARCH: $ARCH
         FRP_VERSION: $FRP_VERSION
-    image: example/frps:0.35.1
+    image: banjintaohua/frps:0.35.1
     container_name: frps
     restart: always
     network_mode: host
@@ -21,7 +21,7 @@ services:
       - ./log:/var/log/frp
 
   frpc:
-    image: example/frps:0.35.1
+    image: banjintaohua/frps:0.35.1
     container_name: frpc
     restart: always
     network_mode: host

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   frps:
-    image: example/frps:0.35.1
+    image: banjintaohua/frps:0.35.1
     networks:
       - host
     volumes:
