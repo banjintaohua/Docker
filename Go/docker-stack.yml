@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   python:
-    image: example/golang:1.17.3-dlv
+    image: banjintaohua/golang:1.17.3-dlv
     working_dir: /release
     ports:
       - "52345:2345"
