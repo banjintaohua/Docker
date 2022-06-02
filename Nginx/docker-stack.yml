@@ -48,7 +48,7 @@ services:
     networks:
       - host
     volumes:
-      - nginx_log:/var/log/nginx:ro
+      - nginx_log:/var/log/nginx:rw
     deploy:
       mode: replicated
       replicas: 1
