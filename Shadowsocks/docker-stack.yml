@@ -1,6 +1,30 @@
 version: "3.9"
 
 services:
+  ss-client:
+    image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
+    container_name: ss-client
+    command: "ss-local -c /etc/shadowsocks-libev/config.json 2>&1"
+    working_dir: /etc/shadowsocks-libev
+    network_mode: host
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+    configs:
+      - source: shadowsocks_client
+        target: /etc/shadowsocks-libev/config.json
+    environment:
+      TZ: "Asia/Shanghai"
+
   ss-websocket-http:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
     command: "ss-server -c /etc/shadowsocks-libev/config.json 2>&1"
@@ -87,6 +111,9 @@ configs:
   shadowsocks_libev_over_https_config:
     name: shadowsocks_libev_over_https_config_v1
     file: ./conf/ss-websocket-https/config.json
+  shadowsocks_client:
+    name: shadowsocks_client_v1
+    file: ./conf/ss-client/config.json
 
 secrets:
   wildcard-certificate.crt:

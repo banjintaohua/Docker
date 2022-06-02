@@ -4,7 +4,7 @@ services:
   ss-client:
     image: shadowsocks/shadowsocks-libev:v3.3.5
     container_name: ss-client
-    command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json"
+    command: "/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json 2>&1"
     working_dir: /etc/shadowsocks-libev
     network_mode: host
     restart: always
