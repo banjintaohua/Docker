@@ -25,8 +25,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - nginx_log:/var/log/nginx:ro
       - frps_log:/var/log/frp:ro
-    environment:
-      ELASTIC_PASSWORD_FILE: /run/secrets/elastic_password
     networks:
       - cluster
     deploy:
@@ -51,12 +49,6 @@ configs:
   filebeat_module_config_nginx:
     name: filebeat_module_config_nginx_v1
     file: ./conf/filebeat/modules.d/nginx.yml
-
-secrets:
-  elastic_password:
-    name: elastic_password_v1
-    external: false
-    file: ./conf/secrets/elastic_password.txt
 
 networks:
   cluster:
