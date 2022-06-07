@@ -10,7 +10,7 @@ services:
     volumes:
       - ./conf/localtime:/etc/localtime
       # - "/Users/example/Library/Mobile\ Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
-      - "/media/psf/iCloud/Personnel/minio:/data:rw"
+      - "/media/psf/iCloud/Document/minio:/data:rw"
     networks:
       develop:
         ipv4_address: 172.19.0.34
