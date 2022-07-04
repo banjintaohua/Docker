@@ -13,17 +13,18 @@ COPY --from=composer:1.10.26 /usr/bin/composer /usr/local/bin/composer
 #     && echo 'deb http://mirrors.163.com/debian/ stretch main non-free contrib' > /etc/apt/sources.list \
 #     && echo 'deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list \
 #     && echo 'deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib' >> /etc/apt/sources.list \
-#     && apt-get update \
+#     && apt update \
 
-RUN apt-get update \
+RUN apt update \
     # 基本工具包
-    && apt-get install -y vim dnsutils iputils-ping \
+    && apt install -y vim dnsutils iputils-ping \
+    && apt install -y netcat-openbsd \
     # 命令补全工具
-    && apt-get install -y bash-completion \
+    && apt install -y bash-completion \
     && echo 'source /etc/profile.d/bash_completion.sh' >> /root/.bashrc \
     && alias ll='ls -l' \
     # Git
-    && apt-get install -y git \
+    && apt install -y git \
     # PHP 配置文件
     && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
     && pear config-set php_ini /usr/local/etc/php/php.ini \
@@ -35,18 +36,18 @@ RUN apt-get update \
     # 数据库
     && docker-php-ext-install mysqli pdo_mysql \
     # GD
-    && apt-get -y install libssl-dev \
-    && apt-get install -y libjpeg62-turbo-dev libpng-dev libfreetype6-dev \
+    && apt -y install libssl-dev \
+    && apt install -y libjpeg62-turbo-dev libpng-dev libfreetype6-dev \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install gd \
     # intl 国际化拓展
-    && apt-get -y install libicu-dev \
+    && apt -y install libicu-dev \
     && docker-php-ext-install intl \
     # SOAP 扩展
-    && apt-get -y install libxml2-dev \
+    && apt -y install libxml2-dev \
     && docker-php-ext-install soap \
     # Excel 依赖
-    && apt-get install -y libzip-dev zlib1g-dev \
+    && apt install -y libzip-dev zlib1g-dev \
     && docker-php-ext-install zip \
     # 其他依赖
     && docker-php-ext-install bcmath gettext pcntl shmop sockets sysvsem xmlrpc opcache \
@@ -56,7 +57,7 @@ RUN apt-get update \
     # memcached 缓存
     && mkdir -p /usr/src/php/ext/memcached/ \
     && cd /usr/src/php/ext/memcached/ \
-    && apt-get -y install libmemcached-dev wget unzip \
+    && apt -y install libmemcached-dev wget unzip \
     && wget https://github.com/php-memcached-dev/php-memcached/archive/v3.1.5.zip \
     && unzip v3.1.5.zip \
     && rm v3.1.5.zip \
