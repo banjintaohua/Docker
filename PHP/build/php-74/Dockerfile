@@ -2,6 +2,8 @@ FROM php:7.4.20-fpm
 
 LABEL maintainer="banjintaohua"
 
+COPY --from=composer:2.1.8 /usr/bin/composer /usr/local/bin/composer
+
 # 通过 PECL 安装拓展遇到连接超时问题时, 需要设置代理
 # Connection to `pecl.php.net:80' failed: Connection refused
 # sudo pear config-set http_proxy http://127.0.0.1:1087
@@ -15,7 +17,7 @@ LABEL maintainer="banjintaohua"
 
 RUN apt-get update \
     # 基本工具包
-    && apt-get install -y vim \
+    && apt-get install -y vim dnsutils iputils-ping \
     # 命令补全工具
     && apt-get install -y bash-completion \
     && echo 'source /etc/profile.d/bash_completion.sh' >> /root/.bashrc \
@@ -62,7 +64,7 @@ RUN apt-get update \
     && docker-php-ext-configure memcached \
     && docker-php-ext-install memcached \
     # 优先使用 Xdebug3，Xdebug3 的性能比 Xdebug2 的好
-    && pecl install xdebug-3.1.2
+    && pecl install xdebug-3.1.2 \
 
     # 微信
     # && cd /usr/src/php/ext \
@@ -72,5 +74,8 @@ RUN apt-get update \
     # && export INSTALL_PHP_PATH=/usr/local/bin \
     # && export WXWORK_FINANCE_SDK=/usr/local/php/wxwork \
     # && ./configure --with-php-config=$INSTALL_PHP_PATH/php-config --with-wxwork-finance-sdk=$WXWORK_FINANCE_SDK \
+
+    # 清理缓存
+    && rm -rf /tmp/* /var/cache/apt/*
 
  WORKDIR /var/www
