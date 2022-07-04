@@ -1,0 +1,7 @@
+Host Intranet
+     Hostname intranet.com
+     Port 22
+     User root
+     PreferredAuthentications publickey
+     IdentityFile ~/.ssh/id_rsa
+     ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
