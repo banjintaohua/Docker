@@ -2,7 +2,7 @@ FROM php:5.6.40-fpm
 
 LABEL maintainer="banjintaohua"
 
-COPY --from=composer:2.1.8 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:1.10.26 /usr/bin/composer /usr/local/bin/composer
 
 # 通过 PECL 安装拓展遇到连接超时问题时, 需要设置代理
 # Connection to `pecl.php.net:80' failed: Connection refused
