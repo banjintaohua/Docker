@@ -23,7 +23,8 @@ services:
       TZ: "Asia/Shanghai"
       ALL_PROXY: ${ALL_PROXY:-}
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.56
 
   php-74:
     build:
@@ -48,7 +49,8 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     networks:
-      - develop
+      develop:
+        ipv4_address: 172.19.0.74
 
   php-8:
     image: php:8.0.2-fpm
@@ -57,10 +59,11 @@ services:
     ports:
       - "59008:9000"
     working_dir: /var/www/php
-    networks:
-      - develop
     environment:
       TZ: "Asia/Shanghai"
+    networks:
+      develop:
+        ipv4_address: 172.19.0.80
 
 networks:
   develop:
