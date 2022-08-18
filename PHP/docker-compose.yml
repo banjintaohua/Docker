@@ -52,18 +52,27 @@ services:
       develop:
         ipv4_address: 172.19.0.74
 
-  php-8:
-    image: php:8.0.2-fpm
-    container_name: php-8
+  php-81:
+    build:
+      context: ./build/php-81
+      dockerfile: Dockerfile
+    image: banjintaohua/php-81:1.1
+    container_name: php-81
     restart: always
     ports:
       - "59008:9000"
+    volumes:
+      - /home/docker/docker/PHP/log/php-81/php-fpm:/var/log/php-fpm:rw
+      - /home/docker/docker/PHP/conf/php-81/php.ini:/usr/local/etc/php/php.ini:rw
+      - /home/docker/docker/PHP/conf/php-81/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - /home/docker/docker/PHP/conf/php-81/ssh:/root/.ssh:rw
+      - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
     environment:
       TZ: "Asia/Shanghai"
     networks:
       develop:
-        ipv4_address: 172.19.0.80
+        ipv4_address: 172.19.0.81
 
 networks:
   develop:
