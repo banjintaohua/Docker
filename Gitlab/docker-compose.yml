@@ -9,13 +9,13 @@ services:
     networks:
       - develop
     ports:
-      - "57891:22"
+      - "50022:22"
       - "58080:80"
     environment:
       TZ: "Asia/Shanghai"
       GITLAB_OMNIBUS_CONFIG: |
         external_url "http://${HOST_NAME}"
-        gitlab_rails['gitlab_shell_ssh_port'] = 57891
+        gitlab_rails['gitlab_shell_ssh_port'] = 50022
     working_dir: /var/lib
     volumes:
       - ./conf/gitlab:/etc/gitlab:rw

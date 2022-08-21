@@ -13,7 +13,7 @@ services:
     restart: always
     ports:
       - "54000:4000"
-      - "57892:22"
+      - "50023:22"
     environment:
       TZ: "Asia/Shanghai"
       REMOTE_URL: ${REMOTE_URL}

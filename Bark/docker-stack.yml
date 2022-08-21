@@ -6,6 +6,8 @@ services:
     ports:
       - published: 58084
         target: 8080
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     configs:

@@ -4,8 +4,14 @@ services:
   rabbitmq:
     image: rabbitmq:${RABBIT_MQ_VERSION:-3.8.19-management}
     ports:
-      - "15672:15672"
-      - "55672:5672"
+      - published: 15672
+        target: 15672
+        protocol: tcp
+        mode: ingress
+      - published: 55672
+        target: 5672
+        protocol: tcp
+        mode: ingress
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq:rw
     configs:

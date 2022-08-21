@@ -4,7 +4,10 @@ services:
   swagger-edit:
     image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-v3.18.2}
     ports:
-      - "58081:8080"
+      - published: 58081
+        target: 8080
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     deploy:
@@ -26,7 +29,10 @@ services:
   swagger-ui:
     image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-v3.52.5}
     ports:
-      - "58082:8080"
+      - published: 58082
+        target: 8080
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     deploy:

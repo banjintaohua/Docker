@@ -4,7 +4,10 @@ services:
   qinglong:
     image: whyour/qinglong:2.11
     ports:
-      - "0.0.0.0:55700:5700"
+      - published: 55700
+        target: 5700
+        protocol: tcp
+        mode: ingress
     volumes:
       - qinglong_data:/ql
     networks:

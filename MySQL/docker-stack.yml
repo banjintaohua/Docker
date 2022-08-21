@@ -6,6 +6,7 @@ services:
     ports:
       - published: 53306
         target: 3306
+        protocol: tcp
         mode: host
     working_dir: /var/lib/mysql
     volumes:
@@ -43,6 +44,7 @@ services:
     ports:
       - published: 53307
         target: 3306
+        protocol: tcp
         mode: host
     working_dir: /var/lib/mysql
     volumes:
@@ -80,6 +82,7 @@ services:
     ports:
       - published: 53308
         target: 3306
+        protocol: tcp
         mode: host
     working_dir: /var/lib/mysql
     volumes:

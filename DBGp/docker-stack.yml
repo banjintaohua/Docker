@@ -4,8 +4,14 @@ services:
   dbgp-proxy:
     image: banjintaohua/dbgp-proxy:alpine
     ports:
-      - "59002:9001"
-      - "59003:9003"
+      - published: 59002
+        target: 9001
+        protocol: tcp
+        mode: ingress
+      - published: 59003
+        target: 9003
+        protocol: tcp
+        mode: ingress
     deploy:
       mode: replicated
       replicas: 3

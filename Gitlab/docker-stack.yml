@@ -6,8 +6,14 @@ services:
     networks:
       - cluster
     ports:
-      - "57891:22"
-      - "58080:80"
+      - published: 50022
+        target: 22
+        protocol: tcp
+        mode: ingress
+      - published: 58080
+        target: 80
+        protocol: tcp
+        mode: ingress
     environment:
       TZ: "Asia/Shanghai"
       GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"

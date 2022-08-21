@@ -5,8 +5,12 @@ services:
   elasticsearch:
     image: elastic/elasticsearch:7.17.0
     ports:
-      - "59200:9200"
-      - "59300:9300"
+      - published: 59200
+        target: 9200
+        mode: ingress
+      - published: 59300
+        target: 9300
+        mode: ingress
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     configs:
@@ -44,9 +48,15 @@ services:
   logstash:
     image: elastic/logstash:7.17.0
     ports:
-      - "55044:5044"
-      - "55000:5000"
-      - "59600:9600"
+      - published: 55044
+        target: 5044
+        mode: ingress
+      - published: 55000
+        target: 5000
+        mode: ingress
+      - published: 59600
+        target: 9600
+        mode: ingress
     configs:
       - source: localtime_shanghai
         target: /etc/localtime
@@ -75,7 +85,9 @@ services:
   kibana:
     image: elastic/kibana:7.17.0
     ports:
-      - "55601:5601"
+      - published: 55601
+        target: 5601
+        mode: ingress
     configs:
       - source: localtime_shanghai
         target: /etc/localtime

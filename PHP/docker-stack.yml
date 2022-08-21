@@ -4,7 +4,10 @@ services:
   php-56:
     image: php:5.6.40-fpm
     ports:
-      - "59006:9000"
+      - published: 59006
+        target: 9000
+        protocol: tcp
+        mode: ingress
     configs:
       - source: php_56_xdebug_config
         target: /usr/local/etc/php/conf.d/dexbug.ini
@@ -31,7 +34,10 @@ services:
   php-74:
     image: php:7.4.20-fpm
     ports:
-      - "59007:9000"
+      - published: 59007
+        target: 9000
+        protocol: tcp
+        mode: ingress
     configs:
       - source: php_74_xdebug_config
         target: /usr/local/etc/php/conf.d/dexbug.ini
@@ -58,7 +64,10 @@ services:
   php-80:
     image: php:8.0.2-fpm
     ports:
-      - "59008:9000"
+      - published: 59008
+        target: 9000
+        protocol: tcp
+        mode: ingress
     volumes:
       - nfs_data:/var/www/php:rw
     networks:

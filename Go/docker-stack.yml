@@ -5,8 +5,14 @@ services:
     image: banjintaohua/golang:1.17.3-dlv
     working_dir: /release
     ports:
-      - "52345:2345"
-      - "58086:8080"
+      - published: 52345
+        target: 2345
+        protocol: tcp
+        mode: ingress
+      - published: 58086
+        target: 8080
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     command: [ "run" ]

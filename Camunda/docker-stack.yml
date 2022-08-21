@@ -4,7 +4,10 @@ services:
   camunda:
     image: camunda/camunda-bpm-platform:tomcat-7.10.0
     ports:
-      - "58088:8080"
+      - published: 58088
+        target: 8080
+        protocol: tcp
+        mode: ingress
     working_dir: /camunda
     secrets:
       - source: camunda_db_password

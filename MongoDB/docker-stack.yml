@@ -4,7 +4,10 @@ services:
   mongodb:
     image: mongo:4.2.18
     ports:
-      - "57017:27017"
+      - published: 57017
+        target: 27017
+        protocol: tcp
+        mode: ingress
     volumes:
       - mongodb_data:/var/lib/mongodb:rw
     configs:

@@ -4,7 +4,10 @@ services:
   registry:
     image: registry:${REGISTRY_VERSION:-2.7.1}
     ports:
-      - "55050:443"
+      - published: 55050
+        target: 443
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     configs:

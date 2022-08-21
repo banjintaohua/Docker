@@ -5,7 +5,10 @@ services:
     image: banjintaohua/python-3.9:fastapi
     working_dir: /var/www/peach
     ports:
-      - "58085:8080"
+      - published: 58085
+        target: 8080
+        protocol: tcp
+        mode: ingress
     networks:
       - cluster
     volumes:

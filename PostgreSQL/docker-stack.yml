@@ -4,7 +4,10 @@ services:
   postgres:
     image: postgres:${POSTGRES_VERSION:-13.5}
     ports:
-      - "55432:5432"
+      - published: 55432
+        target: 5432
+        protocol: tcp
+        mode: ingress
     volumes:
       - postgres_data:/var/lib/postgresql/data/:rw
     command:

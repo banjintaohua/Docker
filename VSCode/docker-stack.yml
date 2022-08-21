@@ -4,7 +4,10 @@ services:
   vscode:
     image: codercom/code-server:${CODE_SERVER_VERSION:-4.0.2}
     ports:
-      - "58083:8080"
+      - published: 58083
+        target: 8080
+        protocol: tcp
+        mode: ingress
     user: 0:0
     configs:
       - source: vscode_config
