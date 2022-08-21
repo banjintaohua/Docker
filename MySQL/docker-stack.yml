@@ -4,20 +4,24 @@ services:
   mysql_56:
     image: mysql:5.6
     ports:
-      - "53306:3306"
+      - published: 53306
+        target: 3306
+        mode: host
     working_dir: /var/lib/mysql
     volumes:
       - mysql_56_data:/var/lib/mysql:rw
     configs:
       - source: mysql_56_config
-        target: /etc/mysql/conf.d/my.cnf
+        target: /etc/mysql/mysql.conf.d/mysqld.cnf
     secrets:
       - source: mysql_56_root_password
+        mode: 0600
+      - source: mysql_root_host
         mode: 0600
     environment:
       TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_56_root_password
-      # MYSQL_ROOT_HOST: localhost
+      MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
     networks:
       - cluster
     deploy:
@@ -37,20 +41,24 @@ services:
   mysql_57:
     image: mysql:5.7
     ports:
-      - "53307:3306"
+      - published: 53307
+        target: 3306
+        mode: host
     working_dir: /var/lib/mysql
     volumes:
       - mysql_57_data:/var/lib/mysql:rw
     configs:
       - source: mysql_57_config
-        target: /etc/mysql/conf.d/my.cnf
+        target: /etc/mysql/mysql.conf.d/mysqld.cnf
     secrets:
       - source: mysql_57_root_password
+        mode: 0600
+      - source: mysql_root_host
         mode: 0600
     environment:
       TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_57_root_password
-      # MYSQL_ROOT_HOST: localhost
+      MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
     networks:
       - cluster
     deploy:
@@ -70,17 +78,24 @@ services:
   mariadb:
     image: mariadb:10.5.13
     ports:
-      - "53308:3306"
+      - published: 53308
+        target: 3306
+        mode: host
     working_dir: /var/lib/mysql
     volumes:
       - mariadb_data:/var/lib/mysql:rw
+    configs:
+      - source: mariadb_config
+        target: /etc/mysql/mariadb.conf.d/50-server.cnf
     secrets:
       - source: mariadb_root_password
+        mode: 0600
+      - source: mysql_root_host
         mode: 0600
     environment:
       TZ: "Asia/Shanghai"
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
-      # MYSQL_ROOT_HOST: localhost
+      MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
     networks:
       - cluster
     deploy:
@@ -107,12 +122,18 @@ networks:
 configs:
   mysql_56_config:
     name: mysql_56_config_v1
-    file: ./conf/mysql-56/my.cnf
+    file: ./conf/mysql-56/mysql.conf.d/mysqld.cnf
   mysql_57_config:
     name: mysql_57_config_v1
-    file: ./conf/mysql-57/my.cnf
+    file: ./conf/mysql-57/mysql.conf.d/mysqld.cnf
+  mariadb_config:
+    name: mariadb_config_v1
+    file: ./conf/mariadb/mariadb.conf.d/50-server.cnf
 
 secrets:
+  mysql_root_host:
+    name: mysql_root_host_v1
+    file: ./conf/secrets/mysql_root_host.txt
   mysql_56_root_password:
     name: mysql_56_root_password_v1
     file: ./conf/secrets/mysql_56_root_password.txt
