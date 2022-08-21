@@ -4,7 +4,7 @@ services:
   mysql-56:
     image: mysql:5.6
     command: mysqld
-    # command: mysqld_safe
+    #command: mysqld_safe
     container_name: mysql-56
     restart: "always"
     ports:
@@ -24,7 +24,7 @@ services:
   mysql-57:
     image: mysql:5.7
     command: mysqld
-    # command: mysqld_safe
+    #command: mysqld_safe
     container_name: mysql-57
     restart: "always"
     ports:

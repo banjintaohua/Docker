@@ -31,7 +31,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # Mac: /Users/Shared/gitlab-runner/config
-      # - /Users/Shared/gitlab-runner/config:/etc/gitlab-runner:rw
       # Linux: /srv/gitlab-runner/config
       - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
       - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw

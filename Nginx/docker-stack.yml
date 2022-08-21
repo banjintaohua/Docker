@@ -9,9 +9,9 @@ services:
       - acme_data:/acme.sh:rw
     working_dir: /acme.sh
     command: [ 'daemon' ]
-    # command: source /run/secrets/acme_cloud_flare_env
-    # command: acme.sh --register-account -m $CF_Email --issue -k ec-256 --dns dns_cf -d *.example.online
-    # command: acme.sh --installcert --ecc -d *.example.online --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
+    #command: source /run/secrets/acme_cloud_flare_env
+    #command: acme.sh --register-account -m $CF_Email --issue -k ec-256 --dns dns_cf -d *.example.online
+    #command: acme.sh --installcert --ecc -d *.example.online --fullchain-file /etc/ssl/wildcard-certificate.crt --key-file /etc/ssl/wildcard-certificate.key
     secrets:
       - source: acme_cloud_flare_env
         mode: 0600

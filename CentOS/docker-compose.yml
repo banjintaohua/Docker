@@ -30,8 +30,8 @@ services:
       - develop
     environment:
       TZ: "Asia/Shanghai"
-    # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
-    # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    #command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+    #command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
     command: tail -f /dev/null
 
 volumes:

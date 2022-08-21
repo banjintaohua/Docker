@@ -7,8 +7,8 @@ services:
       args:
         ELK_VERSION: $ELK_VERSION
     container_name: filebeat
-    # depends_on:
-    #   - elasticsearch
+    #depends_on:
+    #  - elasticsearch
     restart: "no"
     # Run as 'root' instead of 'filebeat' (uid 1000) to allow reading
     # 'docker.sock' and the host's filesystem.

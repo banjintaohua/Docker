@@ -9,8 +9,8 @@ services:
       - nfs_data:/backup
       - source_data:/volume
     command: tail -f /dev/null
-    # command: tar -cvzf /backup/backup.tar.gz  -C /volume .
-    # command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    #command: tar -cvzf /backup/backup.tar.gz  -C /volume .
+    #command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
     working_dir: /backup
     environment:
       TZ: "Asia/Shanghai"

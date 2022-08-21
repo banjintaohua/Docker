@@ -18,7 +18,7 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    # command: tail -f /dev/null
+    #command: tail -f /dev/null
     command: [ "run" ]
     volumes:
       - ../../Python:/var/www/python:rw
@@ -41,7 +41,7 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-    # command: tail -f /dev/null
+    #command: tail -f /dev/null
     command: celery -A task worker -l info
     volumes:
       - ../../Python:/var/www/python:rw
@@ -50,22 +50,22 @@ services:
       PYTHONPATH: ${CELERY_APP_DIR}
       APP_DIR: ${CELERY_APP_DIR}
 
-#  celery_beat:
-#    image: banjintaohua/python-3.9:fastapi
-#    container_name: celery_beat
-#    working_dir: ${CELERY_APP_DIR-/var/www}
-#    depends_on:
-#      - "python"
-#    restart: "no"
-#    networks:
-#      - develop
-#    command: celery -A task beat -l info
-#    volumes:
-#      - ../../Python:/var/www/python:rw
-#    environment:
-#      TZ: "Asia/Shanghai"
-#      PYTHONPATH: ${CELERY_APP_DIR}
-#      APP_DIR: ${CELERY_APP_DIR}
+  #celery_beat:
+  #  image: banjintaohua/python-3.9:fastapi
+  #  container_name: celery_beat
+  #  working_dir: ${CELERY_APP_DIR-/var/www}
+  #  depends_on:
+  #    - "python"
+  #  restart: "no"
+  #  networks:
+  #    - develop
+  #  command: celery -A task beat -l info
+  #  volumes:
+  #    - ../../Python:/var/www/python:rw
+  #  environment:
+  #    TZ: "Asia/Shanghai"
+  #    PYTHONPATH: ${CELERY_APP_DIR}
+  #    APP_DIR: ${CELERY_APP_DIR}
 
 networks:
   develop:
