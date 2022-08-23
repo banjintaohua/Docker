@@ -15,8 +15,13 @@ services:
     ports:
       - "59200:9200"
       - "59300:9300"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    mem_swappiness: 0
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx2048m -Xms256m"
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD-changeme}
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
@@ -41,7 +46,7 @@ services:
       - "55000:5000/udp"
       - "59600:9600"
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LS_JAVA_OPTS: "-Xmx512m -Xms256m"
     networks:
       - develop
     depends_on:

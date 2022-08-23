@@ -22,7 +22,7 @@ services:
       - source: elastic_password
         mode: 0600
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx2048m -Xms256m"
       ELASTIC_PASSWORD_FILE: /run/secrets/elastic_password
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/7.17/bootstrap-checks.html
@@ -34,6 +34,9 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          memory: 2G
       restart_policy:
         condition: any
         max_attempts: 3
@@ -65,7 +68,7 @@ services:
       - source: logstash_pipeline
         target: /usr/share/logstash/pipeline/logstash.conf
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx512m -Xms256m"
     networks:
       - cluster
     deploy:
