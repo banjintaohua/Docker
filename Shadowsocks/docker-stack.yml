@@ -3,11 +3,12 @@ version: "3.9"
 services:
   ss-client:
     image: teddysun/shadowsocks-libev:${SHADOWSOCKS_VERSION:-3.3.5}
-    container_name: ss-client
     command: "ss-local -c /etc/shadowsocks-libev/config.json 2>&1"
     working_dir: /etc/shadowsocks-libev
     networks:
       - host
+    expose:
+      - "51079"
     deploy:
       mode: replicated
       replicas: 1
@@ -116,7 +117,7 @@ configs:
     name: shadowsocks_libev_over_https_config_v1
     file: ./conf/ss-websocket-https/config.json
   shadowsocks_client:
-    name: shadowsocks_client_v1
+    name: shadowsocks_client_v2
     file: ./conf/ss-client/config.json
 
 secrets:
