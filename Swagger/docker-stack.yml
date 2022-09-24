@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   swagger-edit:
-    image: swaggerapi/swagger-editor:${SWAGGER_VERSION:-v3.18.2}
+    image: swaggerapi/swagger-editor:v4.4.1
     ports:
       - published: 58081
         target: 8080
@@ -23,11 +23,15 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+    configs:
+      - source: swagger_definition
+        target: /usr/share/nginx/html/data/real-world.yml
     environment:
       TZ: "Asia/Shanghai"
+      URL: "./data/real-world.yml"
 
   swagger-ui:
-    image: swaggerapi/swagger-ui:${SWAGGER_VERSION:-v3.52.5}
+    image: swaggerapi/swagger-ui:v4.14.1
     ports:
       - published: 58082
         target: 8080
@@ -48,8 +52,13 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+    configs:
+      - source: swagger_config
+        target: /usr/share/nginx/html/swagger-config.json
     environment:
       TZ: "Asia/Shanghai"
+      CONFIG_URL: "./swagger-config.json"
+
 
 networks:
   cluster:
@@ -57,3 +66,11 @@ networks:
     driver: overlay
     attachable: true
     external: true
+
+configs:
+  swagger_config:
+    name: swagger_config_v1
+    file: ./conf/swagger-config.json
+  swagger_definition:
+    name: swagger_definition_v1
+    file: ./data/real-world.yml
