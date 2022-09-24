@@ -55,6 +55,8 @@ services:
     configs:
       - source: swagger_config
         target: /usr/share/nginx/html/swagger-config.json
+      - source: swagger_definition
+        target: /usr/share/nginx/html/data/real-world.yml
     environment:
       TZ: "Asia/Shanghai"
       CONFIG_URL: "./swagger-config.json"
