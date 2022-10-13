@@ -10,6 +10,8 @@ RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backu
     && yum install -y centos-release-scl \
     && yum install -y devtoolset-7-gcc* \
     && scl enable devtoolset-7 bash \
+    && yum -y install python3-devel \
+    && yum -y install openldap-devel \
     && sed -ie 's/keepcache=0/keepcache=1/g' /etc/yum.conf
 
 CMD tail -f /dev/null
