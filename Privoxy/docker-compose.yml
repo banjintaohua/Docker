@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  privoxy:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: registry.banjintaohua.online/banjintaohua/privoxy:3.0.33
+    container_name: privoxy
+    working_dir: /etc/privoxy
+    network_mode: host
+    restart: always
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "10.211.55.3", "8118" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    volumes:
+      - ./conf/config:/etc/privoxy/config:rw
+      - ./log/:/var/log/privoxy/:rw
+      - ./conf/intranet.action:/etc/privoxy/intranet.action:rw
+      - ./conf/gfwlist.action:/etc/privoxy/gfwlist.action:rw
+    environment:
+      TZ: "Asia/Shanghai"

@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  ss-client:
+    image: registry.banjintaohua.online/banjintaohua/privoxy:3.0.33
+    working_dir: /etc/privoxy
+    networks:
+      - host
+    expose:
+      - "8118"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "8118" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    configs:
+      - source: privoxy_config
+        target: /etc/privoxy/config
+      - source: gfwlist_action
+        target: /etc/privoxy/gfwlist.action
+      - source: intranet_action
+        target: /etc/privoxy/intranet.action
+    environment:
+      TZ: "Asia/Shanghai"
+
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+  host:
+    name: host
+    external: true
+
+configs:
+  privoxy_config:
+    name: privoxy_config_v1
+    file: ./conf/config
+  gfwlist_action:
+    name: gfwlist_action_v1
+    file: ./conf/gfwlist.action
+  intranet_action:
+    name: intranet_action_v1
+    file: ./conf/intranet.action
