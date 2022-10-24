@@ -161,10 +161,10 @@ secrets:
     name: acme_cloud_flare_env_v1
     file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
-    name: wildcard_certificate_crt_v2
+    name: wildcard_certificate_crt_v3
     file: ./conf/ssl/wildcard-certificate.crt
   wildcard-certificate.key:
-    name: wildcard_certificate_key_2
+    name: wildcard_certificate_key_v3
     file: ./conf/ssl/wildcard-certificate.key
 
 volumes:
