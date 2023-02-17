@@ -1,40 +1,41 @@
+# php:5.6.40-fpm already comes with the following extensions
+#
+# [PHP Modules]
+#   Core ctype curl date dom ereg fileinfo filter ftp hash iconv json libxml mbstring mhash mysqlnd
+#   openssl pcre PDO pdo_sqlite Phar posix readline Reflection session SimpleXML
+#   SPL sqlite3 standard tokenizer xml xmlreader xmlwriter zlib
+# [Zend Modules]
+
 FROM php:5.6.40-fpm
 
 LABEL maintainer="banjintaohua"
 
-# COPY . /tmp/build
+ENV PEAR_HTTP_PROXY http://10.211.55.2:1087
+
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/composer
 
-# 通过 PECL 安装拓展遇到连接超时问题时, 需要设置代理
-# Connection to `pecl.php.net:80' failed: Connection refused
-# sudo pear config-set http_proxy http://127.0.0.1:1087
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \
-    && echo 'deb http://mirrors.163.com/debian/ stretch main non-free contrib' > /etc/apt/sources.list \
-    && echo 'deb http://mirrors.163.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list \
-    && echo 'deb http://mirrors.163.com/debian-security/ stretch/updates main non-free contrib' >> /etc/apt/sources.list \
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+    && pear config-set php_ini /usr/local/etc/php/php.ini \
+    # debian 9.x (buster) mirror \
+    && sed -i -E 's/(deb|security).debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
+    # apt install
     && apt update \
-    # 基本工具包
     && apt install -y vim dnsutils iputils-ping \
     && apt install -y netcat-openbsd \
     && apt install -y git \
-    # 命令补全工具
-    && apt install -y bash-completion \
-    && echo 'source /etc/profile.d/bash_completion.sh' >> /root/.bashrc \
-    # 加密解密
     && apt install -y libmcrypt-dev \
-    && docker-php-ext-install mcrypt \
-    # GD 库
-    && apt -y install libpng-dev libssl-dev \
-    && docker-php-ext-install gd \
-    # Excel 依赖
+    && apt install -y libpng-dev libssl-dev \
     && apt install -y libzip-dev zlib1g-dev \
-    && docker-php-ext-install zip \
-    # 数据库
+    # docker-php-ext-install
     && docker-php-ext-install mysql mysqli pdo_mysql zip \
-    # 断点调试
+    && docker-php-ext-install mcrypt \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install zip \
+    # pecl install
+    && pear config-set http_proxy ${PEAR_HTTP_PROXY} \
     && pecl install xdebug-2.5.5 \
-    # 清理缓存
+    && pear config-set http_proxy '' \
+    # clear
     && rm -rf /tmp/* /var/cache/apt/*
-
 
 WORKDIR /var/www
