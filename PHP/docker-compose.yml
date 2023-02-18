@@ -14,7 +14,7 @@ services:
     volumes:
       - /home/docker/docker/PHP/log/php-56/php-fpm:/var/log/php-fpm:rw
       - /home/docker/docker/PHP/conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
-      - /home/docker/docker/PHP/conf/php-56/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:ro
+      - /home/docker/docker/PHP/conf/php-56/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
       - /home/docker/docker/PHP/conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
       - /home/docker/docker/PHP/conf/php-56/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
@@ -42,7 +42,7 @@ services:
     volumes:
       - /home/docker/docker/PHP/log/php-74/php-fpm:/var/log/php-fpm:rw
       - /home/docker/docker/PHP/conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
-      - /home/docker/docker/PHP/conf/php-74/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - /home/docker/docker/PHP/conf/php-74/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:rw
       - /home/docker/docker/PHP/conf/php-74/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
@@ -64,7 +64,7 @@ services:
     volumes:
       - /home/docker/docker/PHP/log/php-81/php-fpm:/var/log/php-fpm:rw
       - /home/docker/docker/PHP/conf/php-81/php.ini:/usr/local/etc/php/php.ini:rw
-      - /home/docker/docker/PHP/conf/php-81/xdebug.ini:/usr/local/etc/php/conf.d/dexbug.ini:rw
+      - /home/docker/docker/PHP/conf/php-81/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:rw
       - /home/docker/docker/PHP/conf/php-81/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
