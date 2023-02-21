@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: centos:7
+    image: centos:7-builder
     container_name: downloader
     restart: "no"
     volumes:
@@ -19,7 +19,7 @@ services:
     command: tail -f /dev/null
 
   volume_backup:
-    image: centos:7
+    image: centos:7-builder
     container_name: volume_backup
     restart: "no"
     volumes:

@@ -49,4 +49,4 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     # clear
     && rm -rf /tmp/* /var/cache/apt/*
 
- WORKDIR /var/www
+WORKDIR /var/www
