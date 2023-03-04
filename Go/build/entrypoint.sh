@@ -16,11 +16,11 @@ health_check() {
 
 case "$1" in
 "dev")
-  /release/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 --accept-multiclient exec /release/server || health_check
+  /release/dlv --listen=:2345 --headless=true --check-go-version=false --api-version=2 --accept-multiclient exec /release/server
   ;;
 
 "run")
-  /release/server || health_check
+  /release/server
   ;;
 
 "health")

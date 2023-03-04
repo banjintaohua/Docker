@@ -11,8 +11,8 @@ services:
     restart: "always"
     working_dir: /release
     volumes:
-      - /Users/sea/go:/go:rw
-      - /Users/sea/Documents/Go:/app:rw
+      - ./conf:/etc/go:rw
+      - ./log:/var/log/go:rw
     ports:
       - "52345:2345"
       - "58086:8080"
