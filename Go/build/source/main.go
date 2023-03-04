@@ -5,20 +5,12 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/http/pprof"
 	"os"
 	"strings"
-	"time"
-
-	"github.com/gorilla/mux"
 )
 
-var (
-	logger        *log.Logger
-	serverAddress = ":8080"
-	readTimeout   = time.Duration(5)
-	writeTimeout  = time.Duration(10)
-	idleTimeout   = time.Duration(120)
-)
+var logger = log.New(os.Stdout, "demo-http-server ", log.LstdFlags|log.Lshortfile)
 
 func getClientIp(request *http.Request) string {
 	xForwardedFor := request.Header.Get("X-Forwarded-For")
@@ -51,20 +43,17 @@ func indexHandler(writer http.ResponseWriter, request *http.Request) {
 }
 
 func main() {
-	logger = log.New(os.Stdout, "demo-http-server ", log.LstdFlags|log.Lshortfile)
-	router := mux.NewRouter()
-	router.HandleFunc("/", indexHandler)
 
-	server := &http.Server{
-		Addr:         serverAddress,
-		ReadTimeout:  readTimeout * time.Second,
-		WriteTimeout: writeTimeout * time.Second,
-		IdleTimeout:  idleTimeout * time.Second,
-		Handler:      router,
-	}
+	serveMux := http.NewServeMux()
+	serveMux.HandleFunc("/debug/pprof/", pprof.Index)
+	serveMux.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+	serveMux.HandleFunc("/debug/pprof/profile", pprof.Profile)
+	serveMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+	serveMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
+	serveMux.HandleFunc("/", indexHandler)
 
 	logger.Println("server started")
-	if err := server.ListenAndServe(); err != nil {
+	if err := http.ListenAndServe(":8080", serveMux); err != nil {
 		panic(err)
 	}
 }
