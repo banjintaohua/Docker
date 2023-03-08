@@ -5,6 +5,7 @@
 */conf/*
 */log/*
 */data/*
+*/kubernetes/*
 */.env
 
 !/Redis/data/dump.sh
