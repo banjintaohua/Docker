@@ -69,7 +69,7 @@ configs:
   gitlab_config:
     name: gitlab_config_v1
     external: false
-    file: ./conf/gitlab/gitlab.rb
+    file: ./conf/gitlab.rb
 
 secrets:
   gitlab_root_password:
