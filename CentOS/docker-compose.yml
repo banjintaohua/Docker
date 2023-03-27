@@ -1,41 +1,50 @@
 version: "3.9"
 
 services:
-  downloader:
+  builder:
     build:
       context: ./build
       dockerfile: Dockerfile
     image: centos:7-builder
+    container_name: builder
+    restart: "no"
+    volumes:
+      - "./conf/yum.repos.d:/etc/yum.repos.d:rw"
+      - "./conf/yum.conf:/etc/yum.conf:rw"
+      - "/data/cache/maven:/root/.m2"
+      - "/data/cache/bower:/root/.cache/bower"
+      - "/data/cache/npm:/root/.npm"
+      - "/data/cache/composer:/root/.composer"
+      - "/data/cache/gradle:/root/.gradle"
+      - "/data/cache/golang:/var/lib/go/pkg"
+    working_dir: /backup
+    networks:
+      - develop
+    environment:
+      TZ: "Asia/Shanghai"
+    command: tail -f /dev/null
+
+  downloader:
+    image: centos:7-builder
     container_name: downloader
     restart: "no"
     volumes:
-      - ./conf/yum.repos.d:/etc/yum.repos.d:rw
-      - ./conf/yum.conf:/etc/yum.conf:rw
+      - ./data/download:/download
+      - backup:/data
     working_dir: /backup
     networks:
       - develop
     environment:
       TZ: "Asia/Shanghai"
-    command: tail -f /dev/null
-
-  volume_backup:
-    image: centos:7-builder
-    container_name: volume_backup
-    restart: "no"
-    volumes:
-      - ./data:/backup
-      - source_data:/volume
-    working_dir: /backup
-    networks:
-      - develop
-    environment:
-      TZ: "Asia/Shanghai"
-    #command: tar -cvzf /backup/backup.tar.gz  -C /volume .
-    #command: sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -xvzf /backup/backup.tar.gz -C /volume"
+    # back up data
+    # command: tar -cvzf /data/rpms.tar.gz  -C /download .
+    #
+    # recovery data
+    # command: sh -c "rm -rf /data/* /data/..?* /data/.[!.]* ; tar -xvzf /data/rpms.tar.gz -C /download"
     command: tail -f /dev/null
 
 volumes:
-  source_data:
+  backup:
     name: bark_data
 
 networks:
