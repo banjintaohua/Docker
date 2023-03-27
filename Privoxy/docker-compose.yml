@@ -5,7 +5,7 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: registry.banjintaohua.online/banjintaohua/privoxy:3.0.33
+    image: registry.banjintaohua.xyz/banjintaohua/privoxy:3.0.33
     container_name: privoxy
     working_dir: /etc/privoxy
     network_mode: host

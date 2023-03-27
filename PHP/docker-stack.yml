@@ -110,7 +110,7 @@ volumes:
     name: nfs_data
     driver_opts:
       type: "nfs"
-      o: "addr=nfs.banjintaohua.online,nolock,soft,rw"
+      o: "addr=nfs.banjintaohua.xyz,nolock,soft,rw"
       device: ":/nfs/share"
   php_56_data:
     name: php_56_data
