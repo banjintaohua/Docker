@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  grafana:
+    image: grafana/grafana-oss:7.5.9
+    container_name: grafana
+    ports:
+      - "53000:3000"
+    volumes:
+      - ./data:/var/lib/grafana:rw
+      - ./conf/grafana.ini:/etc/grafana/grafana.ini:rw
+    restart: on-failure
+    user: root
+    networks:
+      develop:
+        ipv4_address: 172.19.0.39
+    environment:
+      GF_INSTALL_PLUGINS: ${GF_INSTALL_PLUGINS}
+      TZ: "Asia/Shanghai"
+
+networks:
+  develop:
+    external: true
