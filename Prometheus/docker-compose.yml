@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.37.8
+    container_name: prometheus
+    ports:
+      - "59090:9090"
+    volumes:
+      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data:/prometheus
+    restart: on-failure
+    user: root
+    networks:
+      develop:
+        ipv4_address: 172.19.0.41
+    environment:
+      TZ: "Asia/Shanghai"
+
+networks:
+  develop:
+    external: true
