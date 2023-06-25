@@ -91,11 +91,11 @@ services:
 configs:
   php_56_xdebug_config:
     name: php_56_xdebug_config
-    file: ./conf/php-56/xdebug.ini
+    file: ./conf/php-56/php.d/xdebug.ini
     external: false
   php_74_xdebug_config:
     name: php_74_xdebug_config
-    file: ./conf/php-74/xdebug.ini
+    file: ./conf/php-74/php.d/xdebug.ini
     external: false
 
 networks:
