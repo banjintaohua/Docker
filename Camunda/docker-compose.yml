@@ -11,9 +11,9 @@ services:
       - "58088:8080"
     working_dir: /camunda
     volumes:
-      - ./log/:/camunda/logs/:rw
-      - ./conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
-      - ./conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
+      - /media/psf/Docker/Camunda/log:/camunda/logs:rw
+      - /media/psf/Docker/Camunda/conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
+      - /media/psf/Docker/Camunda/conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
     restart: on-failure
     networks:
       develop:

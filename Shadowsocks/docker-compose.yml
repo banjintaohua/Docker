@@ -9,9 +9,9 @@ services:
     network_mode: host
     restart: always
     volumes:
-      - ./conf/ss-client/config.json:/etc/shadowsocks-libev/config.json:rw
-      - ./conf/ss-client/v2ray-plugin:/usr/local/bin/v2ray-plugin:ro
-      - ./log/ss-client:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/log/ss-client:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/conf/ss-client/config.json:/etc/shadowsocks-libev/config.json:rw
+      - /media/psf/Docker/Shadowsocks/conf/ss-client/v2ray-plugin:/usr/local/bin/v2ray-plugin:ro
     environment:
       TZ: "Asia/Shanghai"
 
@@ -27,8 +27,8 @@ services:
       - "51080:51080"
       - "51080:51080/udp"
     volumes:
-      - ./conf/ss-websocket-http:/etc/shadowsocks-libev:rw
-      - ./log/ss-websocket-http:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/log/ss-websocket-http:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/conf/ss-websocket-http:/etc/shadowsocks-libev:rw
     environment:
       TZ: "Asia/Shanghai"
 
@@ -44,9 +44,9 @@ services:
       - "51081:51081"
       - "51081:51081/udp"
     volumes:
-      - ../Nginx/conf/ssl:/etc/ssl:ro
-      - ./conf/ss-websocket-https:/etc/shadowsocks-libev:rw
-      - ./log/ss-websocket-https:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/log/ss-websocket-https:/var/log/shadowsocks
+      - /media/psf/Docker/Shadowsocks/conf/ss-websocket-https:/etc/shadowsocks-libev:rw
+      - /media/psf/Docker/Nginx/conf/ssl:/etc/ssl:ro
     environment:
       TZ: "Asia/Shanghai"
 

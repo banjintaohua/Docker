@@ -8,9 +8,9 @@ services:
     ports:
       - "57017:27017"
     volumes:
-      - ./data:/var/lib/mongodb:rw
-      - ./conf/mongod.conf:/etc/mongod.conf:rw
-      - ./log:/var/log/mongodb:rw
+      - /media/psf/Docker/MongoDB/log:/var/log/mongodb:rw
+      - /media/psf/Docker/MongoDB/conf/mongod.conf:/etc/mongod.conf:rw
+      - /media/psf/Docker/MongoDB/data:/var/lib/mongodb:rw
     networks:
       - develop
     environment:

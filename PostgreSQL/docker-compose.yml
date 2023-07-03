@@ -8,8 +8,8 @@ services:
     ports:
       - "55432:5432"
     volumes:
-      - ./conf/postgresql.conf:/etc/postgresql/postgresql.conf:rw
-      - ./data:/var/lib/postgresql/data:rw
+      - /media/psf/Docker/PostgreSQL/conf/postgresql.conf:/etc/postgresql/postgresql.conf:rw
+      - /media/psf/Docker/PostgreSQL/data:/var/lib/postgresql/data:rw
     networks:
       - develop
     environment:

@@ -10,8 +10,8 @@ services:
     networks:
       - develop
     volumes:
-      - ./data:/data
-      - ./conf/localtime:/etc/localtime
+      - /media/psf/Docker/Bark/data:/data
+      - /media/psf/Docker/Bark/conf/localtime:/etc/localtime
 
 networks:
   develop:

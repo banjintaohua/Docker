@@ -10,9 +10,9 @@ services:
     ports:
       - "53306:3306"
     volumes:
-      - /var/data/mysql-56/:/var/lib/mysql:rw
-      - ./conf/mysql-56/mysql.conf.d/:/etc/mysql/mysql.conf.d:rw
-      - ./log/mysql-56/:/var/log/mysql/:rw
+      - /media/psf/Docker/MySQL/log/mysql-56:/var/log/mysql:rw
+      - /media/psf/Docker/MySQL/data/mysql-56:/var/lib/mysql:rw
+      - /media/psf/Docker/MySQL/conf/mysql-56/mysql.conf.d:/etc/mysql/mysql.conf.d:rw
     working_dir: /var/lib/mysql
     networks:
       - develop
@@ -31,9 +31,9 @@ services:
       - "53307:3306"
     working_dir: /var/lib/mysql
     volumes:
-      - /var/data/mysql-57/:/var/lib/mysql:rw
-      - ./conf/mysql-57/mysql.conf.d/:/etc/mysql/mysql.conf.d:rw
-      - ./log/mysql-57/:/var/log/mysql/:rw
+      - /media/psf/Docker/MySQL/log/mysql-57:/var/log/mysql:rw
+      - /media/psf/Docker/MySQL/conf/mysql-57/mysql.conf.d:/etc/mysql/mysql.conf.d:rw
+      - /media/psf/Docker/MySQL/data/mysql-57:/var/lib/mysql:rw
     networks:
       - develop
     environment:
@@ -48,10 +48,12 @@ services:
     ports:
       - "53308:3306"
     working_dir: /var/lib/mysql
+    user: mysql
+    command: mysqld
     volumes:
-      - /var/data/mariadb/:/var/lib/mysql:rw
-      - ./conf/mariadb/mariadb.conf.d:/etc/mysql/mariadb.conf.d:rw
-      - ./log/mariadb/:/var/log/mariadb/:rw
+      - /media/psf/Docker/MySQL/log/mariadb:/var/log/mariadb:rw
+      - /media/psf/Docker/MySQL/conf/mariadb/mariadb.conf.d:/etc/mysql/mariadb.conf.d:rw
+      - /media/psf/Docker/MySQL/data/mariadb:/var/lib/mysql:rw
     networks:
       - develop
     environment:

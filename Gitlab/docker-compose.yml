@@ -18,9 +18,9 @@ services:
         gitlab_rails['gitlab_shell_ssh_port'] = 50022
     working_dir: /var/lib
     volumes:
-      - ./conf/gitlab:/etc/gitlab:rw
-      - ./data:/var/opt/gitlab:rw
-      - ./log:/var/log/gitlab:rw
+      - /media/psf/Docker/Gitlab/log:/var/log/gitlab:rw
+      - /media/psf/Docker/Gitlab/conf/gitlab:/etc/gitlab:rw
+      - /media/psf/Docker/Gitlab/data:/var/opt/gitlab:rw
 
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine
@@ -33,8 +33,8 @@ services:
       # Mac: /Users/Shared/gitlab-runner/config
       # Linux: /srv/gitlab-runner/config
       - /srv/gitlab-runner/config:/etc/gitlab-runner:rw
-      - ./conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
-      - ./conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
+      - /media/psf/Docker/Gitlab/conf/ssh/id_rsa:/home/gitlab-runner/.ssh/id_rsa:rw
+      - /media/psf/Docker/Gitlab/conf/ssh/id_rsa.pub:/home/gitlab-runner/.ssh/id_rsa.pub:rw
     environment:
       TZ: "Asia/Shanghai"
 

@@ -7,7 +7,7 @@ services:
     restart: "no"
     working_dir: /var/www
     volumes:
-      - ./data:/var/www:rw
+      - /media/psf/Docker/Node/data:/var/www:rw
     network_mode: host
     command: tail -f /dev/null
     environment:

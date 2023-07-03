@@ -7,8 +7,8 @@ services:
     ports:
       - "53000:3000"
     volumes:
-      - ./data:/var/lib/grafana:rw
-      - ./conf/grafana.ini:/etc/grafana/grafana.ini:rw
+      - /media/psf/Docker/Grafana/conf/grafana.ini:/etc/grafana/grafana.ini:rw
+      - /media/psf/Docker/Grafana/data:/var/lib/grafana:rw
     restart: on-failure
     user: root
     networks:

@@ -9,14 +9,14 @@ services:
     container_name: builder
     restart: "no"
     volumes:
-      - "./conf/yum.repos.d:/etc/yum.repos.d:rw"
-      - "./conf/yum.conf:/etc/yum.conf:rw"
-      - "/data/cache/maven:/root/.m2"
-      - "/data/cache/bower:/root/.cache/bower"
-      - "/data/cache/npm:/root/.npm"
-      - "/data/cache/composer:/root/.composer"
-      - "/data/cache/gradle:/root/.gradle"
-      - "/data/cache/golang:/var/lib/go/pkg"
+      - "/media/psf/Docker/CentOS/conf/yum.repos.d:/etc/yum.repos.d:rw"
+      - "/media/psf/Docker/CentOS/conf/yum.conf:/etc/yum.conf:rw"
+      - "/media/psf/Docker/CentOS/data/cache/maven:/root/.m2"
+      - "/media/psf/Docker/CentOS/data/cache/bower:/root/.cache/bower"
+      - "/media/psf/Docker/CentOS/data/cache/npm:/root/.npm"
+      - "/media/psf/Docker/CentOS/data/cache/composer:/root/.composer"
+      - "/media/psf/Docker/CentOS/data/cache/gradle:/root/.gradle"
+      - "/media/psf/Docker/CentOS/data/cache/golang:/var/lib/go/pkg"
     working_dir: /backup
     networks:
       - develop
@@ -29,7 +29,7 @@ services:
     container_name: downloader
     restart: "no"
     volumes:
-      - ./data/download:/download
+      - /media/psf/Docker/CentOS/data/download:/download
       - backup:/data
     working_dir: /backup
     networks:

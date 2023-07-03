@@ -15,12 +15,12 @@ services:
       - "59006:9000"
       - "58006:80"
     volumes:
-      - /home/docker/docker/PHP/log/php-56/php-fpm:/var/log/php-fpm:rw
-      - /home/docker/docker/PHP/conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
-      - /home/docker/docker/PHP/conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
-      - /home/docker/docker/PHP/conf/php-56/php.d:/usr/local/etc/php/conf.d:rw
-      - /home/docker/docker/PHP/conf/php-56/nginx.d:/etc/nginx/conf.d:rw
-      - /home/docker/docker/PHP/conf/php-56/ssh:/root/.ssh:rw
+      - /media/psf/Docker/PHP/log/php-56/php-fpm:/var/log/php-fpm:rw
+      - /media/psf/Docker/PHP/conf/php-56/php-fpm.d:/usr/local/etc/php-fpm.d:rw
+      - /media/psf/Docker/PHP/conf/php-56/php.ini:/usr/local/etc/php/php.ini:ro
+      - /media/psf/Docker/PHP/conf/php-56/php.d:/usr/local/etc/php/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-56/nginx.d:/etc/nginx/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-56/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
     environment:
@@ -47,13 +47,13 @@ services:
       - "59007:9000"
       - "58007:80"
     volumes:
-      - /home/docker/docker/PHP/log/php-74/php-fpm:/var/log/php-fpm:rw
-      - /home/docker/docker/PHP/conf/php-74/php-fpm.conf:/usr/local/etc/php-fpm.conf:rw
-      - /home/docker/docker/PHP/conf/php-74/php-fpm.d:/usr/local/etc/php-fpm.d:rw
-      - /home/docker/docker/PHP/conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
-      - /home/docker/docker/PHP/conf/php-74/php.d:/usr/local/etc/php/conf.d:rw
-      - /home/docker/docker/PHP/conf/php-74/nginx.d:/etc/nginx/conf.d:rw
-      - /home/docker/docker/PHP/conf/php-74/ssh:/root/.ssh:rw
+      - /media/psf/Docker/PHP/log/php-74/php-fpm:/var/log/php-fpm:rw
+      - /media/psf/Docker/PHP/conf/php-74/php-fpm.conf:/usr/local/etc/php-fpm.conf:rw
+      - /media/psf/Docker/PHP/conf/php-74/php-fpm.d:/usr/local/etc/php-fpm.d:rw
+      - /media/psf/Docker/PHP/conf/php-74/php.ini:/usr/local/etc/php/php.ini:rw
+      - /media/psf/Docker/PHP/conf/php-74/php.d:/usr/local/etc/php/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-74/nginx.d:/etc/nginx/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-74/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
     environment:
@@ -72,12 +72,12 @@ services:
     ports:
       - "59008:9000"
     volumes:
-      - /home/docker/docker/PHP/log/php-81/php-fpm:/var/log/php-fpm:rw
-      - /home/docker/docker/PHP/conf/php-81/php-fpm.conf:/usr/local/etc/php-fpm.conf:rw
-      - /home/docker/docker/PHP/conf/php-81/php-fpm.d:/usr/local/etc/php-fpm.d:rw
-      - /home/docker/docker/PHP/conf/php-81/php.ini:/usr/local/etc/php/php.ini:rw
-      - /home/docker/docker/PHP/conf/php-81/php.d:/usr/local/etc/php/conf.d:rw
-      - /home/docker/docker/PHP/conf/php-81/ssh:/root/.ssh:rw
+      - /media/psf/Docker/PHP/log/php-81/php-fpm:/var/log/php-fpm:rw
+      - /media/psf/Docker/PHP/conf/php-81/php-fpm.conf:/usr/local/etc/php-fpm.conf:rw
+      - /media/psf/Docker/PHP/conf/php-81/php-fpm.d:/usr/local/etc/php-fpm.d:rw
+      - /media/psf/Docker/PHP/conf/php-81/php.ini:/usr/local/etc/php/php.ini:rw
+      - /media/psf/Docker/PHP/conf/php-81/php.d:/usr/local/etc/php/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-81/ssh:/root/.ssh:rw
       - /media/psf/Php:/var/www/php:rw
     working_dir: /var/www/php
     environment:

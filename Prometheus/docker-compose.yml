@@ -7,8 +7,8 @@ services:
     ports:
       - "59090:9090"
     volumes:
-      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./data:/prometheus
+      - /media/psf/Docker/Prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /media/psf/Docker/Prometheus/data:/prometheus
     restart: on-failure
     user: root
     networks:

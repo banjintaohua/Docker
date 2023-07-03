@@ -11,8 +11,8 @@ services:
     restart: "always"
     working_dir: /release
     volumes:
-      - ./conf:/etc/go:rw
-      - ./log:/var/log/go:rw
+      - /media/psf/Docker/Go/log:/var/log/go:rw
+      - /media/psf/Docker/Go/conf:/etc/go:rw
     ports:
       - "52345:2345"
       - "58086:8080"

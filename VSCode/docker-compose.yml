@@ -9,8 +9,8 @@ services:
     ports:
       - "58083:8080"
     volumes:
-      - ./conf/.config:/home/coder/.config:rw
-      - ./data/project:/home/coder/project:rw
+      - /media/psf/Docker/VSCode/conf/.config:/home/coder/.config:rw
+      - /media/psf/Docker/VSCode/data/project:/home/coder/project:rw
     networks:
       - develop
     environment:

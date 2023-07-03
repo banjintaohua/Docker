@@ -8,8 +8,8 @@ services:
     ports:
       - "56379:6379"
     volumes:
-      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./data:/data
+      - /media/psf/Docker/Redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /media/psf/Docker/Redis/data:/data
     networks:
       - develop
     command: "redis-server /usr/local/etc/redis/redis.conf"

@@ -10,7 +10,7 @@ services:
     networks:
       - develop
     volumes:
-      - ./data:/usr/share/nginx/html/data:rw
+      - /media/psf/Docker/Swagger/data:/usr/share/nginx/html/data:rw
     environment:
       TZ: "Asia/Shanghai"
       URL: ${URL}
@@ -24,8 +24,8 @@ services:
     networks:
       - develop
     volumes:
-      - ./conf/swagger-config.json:/usr/share/nginx/html/swagger-config.json:rw
-      - ./data:/usr/share/nginx/html/data:rw
+      - /media/psf/Docker/Swagger/conf/swagger-config.json:/usr/share/nginx/html/swagger-config.json:rw
+      - /media/psf/Docker/Swagger/data:/usr/share/nginx/html/data:rw
     environment:
       TZ: "Asia/Shanghai"
       CONFIG_URL: ${CONFIG_URL}

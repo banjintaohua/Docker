@@ -21,12 +21,12 @@ services:
       # see: https://www.elastic.co/guide/en/beats/libbeat/7.17/config-file-permissions.html
       - --strict.perms=false
     volumes:
-      - ./conf/localtime:/etc/localtime
-      - ./conf/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - ./conf/filebeat/modules.d:/usr/share/filebeat/modules.d:ro
+      - /media/psf/Docker/Nginx/log:/var/log/nginx:ro
+      - /media/psf/Docker/Beats/conf/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /media/psf/Docker/Beats/conf/filebeat/modules.d:/usr/share/filebeat/modules.d:ro
+      - /media/psf/Docker/Beats/conf/localtime:/etc/localtime
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ../Nginx/log:/var/log/nginx:ro
     environment:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD-changeme}
     networks:

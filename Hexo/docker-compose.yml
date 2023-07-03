@@ -21,13 +21,13 @@ services:
       HEXO_DEBUG: ${HEXO_DEBUG}
     working_dir: /usr/local/opt/hexo/blog/source/_posts
     volumes:
-      - ./conf/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
-      - ./conf/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
-      - ./conf/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
-      - ./conf/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
-      - ./conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
-      - ./conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
-      - ./conf/ssh/authorized_keys:/root/.ssh/authorized_keys:rw
+      - /media/psf/Docker/Hexo/conf/_config.yml:/usr/local/opt/hexo/blog/_config.yml:rw
+      - /media/psf/Docker/Hexo/conf/next/_config.yml:/usr/local/opt/hexo/blog/themes/next/_config.yml:rw
+      - /media/psf/Docker/Hexo/conf/next/Pisces.styl:/usr/local/opt/hexo/blog/themes/next/source/css/_variables/Pisces.styl:rw
+      - /media/psf/Docker/Hexo/conf/next/zh-CN.yml:/usr/local/opt/hexo/blog/themes/next/languages/zh-CN.yml:rw
+      - /media/psf/Docker/Hexo/conf/ssh/id_rsa:/root/.ssh/id_rsa:rw
+      - /media/psf/Docker/Hexo/conf/ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:rw
+      - /media/psf/Docker/Hexo/conf/ssh/authorized_keys:/root/.ssh/authorized_keys:rw
     networks:
       - develop
 

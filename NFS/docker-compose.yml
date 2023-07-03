@@ -16,6 +16,6 @@ services:
       TZ: "Asia/Shanghai"
       NFS_LOG_LEVEL: 'DEBUG'
     volumes:
-      - ./data:/nfs/share
-      - ./conf/intranet_exports.txt:/etc/exports:ro
       - /lib/modules:/lib/modules:ro
+      - /media/psf/Docker/NFS/conf/intranet_exports.txt:/etc/exports:ro
+      - /media/psf/Docker/NFS/data:/nfs/share

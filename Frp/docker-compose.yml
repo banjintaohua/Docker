@@ -17,8 +17,8 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     volumes:
-      - ./conf/server/frps.ini:/etc/frp/frps.ini:rw
-      - ./log:/var/log/frp
+      - /media/psf/Docker/Frp/log:/var/log/frp
+      - /media/psf/Docker/Frp/conf/server/frps.ini:/etc/frp/frps.ini:rw
 
   frpc:
     image: banjintaohua/frps:0.35.1
@@ -29,5 +29,5 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     volumes:
-      - ./conf/client/frpc.ini:/etc/frp/frpc.ini:rw
-      - ./log:/var/log/frp
+      - /media/psf/Docker/Frp/log:/var/log/frp
+      - /media/psf/Docker/Frp/conf/client/frpc.ini:/etc/frp/frpc.ini:rw

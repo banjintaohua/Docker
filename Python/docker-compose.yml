@@ -21,7 +21,7 @@ services:
     #command: tail -f /dev/null
     command: [ "run" ]
     volumes:
-      - ../../Python:/var/www/python:rw
+      - /media/psf/Python:/var/www/python:rw
     environment:
       TZ: "Asia/Shanghai"
       PYTHONPATH: ${APP_DIR}
@@ -44,7 +44,7 @@ services:
     #command: tail -f /dev/null
     command: celery -A task worker -l info
     volumes:
-      - ../../Python:/var/www/python:rw
+      - /media/psf/Python:/var/www/python:rw
     environment:
       TZ: "Asia/Shanghai"
       PYTHONPATH: ${CELERY_APP_DIR}
@@ -61,7 +61,7 @@ services:
   #    - develop
   #  command: celery -A task beat -l info
   #  volumes:
-  #    - ../../Python:/var/www/python:rw
+  #    - /media/psf/Python:/var/www/python:rw
   #  environment:
   #    TZ: "Asia/Shanghai"
   #    PYTHONPATH: ${CELERY_APP_DIR}

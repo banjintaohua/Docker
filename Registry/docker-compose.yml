@@ -25,8 +25,8 @@ services:
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/.htpasswd
     working_dir: /var/lib
     volumes:
-      - ./conf/localtime:/etc/localtime
-      - ./conf/auth:/auth
+      - /media/psf/Docker/Registry/conf/localtime:/etc/localtime
+      - /media/psf/Docker/Registry/conf/auth:/auth
     networks:
       - develop
 

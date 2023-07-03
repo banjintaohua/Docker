@@ -11,12 +11,12 @@ services:
       develop:
         ipv4_address: 172.19.0.37
     volumes:
-      - ./conf:/ql/config
-      - ./log:/ql/log
-      - ./data/db:/ql/db
-      - ./data/scripts:/ql/scripts
-      - ./data/repo:/ql/repo
-      - ./data/raw:/ql/raw
+      - /media/psf/Docker/Qinglong/log:/ql/log
+      - /media/psf/Docker/Qinglong/conf:/ql/config
+      - /media/psf/Docker/Qinglong/data/db:/ql/db
+      - /media/psf/Docker/Qinglong/data/scripts:/ql/scripts
+      - /media/psf/Docker/Qinglong/data/repo:/ql/repo
+      - /media/psf/Docker/Qinglong/data/raw:/ql/raw
     environment:
       TZ: "Asia/Shanghai"
 

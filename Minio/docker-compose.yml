@@ -8,9 +8,8 @@ services:
     ports:
       - "59005:9000"
     volumes:
-      - ./conf/localtime:/etc/localtime
-      #- "/Users/example/Library/Mobile\ Documents/com~apple~CloudDocs/Personnel/minio:/data:rw"
-      - "/media/psf/iCloud/Document/minio:/data:rw"
+      - "/media/psf/Docker/Minio/conf/localtime:/etc/localtime"
+      - "/media/psf/minio:/data:rw"
     networks:
       develop:
         ipv4_address: 172.19.0.34
@@ -26,8 +25,8 @@ services:
     network_mode: host
     entrypoint: "tail -f /dev/null"
     volumes:
-      - ./conf/localtime:/etc/localtime
-      - ./conf/mc:/root/.mc:rw
+      - /media/psf/Docker/Minio/conf/localtime:/etc/localtime
+      - /media/psf/Docker/Minio/conf/mc:/root/.mc:rw
 
 networks:
   develop:
