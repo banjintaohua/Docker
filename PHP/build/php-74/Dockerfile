@@ -13,6 +13,7 @@ LABEL maintainer="banjintaohua"
 ENV TZ Asia/Shanghai
 ENV PEAR_HTTP_PROXY http://10.211.55.2:1087
 ENV XDEBUG_VERSION 3.1.2
+ENV AST_VERSION 1.0.14
 ENV SWOOLE_VERSION 4.5.9
 
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
@@ -42,6 +43,7 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     # pecl install
     && pear config-set http_proxy ${PEAR_HTTP_PROXY} \
     && pecl install xdebug-${XDEBUG_VERSION} && docker-php-ext-enable xdebug \
+    && pecl install ast-${AST_VERSION} && docker-php-ext-enable ast \
     && pecl install redis && docker-php-ext-enable redis \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && pecl install swoole-${SWOOLE_VERSION} \
