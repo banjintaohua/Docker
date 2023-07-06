@@ -48,8 +48,6 @@ services:
     ports:
       - "53308:3306"
     working_dir: /var/lib/mysql
-    user: mysql
-    command: mysqld
     volumes:
       - /media/psf/Docker/MySQL/log/mariadb:/var/log/mariadb:rw
       - /media/psf/Docker/MySQL/conf/mariadb/mariadb.conf.d:/etc/mysql/mariadb.conf.d:rw
