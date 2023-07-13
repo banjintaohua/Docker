@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   grafana:
-    image: grafana/grafana-oss:7.5.9
+    image: grafana/grafana-oss:9.4.3
     container_name: grafana
     ports:
       - "53000:3000"
@@ -10,10 +10,8 @@ services:
       - /media/psf/Docker/Grafana/conf/grafana.ini:/etc/grafana/grafana.ini:rw
       - /media/psf/Docker/Grafana/data:/var/lib/grafana:rw
     restart: on-failure
-    user: root
     networks:
-      develop:
-        ipv4_address: 172.19.0.39
+      - develop
     environment:
       GF_INSTALL_PLUGINS: ${GF_INSTALL_PLUGINS}
       TZ: "Asia/Shanghai"

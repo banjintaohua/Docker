@@ -97,6 +97,8 @@ services:
         target: /etc/nginx/conf.d/service.d/vscode.conf
       - source: nginx_prometheus
         target: /etc/nginx/conf.d/service.d/prometheus.conf
+      - source: nginx_grafana
+        target: /etc/nginx/conf.d/service.d/grafana.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
@@ -160,6 +162,9 @@ configs:
   nginx_prometheus:
     name: nginx_prometheus_v1
     file: ./conf/conf.d/service.d/prometheus.conf
+  nginx_grafana:
+    name: nginx_grafana_v1
+    file: ./conf/conf.d/service.d/grafana.conf
 
 secrets:
   acme_cloud_flare_env:
