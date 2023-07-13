@@ -8,12 +8,17 @@ services:
       - "59090:9090"
     volumes:
       - /media/psf/Docker/Prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /media/psf/Docker/Prometheus/conf/web.yml:/etc/prometheus/web.yml
       - /media/psf/Docker/Prometheus/data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-lifecycle
+      - --web.config.file=/etc/prometheus/web.yml
+      - --storage.tsdb.retention.time=15d
     restart: on-failure
     user: root
     networks:
-      develop:
-        ipv4_address: 172.19.0.41
+      - develop
     environment:
       TZ: "Asia/Shanghai"
 

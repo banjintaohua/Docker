@@ -95,6 +95,8 @@ services:
         target: /etc/nginx/conf.d/service.d/swagger.conf
       - source: nginx_vscode
         target: /etc/nginx/conf.d/service.d/vscode.conf
+      - source: nginx_prometheus
+        target: /etc/nginx/conf.d/service.d/prometheus.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
@@ -155,6 +157,9 @@ configs:
   nginx_vscode:
     name: nginx_vscode_v1
     file: ./conf/conf.d/service.d/vscode.conf
+  nginx_prometheus:
+    name: nginx_prometheus_v1
+    file: ./conf/conf.d/service.d/prometheus.conf
 
 secrets:
   acme_cloud_flare_env:
