@@ -39,7 +39,6 @@ services:
     extra_hosts:
       - ${EXTRA_HOSTS}
       - ${HOST_DOCKER_INTERNAL}
-    user: root
     restart: always
     entrypoint: ["docker-nginx-php-entrypoint"]
     command: ["nginx", "-g", "daemon off; error_log /dev/stderr info;"]

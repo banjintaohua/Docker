@@ -43,6 +43,7 @@ services:
 
   mariadb:
     image: mariadb:10.5.13
+    command: mysqld --user=root
     container_name: mariadb
     restart: "always"
     ports:
