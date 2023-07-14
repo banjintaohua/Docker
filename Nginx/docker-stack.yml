@@ -99,6 +99,8 @@ services:
         target: /etc/nginx/conf.d/service.d/prometheus.conf
       - source: nginx_grafana
         target: /etc/nginx/conf.d/service.d/grafana.conf
+      - source: nginx_alertmanager
+        target: /etc/nginx/conf.d/service.d/alertmanager.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
@@ -165,6 +167,9 @@ configs:
   nginx_grafana:
     name: nginx_grafana_v1
     file: ./conf/conf.d/service.d/grafana.conf
+  nginx_alertmanager:
+    name: nginx_alertmanager_v1
+    file: ./conf/conf.d/service.d/alertmanager.conf
 
 secrets:
   acme_cloud_flare_env:

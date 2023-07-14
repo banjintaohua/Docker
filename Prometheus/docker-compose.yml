@@ -6,17 +6,39 @@ services:
     container_name: prometheus
     ports:
       - "59090:9090"
+    user: 0:0
     volumes:
-      - /media/psf/Docker/Prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /media/psf/Docker/Prometheus/conf/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /media/psf/Docker/Prometheus/conf/prometheus/rules:/etc/prometheus/rules
       - /media/psf/Docker/Prometheus/conf/web.yml:/etc/prometheus/web.yml
-      - /media/psf/Docker/Prometheus/data:/prometheus
+      - /media/psf/Docker/Prometheus/data/prometheus:/prometheus
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --web.enable-lifecycle
       - --web.config.file=/etc/prometheus/web.yml
       - --storage.tsdb.retention.time=15d
     restart: on-failure
-    user: root
+    networks:
+      - develop
+    environment:
+      TZ: "Asia/Shanghai"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - "59093:9093"
+    user: 0:0
+    volumes:
+      - /media/psf/Docker/Prometheus/conf/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - /media/psf/Docker/Prometheus/conf/alertmanager/template:/etc/alertmanager/template
+      - /media/psf/Docker/Prometheus/conf/web.yml:/etc/prometheus/web.yml
+      - /media/psf/Docker/Prometheus/data/alertmanager:/data/alertmanager/storage
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/data/alertmanager/storage
+      - --web.config=/etc/prometheus/web.yml
+    restart: on-failure
     networks:
       - develop
     environment:

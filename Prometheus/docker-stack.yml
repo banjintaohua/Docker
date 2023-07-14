@@ -12,7 +12,9 @@ services:
     configs:
       - source: prometheus_config
         target: /etc/prometheus/prometheus.yml
-      - source: prometheus_auth_config
+      - source: prometheus_node_rule_config
+        target: /etc/prometheus/rules/node.yml
+      - source: prometheus_web_config
         target: /etc/prometheus/web.yml
     volumes:
       - prometheus_data:/prometheus:rw
@@ -38,18 +40,63 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - published: 59093
+        target: 9093
+        protocol: tcp
+        mode: ingress
+    user: 0:0
+    configs:
+      - source: alertmanager_config
+        target: /etc/alertmanager/alertmanager.yml
+      - source: prometheus_web_config
+        target: /etc/prometheus/web.yml
+    volumes:
+      - alertmanager_data:/data/alertmanager/storage:rw
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --web.config.file=/etc/prometheus/web.yml
+      - --storage.path=/data/alertmanager/storage
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname != California-CentOS
+    environment:
+      TZ: "Asia/Shanghai"
+
 configs:
   prometheus_config:
     name: prometheus_config_v1
-    file: ./conf/prometheus.yml
-  prometheus_auth_config:
-    name: prometheus_auth_config_v1
-    file: ./conf/web.yml
+    file: conf/prometheus/prometheus.yml
+  prometheus_node_rule_config:
+    name: prometheus_node_rule_config_v1
+    file: conf/prometheus/rules/node.yml
+  prometheus_web_config:
+    name: prometheus_web_config_v1
+    file: conf/web.yml
+  alertmanager_config:
+    name: alertmanager_config_v1
+    file: conf/alertmanager/alertmanager.yml
 
 volumes:
   prometheus_data:
     driver: local
     name: prometheus
+  alertmanager_data:
+    driver: local
+    name: alertmanager
 
 networks:
   cluster:
