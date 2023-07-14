@@ -4,10 +4,10 @@
 !*/conf.example.d/
 */conf/*
 */log/*
+!*/data/.gitkeep
 */data/*
 */kubernetes/*
 */.env
-
 !/Redis/data/dump.sh
 !/Redis/data/load.sh
 !/Nginx/conf/ssl/update_certificate_example
