@@ -101,6 +101,8 @@ services:
         target: /etc/nginx/conf.d/service.d/grafana.conf
       - source: nginx_alertmanager
         target: /etc/nginx/conf.d/service.d/alertmanager.conf
+      - source: nginx_pushgateway
+        target: /etc/nginx/conf.d/service.d/pushgateway.conf
     secrets:
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
@@ -170,6 +172,9 @@ configs:
   nginx_alertmanager:
     name: nginx_alertmanager_v1
     file: ./conf/conf.d/service.d/alertmanager.conf
+  nginx_pushgateway:
+    name: nginx_pushgateway_v1
+    file: ./conf/conf.d/service.d/pushgateway.conf
 
 secrets:
   acme_cloud_flare_env:

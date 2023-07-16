@@ -23,6 +23,25 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    ports:
+      - "59091:9091"
+    user: 0:0
+    volumes:
+      - /media/psf/Docker/Prometheus/conf/web.yml:/etc/prometheus/web.yml
+      - /media/psf/Docker/Prometheus/data/pushgateway:/var/lib/pushgateway
+    command:
+      - --persistence.file="/var/lib/pushgateway"
+      - --persistence.interval=5m
+      - --web.config=/etc/prometheus/web.yml
+    restart: on-failure
+    networks:
+      - develop
+    environment:
+      TZ: "Asia/Shanghai"
+
   alertmanager:
     image: prom/alertmanager:latest
     container_name: alertmanager
@@ -33,10 +52,10 @@ services:
       - /media/psf/Docker/Prometheus/conf/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - /media/psf/Docker/Prometheus/conf/alertmanager/template:/etc/alertmanager/template
       - /media/psf/Docker/Prometheus/conf/web.yml:/etc/prometheus/web.yml
-      - /media/psf/Docker/Prometheus/data/alertmanager:/data/alertmanager/storage
+      - /media/psf/Docker/Prometheus/data/alertmanager:/var/lib/alertmanager
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
-      - --storage.path=/data/alertmanager/storage
+      - --storage.path=/var/lib/alertmanager
       - --web.config=/etc/prometheus/web.yml
     restart: on-failure
     networks:

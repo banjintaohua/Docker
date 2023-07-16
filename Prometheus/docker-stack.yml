@@ -40,6 +40,40 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
+  pushgateway:
+    image: prom/pushgateway:latest
+    ports:
+      - published: 59091
+        target: 9091
+        protocol: tcp
+        mode: ingress
+    user: 0:0
+    volumes:
+      - pushgateway_data:/var/lib/pushgateway:rw
+    configs:
+      - source: prometheus_web_config
+        target: /etc/prometheus/web.yml
+    command:
+      - --persistence.file="/var/lib/pushgateway"
+      - --persistence.interval=5m
+      - --web.config.file=/etc/prometheus/web.yml
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname != California-CentOS
+    environment:
+      TZ: "Asia/Shanghai"
+
   alertmanager:
     image: prom/alertmanager:latest
     ports:
@@ -54,11 +88,11 @@ services:
       - source: prometheus_web_config
         target: /etc/prometheus/web.yml
     volumes:
-      - alertmanager_data:/data/alertmanager/storage:rw
+      - alertmanager_data:/var/lib/alertmanager:rw
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
       - --web.config.file=/etc/prometheus/web.yml
-      - --storage.path=/data/alertmanager/storage
+      - --storage.path=/var/lib/alertmanager
     networks:
       - cluster
     deploy:
@@ -97,6 +131,9 @@ volumes:
   alertmanager_data:
     driver: local
     name: alertmanager
+  pushgateway_data:
+    driver: local
+    name: pushgateway
 
 networks:
   cluster:
