@@ -45,7 +45,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == GuangZhou-Ubuntu
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
   logstash:
@@ -82,7 +82,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == GuangZhou-Ubuntu
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
   kibana:
@@ -109,7 +109,7 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == GuangZhou-Ubuntu
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
 configs:
