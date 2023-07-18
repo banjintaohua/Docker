@@ -2,11 +2,14 @@ version: "3.9"
 
 services:
   frps:
-    image: banjintaohua/frps:0.35.1
+    image: fatedier/frps:v0.51.0
     networks:
       - host
     volumes:
       - frps_log:/var/log/frp
+    command:
+      - -c
+      - /etc/frp/frps.ini
     deploy:
       mode: replicated
       replicas: 1
@@ -20,6 +23,11 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
     environment:
       TZ: "Asia/Shanghai"
     configs:
@@ -31,12 +39,12 @@ configs:
     name: frps_config_v1
     file: ./conf/server/frps.ini
 
-networks:
-  host:
-    name: host
-    external: true
-
 volumes:
   frps_log:
     name: frps_log
     external: false
+
+networks:
+  host:
+    name: host
+    external: true

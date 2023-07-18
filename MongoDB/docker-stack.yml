@@ -17,9 +17,9 @@ services:
       - cluster
     secrets:
       - source: mongo_initdb_root_password
-        mode: 0600
+        mode: 0644
       - source: mongo_initdb_root_username
-        mode: 0600
+        mode: 0644
     environment:
       TZ: "Asia/Shanghai"
       MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongo_initdb_root_username
@@ -35,19 +35,17 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == ShangHai-CentOS
+          - node.hostname != California-CentOS
           - node.platform.os == linux
-
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
 
 configs:
   mongodb_config:
-    name: mongodb_config
+    name: mongodb_config_v1
     external: false
     file: ./conf/mongod.conf
 
@@ -64,3 +62,10 @@ volumes:
     name: mongodb_data
     driver: local
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

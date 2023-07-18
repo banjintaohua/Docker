@@ -98,13 +98,6 @@ configs:
     file: ./conf/php-74/php.d/xdebug.ini
     external: false
 
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-
 volumes:
   nfs_data:
     name: nfs_data
@@ -121,3 +114,10 @@ volumes:
   php_80_data:
     name: php_80_data
     driver: local
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

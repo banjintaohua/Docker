@@ -28,6 +28,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == ShangHai-CentOS
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 64M
     command: server /data
     secrets:
       - source: minio_access_key
@@ -42,13 +47,6 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
 
 configs:
   localtime_shanghai:
@@ -67,3 +65,10 @@ volumes:
   minio_data:
     name: minio_data
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   bark-server:
-    image: finab/bark-server:v2.0.1
+    image: finab/bark-server:v2.1.5
     ports:
       - published: 58084
         target: 8080
@@ -27,8 +27,12 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
-          - node.hostname == GuangZhou-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 16M
+        reservations:
+          memory: 16M
 
 configs:
   localtime_shanghai:

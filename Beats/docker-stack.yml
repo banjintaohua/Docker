@@ -38,6 +38,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 32M
 
 configs:
   localtime_shanghai:
@@ -50,15 +55,15 @@ configs:
     name: filebeat_module_config_nginx_v1
     file: ./conf/filebeat/modules.d/nginx.yml
 
+volumes:
+  nginx_log:
+    name: nginx_log
+  frps_log:
+    name: frps_log
+
 networks:
   cluster:
     name: cluster
     driver: overlay
     attachable: true
     external: true
-
-volumes:
-  nginx_log:
-    name: nginx_log
-  frps_log:
-    name: frps_log

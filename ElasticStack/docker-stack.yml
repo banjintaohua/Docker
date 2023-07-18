@@ -34,9 +34,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      resources:
-        limits:
-          memory: 2G
       restart_policy:
         condition: any
         max_attempts: 3
@@ -47,6 +44,11 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 2304M
+        reservations:
+          memory: 256M
 
   logstash:
     image: elastic/logstash:7.17.0
@@ -68,7 +70,7 @@ services:
       - source: logstash_pipeline
         target: /usr/share/logstash/pipeline/logstash.conf
     environment:
-      ES_JAVA_OPTS: "-Xmx512m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx1024m -Xms256m"
     networks:
       - cluster
     deploy:
@@ -84,6 +86,11 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 1280M
+        reservations:
+          memory: 256M
 
   kibana:
     image: elastic/kibana:7.17.0
@@ -111,6 +118,11 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 1024M
+        reservations:
+          memory: 256M
 
 configs:
   localtime_shanghai:
@@ -135,14 +147,14 @@ secrets:
     external: false
     file: ./conf/secrets/elastic_password.txt
 
+volumes:
+  elasticsearch_data:
+    name: elasticsearch_data
+    external: false
+
 networks:
   cluster:
     name: cluster
     driver: overlay
     attachable: true
     external: true
-
-volumes:
-  elasticsearch_data:
-    name: elasticsearch_data
-    external: false

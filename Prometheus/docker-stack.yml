@@ -37,6 +37,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
     environment:
       TZ: "Asia/Shanghai"
 
@@ -71,6 +76,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 32M
     environment:
       TZ: "Asia/Shanghai"
 
@@ -107,6 +117,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname != California-CentOS
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 32M
     environment:
       TZ: "Asia/Shanghai"
 

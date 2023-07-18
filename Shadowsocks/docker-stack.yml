@@ -7,8 +7,6 @@ services:
     working_dir: /etc/shadowsocks-libev
     networks:
       - host
-    expose:
-      - "51079"
     deploy:
       mode: replicated
       replicas: 1
@@ -21,6 +19,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == ShangHai-CentOS
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
     configs:
       - source: shadowsocks_client
         target: /etc/shadowsocks-libev/config.json
@@ -54,6 +57,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == California-CentOS
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
     configs:
       - source: shadowsocks_libev_over_http_config
         target: /etc/shadowsocks-libev/config.json
@@ -87,6 +95,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == California-CentOS
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
     configs:
       - source: shadowsocks_libev_over_https_config
         target: /etc/shadowsocks-libev/config.json
@@ -99,16 +112,6 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-  host:
-    name: host
-    external: true
-
 configs:
   shadowsocks_libev_over_http_config:
     name: shadowsocks_libev_over_http_config_v1
@@ -117,13 +120,23 @@ configs:
     name: shadowsocks_libev_over_https_config_v1
     file: ./conf/ss-websocket-https/config.json
   shadowsocks_client:
-    name: shadowsocks_client_v2
+    name: shadowsocks_client_v1
     file: ./conf/ss-client/config.json
 
 secrets:
   wildcard-certificate.crt:
-    name: wildcard_certificate_crt_v3
+    name: wildcard_certificate_crt_v1
     external: true
   wildcard-certificate.key:
-    name: wildcard_certificate_key_v3
+    name: wildcard_certificate_key_v1
+    external: true
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+  host:
+    name: host
     external: true

@@ -28,6 +28,11 @@ services:
         constraints:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
     environment:
       TZ: "Asia/Shanghai"
 
@@ -60,11 +65,14 @@ services:
         constraints:
           - node.hostname == California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 64M
+        reservations:
+          memory: 32M
     environment:
       TZ: "Asia/Shanghai"
     configs:
-      - source: nginx_htpasswd
-        target: /etc/nginx/.htpasswd
       - source: nginx_config
         target: /etc/nginx/nginx.conf
       - source: nginx_bark
@@ -104,6 +112,9 @@ services:
       - source: nginx_pushgateway
         target: /etc/nginx/conf.d/service.d/pushgateway.conf
     secrets:
+      - source: nginx_htpasswd
+        target: /etc/nginx/.htpasswd
+        mode: 0600
       - source: wildcard-certificate.crt
         target: /etc/ssl/wildcard-certificate.crt
         mode: 0600
@@ -112,9 +123,6 @@ services:
         mode: 0600
 
 configs:
-  nginx_htpasswd:
-    name: nginx_htpasswd_v1
-    file: ./conf/.htpasswd
   nginx_config:
     name: nginx_config_v1
     file: ./conf/nginx.conf
@@ -177,6 +185,9 @@ configs:
     file: ./conf/conf.d/service.d/pushgateway.conf
 
 secrets:
+  nginx_htpasswd:
+    name: nginx_htpasswd_v1
+    file: ./conf/.htpasswd
   acme_cloud_flare_env:
     name: acme_cloud_flare_env_v1
     file: ./conf/acme/acme_cloud_flare_env.sh

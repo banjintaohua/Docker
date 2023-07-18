@@ -39,13 +39,6 @@ services:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
 
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-
 configs:
   postgres_config:
     name: postgres_config_v1
@@ -63,3 +56,10 @@ volumes:
     name: postgres_data
     driver: local
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

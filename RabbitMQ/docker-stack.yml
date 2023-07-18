@@ -32,15 +32,13 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == ShangHai-CentOS
+          - node.hostname != California-CentOS
           - node.platform.os == linux
-
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
 
 configs:
   localtime_shanghai:
@@ -55,3 +53,10 @@ volumes:
     name: rabbitmq_data
     driver: local
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

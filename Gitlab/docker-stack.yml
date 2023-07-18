@@ -58,13 +58,6 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-
 configs:
   gitlab_config:
     name: gitlab_config_v1
@@ -82,3 +75,10 @@ volumes:
     name: gitlab_data
     driver: local
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

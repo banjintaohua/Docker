@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   vscode:
-    image: codercom/code-server:${CODE_SERVER_VERSION:-4.0.2}
+    image: codercom/code-server:${CODE_SERVER_VERSION:-4.14.0}
     ports:
       - published: 58083
         target: 8080
@@ -27,7 +27,6 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == GuangZhou-CentOS
           - node.hostname != California-CentOS
     environment:
       TZ: "Asia/Shanghai"

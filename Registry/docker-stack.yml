@@ -37,13 +37,6 @@ services:
           - node.hostname == ShangHai-CentOS
           - node.platform.os == linux
 
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-
 configs:
   localtime_shanghai:
     name: localtime_shanghai
@@ -61,4 +54,11 @@ secrets:
     external: true
   wildcard-certificate.key:
     name: wildcard_certificate_key_v3
+    external: true
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
     external: true

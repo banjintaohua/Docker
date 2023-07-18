@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   swagger-edit:
-    image: swaggerapi/swagger-editor:${SWAGGER_EDIT_VERSION:-v4.4.1}
+    image: swaggerapi/swagger-editor:${SWAGGER_EDIT_VERSION:-v4.10.0}
     container_name: "swagger-edit"
     restart: always
     ports:
@@ -16,7 +16,7 @@ services:
       URL: ${URL}
 
   swagger-ui:
-    image: swaggerapi/swagger-ui:${SWAGGER_UI_VERSION:-v4.14.1}
+    image: swaggerapi/swagger-ui:${SWAGGER_UI_VERSION:-v4.19.0}
     container_name: "swagger-ui"
     restart: always
     ports:

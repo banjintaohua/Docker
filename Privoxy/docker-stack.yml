@@ -35,17 +35,6 @@ services:
     environment:
       TZ: "Asia/Shanghai"
 
-
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
-  host:
-    name: host
-    external: true
-
 configs:
   privoxy_config:
     name: privoxy_config_v1
@@ -56,3 +45,13 @@ configs:
   intranet_action:
     name: intranet_action_v1
     file: ./conf/intranet.action
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
+  host:
+    name: host
+    external: true

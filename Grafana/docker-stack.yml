@@ -28,6 +28,11 @@ services:
         max_replicas_per_node: 1
         constraints:
           - node.hostname == California-CentOS
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
     environment:
       TZ: "Asia/Shanghai"
 

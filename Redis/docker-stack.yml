@@ -27,17 +27,15 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == ShangHai-CentOS
+          - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
     environment:
       TZ: "Asia/Shanghai"
-
-networks:
-  cluster:
-    name: cluster
-    driver: overlay
-    attachable: true
-    external: true
 
 configs:
   redis_config:
@@ -49,3 +47,10 @@ volumes:
     name: redis_data
     driver: local
     external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true
