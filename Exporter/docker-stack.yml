@@ -31,6 +31,52 @@ services:
       placement:
         constraints:
           - node.platform.os == linux
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 32M
+        reservations:
+          cpus: '0.10'
+          memory: 16M
+    environment:
+      TZ: "Asia/Shanghai"
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - published: 59101
+        target: 8080
+        protocol: tcp
+        mode: host
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    configs:
+      - source: cadvisor_htpasswd
+        target: /auth/.htpasswd
+    command:
+      - '-logtostderr'
+      - '-docker_only'
+      - '-http_auth_file=/auth/.htpasswd'
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.platform.os == linux
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 128M
+        reservations:
+          cpus: '0.10'
+          memory: 64M
     environment:
       TZ: "Asia/Shanghai"
 
@@ -38,3 +84,6 @@ configs:
   prometheus_web_config:
     name: prometheus_web_config_v1
     external: true
+  cadvisor_htpasswd:
+    name: cadvisor_htpasswd_v1
+    file: ./conf/.htpasswd
