@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.11.4
+    ports:
+      - published: 53308
+        target: 3306
+        protocol: tcp
+        mode: host
+    working_dir: /var/lib/mysql
+    volumes:
+      - mariadb_data:/var/lib/mysql:rw
+    configs:
+      - source: mariadb_config
+        target: /etc/mysql/mariadb.conf.d/50-server.cnf
+    secrets:
+      - source: mariadb_root_password
+        mode: 0600
+      - source: mysql_root_host
+        mode: 0600
+    environment:
+      TZ: "Asia/Shanghai"
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root_password
+      MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
+    networks:
+      - cluster
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ShangHai-CentOS
+          - node.platform.os == linux
+
+configs:
+  mariadb_config:
+    name: mariadb_config_v1
+    file: ./conf/mariadb/mariadb.conf.d/50-server.cnf
+
+secrets:
+  mysql_root_host:
+    name: mysql_root_host_v1
+    file: ./conf/secrets/mysql_root_host.txt
+  mariadb_root_password:
+    name: mariadb_root_password_v1
+    file: ./conf/secrets/mariadb_root_password.txt
+
+volumes:
+  mariadb_data:
+    name: mariadb_data
+    driver: local
+    external: false
+
+networks:
+  cluster:
+    name: cluster
+    driver: overlay
+    attachable: true
+    external: true

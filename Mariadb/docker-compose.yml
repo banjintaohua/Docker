@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.11.4
+    command: mysqld --user=root
+    container_name: mariadb
+    restart: "always"
+    ports:
+      - "53308:3306"
+    working_dir: /var/lib/mysql
+    volumes:
+      - /media/psf/Docker/Mariadb/log/mariadb:/var/log/mariadb:rw
+      - /media/psf/Docker/Mariadb/conf/mariadb/mariadb.conf.d:/etc/mysql/mariadb.conf.d:rw
+      - /media/psf/Docker/Mariadb/data/mariadb:/var/lib/mysql:rw
+    networks:
+      - develop
+    environment:
+      TZ: "Asia/Shanghai"
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-password}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-localhost}
+
+networks:
+  develop:
+    name: develop
+    external: true

@@ -2,14 +2,14 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:${POSTGRES_VERSION:-13.5}
+    image: postgres:${POSTGRES_VERSION:-14.8}
     container_name: postgres
     restart: "no"
     ports:
       - "55432:5432"
     volumes:
       - /media/psf/Docker/PostgreSQL/conf/postgresql.conf:/etc/postgresql/postgresql.conf:rw
-      - /media/psf/Docker/PostgreSQL/data:/var/lib/postgresql/data:rw
+      - postgresql_data:/var/lib/postgresql/data:rw
     networks:
       - develop
     environment:
@@ -19,6 +19,10 @@ services:
       - "postgres"
       - "-c"
       - "config_file=/etc/postgresql/postgresql.conf"
+
+volumes:
+  postgresql_data:
+    name: postgresql_data
 
 networks:
   develop:
