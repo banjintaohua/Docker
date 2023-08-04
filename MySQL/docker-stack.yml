@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   mysql_56:
-    image: mysql:5.6
+    image: mysql:5.6.51
     ports:
       - published: 53306
         target: 3306
@@ -40,7 +40,7 @@ services:
           - node.platform.os == linux
 
   mysql_57:
-    image: mysql:5.7
+    image: mysql:5.7.43
     ports:
       - published: 53307
         target: 3306
