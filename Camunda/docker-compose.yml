@@ -14,7 +14,8 @@ services:
       - /media/psf/Docker/Camunda/log:/camunda/logs:rw
       - /media/psf/Docker/Camunda/conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
       - /media/psf/Docker/Camunda/conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
-    restart: on-failure
+      - /media/psf/Docker/Camunda/conf/mysql-connector-j-8.0.33.jar:/camunda/lib/mysql-connector-j-8.0.33.jar
+    restart: always
     networks:
       develop:
         ipv4_address: 172.19.0.38
