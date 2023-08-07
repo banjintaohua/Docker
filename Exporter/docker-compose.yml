@@ -39,3 +39,12 @@ services:
       # - '-storage_driver_host=influx:8086'
     ports:
       - "59101:8080"
+
+  ssl-exporter:
+    image: ribbybibby/ssl-exporter:latest
+    container_name: ssl-exporter
+    restart: unless-stopped
+    command:
+      - '--log.level=info'
+    ports:
+      - "59219:9219"

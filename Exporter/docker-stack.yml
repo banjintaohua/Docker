@@ -33,7 +33,7 @@ services:
           - node.platform.os == linux
       resources:
         limits:
-          memory: 64M
+          memory: 32M
         reservations:
           memory: 16M
     environment:
@@ -73,6 +73,29 @@ services:
           memory: 256M
         reservations:
           memory: 64M
+    environment:
+      TZ: "Asia/Shanghai"
+
+  ssl-exporter:
+    image: ribbybibby/ssl-exporter:latest
+    ports:
+      - published: 59219
+        target: 9219
+        protocol: tcp
+        mode: ingress
+    command:
+      - '--log.level=info'
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.platform.os == linux
     environment:
       TZ: "Asia/Shanghai"
 
