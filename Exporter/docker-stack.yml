@@ -67,6 +67,7 @@ services:
         window: 60s
       placement:
         constraints:
+          - node.hostname != California-CentOS
           - node.platform.os == linux
       resources:
         limits:
@@ -95,6 +96,31 @@ services:
         window: 60s
       placement:
         constraints:
+          - node.hostname != California-CentOS
+          - node.platform.os == linux
+    environment:
+      TZ: "Asia/Shanghai"
+
+  nginx-prometheus-exporter:
+    image: nginx/nginx-prometheus-exporter:0.10.0
+    ports:
+      - published: 59113
+        target: 9113
+        protocol: tcp
+        mode: ingress
+    command:
+      - '-nginx.scrape-uri=http://metrics.banjintaohua.xyz:8080/stub_status'
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        max_attempts: 3
+        delay: 10s
+        window: 60s
+      placement:
+        constraints:
+          - node.hostname != California-CentOS
           - node.platform.os == linux
     environment:
       TZ: "Asia/Shanghai"

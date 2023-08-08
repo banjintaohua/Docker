@@ -48,3 +48,12 @@ services:
       - '--log.level=info'
     ports:
       - "59219:9219"
+
+  nginx-prometheus-exporter:
+    image: nginx/nginx-prometheus-exporter:0.10.0
+    container_name: nginx-prometheus-exporter
+    restart: unless-stopped
+    command:
+      - '-nginx.scrape-uri=http://metrics.banjintaohua.xyz:8080/stub_status'
+    ports:
+      - "59113:9113"

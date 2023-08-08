@@ -111,6 +111,8 @@ services:
         target: /etc/nginx/conf.d/service.d/alertmanager.conf
       - source: nginx_pushgateway
         target: /etc/nginx/conf.d/service.d/pushgateway.conf
+      - source: nginx_metrics
+        target: /etc/nginx/conf.d/service.d/metrics.conf
     secrets:
       - source: nginx_htpasswd
         target: /etc/nginx/.htpasswd
@@ -183,6 +185,9 @@ configs:
   nginx_pushgateway:
     name: nginx_pushgateway_v1
     file: ./conf/conf.d/service.d/pushgateway.conf
+  nginx_metrics:
+    name: nginx_metrics_v1
+    file: ./conf/conf.d/service.d/metrics.conf
 
 secrets:
   nginx_htpasswd:
