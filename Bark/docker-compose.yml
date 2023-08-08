@@ -13,6 +13,17 @@ services:
       - /media/psf/Docker/Bark/data:/data
       - /media/psf/Docker/Bark/conf/localtime:/etc/localtime
 
+  prometheus-webhook:
+    image: banjintaohua/eggplant:1.1
+    container_name: prometheus-webhook
+    restart: always
+    ports:
+      - "59094:59094"
+    networks:
+      - develop
+    volumes:
+      - /media/psf/Go/eggplant/config/config.ini:/etc/eggplant/config.ini:rw
+
 networks:
   develop:
     name: develop
