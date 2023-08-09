@@ -11,8 +11,9 @@ services:
       - "53306:3306"
     volumes:
       - /media/psf/Docker/MySQL/log/mysql-56:/var/log/mysql:rw
-      - /media/psf/Docker/MySQL/data/mysql-56:/var/lib/mysql:rw
+      - /media/psf/Docker/MySQL/conf/mysql-56/conf.d:/etc/mysql/conf.d:rw
       - /media/psf/Docker/MySQL/conf/mysql-56/mysql.conf.d:/etc/mysql/mysql.conf.d:rw
+      - /media/psf/Docker/MySQL/data/mysql-56:/var/lib/mysql:rw
     working_dir: /var/lib/mysql
     networks:
       - develop
@@ -32,6 +33,7 @@ services:
     working_dir: /var/lib/mysql
     volumes:
       - /media/psf/Docker/MySQL/log/mysql-57:/var/log/mysql:rw
+      - /media/psf/Docker/MySQL/conf/mysql-57/conf.d:/etc/mysql/conf.d:rw
       - /media/psf/Docker/MySQL/conf/mysql-57/mysql.conf.d:/etc/mysql/mysql.conf.d:rw
       - /media/psf/Docker/MySQL/data/mysql-57:/var/lib/mysql:rw
     networks:
