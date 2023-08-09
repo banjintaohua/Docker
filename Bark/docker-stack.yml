@@ -35,7 +35,7 @@ services:
           memory: 16M
 
   prometheus-webhook:
-    image: banjintaohua/eggplant:1.1
+    image: banjintaohua/eggplant:latest
     ports:
       - published: 59094
         target: 59094
@@ -59,6 +59,11 @@ services:
         constraints:
           - node.hostname != California-CentOS
           - node.platform.os == linux
+      resources:
+        limits:
+          memory: 16M
+        reservations:
+          memory: 8M
 
 configs:
   localtime_shanghai:
