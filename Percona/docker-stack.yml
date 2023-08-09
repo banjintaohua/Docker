@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  xtrabackup:
+    image: percona/percona-xtrabackup:2.4.28
+    volumes:
+      - /data:/data
+      - /var/lib/mysql:/var/lib/mysql
+    command: tail -f /dev/null
+    working_dir: /data
+    environment:
+      TZ: "Asia/Shanghai"
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: none
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.hostname != California-CentOS
+          - node.platform.os == linux

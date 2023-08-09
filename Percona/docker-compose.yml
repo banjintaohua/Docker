@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  xtrabackup:
+    image: percona/percona-xtrabackup:${PERCONA_VERSION:-2.4.28}
+    container_name: xtrabackup
+    restart: "no"
+    command: tail -f /dev/null
+    volumes:
+      - /media/psf/Docker/MySQL/data/mysql-57:/var/lib/mysql:rw
+      # - /media/psf/Docker/MySQL/data/mysql-56:/var/lib/mysql:rw
+      # - /media/psf/Docker/Mariadb/data/mariadb:/var/lib/mysql:rw
+      - /media/psf/Docker/Percona/data:/data
+    working_dir: /data
+    networks:
+      - develop
+    environment:
+      TZ: "Asia/Shanghai"
+
+networks:
+  develop:
+    external: true
