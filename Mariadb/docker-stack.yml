@@ -10,10 +10,12 @@ services:
         mode: host
     working_dir: /var/lib/mysql
     volumes:
+      - /data:/data
       - mariadb_data:/var/lib/mysql:rw
+      - mariadb_local_configs:/etc/mysql/conf.d:rw
     configs:
-      - source: mariadb_config
-        target: /etc/mysql/mariadb.conf.d/50-server.cnf
+      - source: mariadb_common_config
+        target: /etc/mysql/mariadb.conf.d/common.cnf
     secrets:
       - source: mariadb_root_password
         mode: 0600
@@ -40,9 +42,9 @@ services:
           - node.platform.os == linux
 
 configs:
-  mariadb_config:
-    name: mariadb_config_v1
-    file: ./conf/mariadb/mariadb.conf.d/50-server.cnf
+  mariadb_common_config:
+    name: mariadb_common_config_v1
+    file: ./conf/mariadb/mariadb.conf.d/common.cnf
 
 secrets:
   mysql_root_host:
@@ -55,6 +57,10 @@ secrets:
 volumes:
   mariadb_data:
     name: mariadb_data
+    driver: local
+    external: false
+  mariadb_local_configs:
+    name: mariadb_local_configs
     driver: local
     external: false
 
