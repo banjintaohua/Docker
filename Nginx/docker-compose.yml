@@ -13,6 +13,7 @@ services:
       - /media/psf/Docker/Nginx/log:/var/log/nginx:rw
       - /media/psf/Docker/Nginx/conf/ssl:/etc/ssl:rw
       - /media/psf/Docker/Nginx/conf/.htpasswd:/etc/nginx/.htpasswd:rw
+      - /media/psf/Docker/Nginx/conf/gfw.pac:/usr/share/nginx/html/gfw.pac:rw
       - /media/psf/Docker/Nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw
       - /media/psf/Docker/Nginx/conf/conf.d:/etc/nginx/conf.d:rw
       - /media/psf/Php:/var/www/php:rw
