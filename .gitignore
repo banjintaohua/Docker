@@ -10,7 +10,7 @@
 */.env
 !/Redis/data/dump.sh
 !/Redis/data/load.sh
-!/Nginx/conf/ssl/update_certificate_example
+!/Nginx/conf/ssl/update_certificate.sh
 
 /Company/
 /Scratch/
