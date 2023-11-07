@@ -123,6 +123,12 @@ services:
       - source: wildcard-certificate.key
         target: /etc/ssl/wildcard-certificate.key
         mode: 0600
+      - source: outer-certificate.crt
+        target: /etc/ssl/outer-certificate.crt
+        mode: 0600
+      - source: outer-certificate.key
+        target: /etc/ssl/outer-certificate.key
+        mode: 0600
 
 configs:
   nginx_config:
@@ -165,7 +171,7 @@ configs:
     name: nginx_rabbitmq_v1
     file: ./conf/conf.d/service.d/rabbit.conf
   nginx_shadowsocks:
-    name: nginx_shadowsocks_v1
+    name: nginx_shadowsocks_v2
     file: ./conf/conf.d/service.d/shadowsocket.conf
   nginx_swagger:
     name: nginx_swagger_v1
@@ -197,11 +203,17 @@ secrets:
     name: acme_cloud_flare_env_v1
     file: ./conf/acme/acme_cloud_flare_env.sh
   wildcard-certificate.crt:
-    name: wildcard_certificate_crt_v1
+    name: wildcard_certificate_crt_v2
     file: ./conf/ssl/wildcard-certificate.crt
   wildcard-certificate.key:
-    name: wildcard_certificate_key_v1
+    name: wildcard_certificate_key_v2
     file: ./conf/ssl/wildcard-certificate.key
+  outer-certificate.crt:
+    name: outer_certificate_crt_v1
+    file: ./conf/ssl/outer-certificate.crt
+  outer-certificate.key:
+    name: outer_certificate_key_v1
+    file: ./conf/ssl/outer-certificate.key
 
 volumes:
   acme_data:

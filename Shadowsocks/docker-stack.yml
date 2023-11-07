@@ -104,11 +104,11 @@ services:
       - source: shadowsocks_libev_over_https_config
         target: /etc/shadowsocks-libev/config.json
     secrets:
-      - source: wildcard-certificate.crt
-        target: /etc/ssl/wildcard-certificate.crt
+      - source: outer-certificate.crt
+        target: /etc/ssl/outer-certificate.crt
         mode: 0600
-      - source: wildcard-certificate.key
-        target: /etc/ssl/wildcard-certificate.key
+      - source: outer-certificate.key
+        target: /etc/ssl/outer-certificate.key
     environment:
       TZ: "Asia/Shanghai"
 
@@ -117,18 +117,18 @@ configs:
     name: shadowsocks_libev_over_http_config_v1
     file: ./conf/ss-websocket-http/config.json
   shadowsocks_libev_over_https_config:
-    name: shadowsocks_libev_over_https_config_v1
+    name: shadowsocks_libev_over_https_config_v2
     file: ./conf/ss-websocket-https/config.json
   shadowsocks_client:
     name: shadowsocks_client_v1
     file: ./conf/ss-client/config.json
 
 secrets:
-  wildcard-certificate.crt:
-    name: wildcard_certificate_crt_v1
+  outer-certificate.crt:
+    name: outer_certificate_crt_v1
     external: true
-  wildcard-certificate.key:
-    name: wildcard_certificate_key_v1
+  outer-certificate.key:
+    name: outer_certificate_key_v1
     external: true
 
 networks:

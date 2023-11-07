@@ -65,12 +65,12 @@ function main() {
     # 重新安装证书
     echo "reinstall certificate"
     docker exec "$containerId" /root/.acme.sh/acme.sh --installcert --ecc -d "$domain" \
-      --fullchain-file /acme.sh/"${domain}"_ecc/backup/wildcard-certificate.crt \
-      --key-file /acme.sh/"${domain}"_ecc/backup/wildcard-certificate.key
+      --fullchain-file /acme.sh/"${domain}"_ecc/backup/"${domain}".crt \
+      --key-file /acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.key
 
     # 导出配置文件
-    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/wildcard-certificate.crt "$outputPath"
-    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/wildcard-certificate.key "$outputPath"
+    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.crt "$outputPath"
+    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.key "$outputPath"
     # docker exec nginx nginx -s reload
 }
 
