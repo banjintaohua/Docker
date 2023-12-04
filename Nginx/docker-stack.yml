@@ -129,6 +129,12 @@ services:
       - source: outer-certificate.key
         target: /etc/ssl/outer-certificate.key
         mode: 0600
+      - source: local-certificate.crt
+        target: /etc/ssl/local-certificate.crt
+        mode: 0600
+      - source: local-certificate.key
+        target: /etc/ssl/local-certificate.key
+        mode: 0600
 
 configs:
   nginx_config:
@@ -214,6 +220,12 @@ secrets:
   outer-certificate.key:
     name: outer_certificate_key_v1
     file: ./conf/ssl/outer-certificate.key
+  local-certificate.crt:
+    name: local_certificate_crt_v1
+    file: ./conf/ssl/local-certificate.crt
+  local-certificate.key:
+    name: local_certificate_key_v1
+    file: ./conf/ssl/local-certificate.key
 
 volumes:
   acme_data:
