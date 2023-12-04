@@ -34,12 +34,10 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && apt install -y libicu-dev \
     && apt install -y libxml2-dev \
     && apt install -y nginx \
-    # docker-php-ext-install
-    && docker-php-ext-install bcmath gettext pcntl shmop sockets sysvsem xmlrpc opcache \
-    && docker-php-ext-install mysqli pdo_mysql zip \
-    && docker-php-ext-install gd && docker-php-ext-configure gd --with-jpeg --with-freetype \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install soap \
+    # docker-php-ext-install \
+    # https://github.com/docker-library/php/issues/926
+    && docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd intl soap mysqli pdo_mysql zip bcmath gettext pcntl shmop sockets sysvsem xmlrpc opcache \
     # pecl install
     && pear config-set http_proxy ${PEAR_HTTP_PROXY} \
     && pecl install xdebug-${XDEBUG_VERSION} && docker-php-ext-enable xdebug \
