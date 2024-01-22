@@ -30,6 +30,27 @@ services:
       develop:
         ipv4_address: 172.19.0.56
 
+  php-56-apache:
+    build:
+      context: ./build/php-56
+      dockerfile: apache-php-Dockerfile
+    image: banjintaohua/apache-php-56:1.0
+    container_name: php-56-apache
+    restart: always
+    ports:
+      - "59009:9000"
+      - "58009:80"
+    volumes:
+      - /media/psf/Docker/PHP/conf/php-56/apache/php.ini:/usr/local/etc/php/php.ini:rw
+      - /media/psf/Docker/PHP/conf/php-56/apache/php.d:/usr/local/etc/php/conf.d:rw
+      - /media/psf/Docker/PHP/conf/php-56/apache/apache2:/etc/apache2:rw
+    working_dir: /var/www
+    environment:
+      TZ: "Asia/Shanghai"
+    networks:
+      develop:
+        ipv4_address: 172.19.0.40
+
   php-74:
     build:
       context: ./build/php-74
