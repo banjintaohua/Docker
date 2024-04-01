@@ -33,7 +33,7 @@ volumes:
     name: nfs_data
     driver_opts:
       type: "nfs"
-      o: "addr=nfs.banjintaohua.xyz,nolock,soft,rw"
+      o: "addr=nfs.997007.xyz,nolock,soft,rw"
       device: ":/nfs/share"
 
 networks:

@@ -117,7 +117,7 @@ configs:
     name: shadowsocks_libev_over_http_config_v1
     file: ./conf/ss-websocket-http/config.json
   shadowsocks_libev_over_https_config:
-    name: shadowsocks_libev_over_https_config_v2
+    name: shadowsocks_libev_over_https_config_v1
     file: ./conf/ss-websocket-https/config.json
   shadowsocks_client:
     name: shadowsocks_client_v1
@@ -125,10 +125,10 @@ configs:
 
 secrets:
   outer-certificate.crt:
-    name: outer_certificate_crt_v1
+    name: outer_certificate_crt_v3
     external: true
   outer-certificate.key:
-    name: outer_certificate_key_v1
+    name: outer_certificate_key_v3
     external: true
 
 networks:

@@ -6,13 +6,13 @@ Docker best practice
 Bark
 ├── .env
 ├── build
-│   ├── .dockerignore
-│   ├── Dockerfile
-│   └── entrypoint.sh
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   └── entrypoint.sh
 ├── conf
-│   └── localtime
+│   └── localtime
 ├── data
-│   └── bark.db
+│   └── bark.db
 ├── docker-compose.yml
 └── docker-stack.yml
 ```
@@ -32,7 +32,7 @@ best practice
 ### Port
 
 | Service                     | Ports                                    | Port Keep     |
-|-----------------------------|------------------------------------------| ------------- |
+|-----------------------------|------------------------------------------|---------------|
 | Bark                        | `58084:8080`                             |               |
 | Camunda                     | `58088:8080`                             |               |
 | CentOS                      |                                          | -             |
@@ -45,7 +45,7 @@ best practice
 | GitLab-Runner               |                                          | -             |
 | Go                          | `52345:2345`  `58086:8080`               |               |
 | Hexo                        | `54000:4000`  `50023:22`                 |               |
-| Minio                       | `59005:9000`                             | `59004`       |
+| Minio                       | `59005:9000`  `59004:9001`               |               |
 | Minio-Client                | -                                        |               |
 | MongoDB                     | `57017:27017`                            |               |
 | MySQL                       | `53306:3306`  `53307:3306` `53308:3306`  |               |

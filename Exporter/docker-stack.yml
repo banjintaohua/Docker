@@ -109,7 +109,7 @@ services:
         protocol: tcp
         mode: ingress
     command:
-      - '-nginx.scrape-uri=http://metrics.banjintaohua.xyz:8080/stub_status'
+      - '-nginx.scrape-uri=http://metrics.997007.xyz:8080/stub_status'
     deploy:
       mode: replicated
       replicas: 1

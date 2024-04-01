@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   ss-client:
-    image: registry.banjintaohua.xyz/banjintaohua/privoxy:3.0.33
+    image: banjintaohua/privoxy:1.0
     working_dir: /etc/privoxy
     networks:
       - host

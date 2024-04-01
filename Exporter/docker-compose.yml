@@ -54,6 +54,6 @@ services:
     container_name: nginx-prometheus-exporter
     restart: unless-stopped
     command:
-      - '-nginx.scrape-uri=http://metrics.banjintaohua.xyz:8080/stub_status'
+      - '-nginx.scrape-uri=http://metrics.997007.xyz:8080/stub_status'
     ports:
       - "59113:9113"
