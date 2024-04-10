@@ -74,8 +74,8 @@ best practice
 
 ### Secrets
 
-| Item                       | Description    |
-| -------------------------- | -------------- |
-| `wildcard-certificate.crt` | 泛域名证书     |
-| `wildcard-certificate.key` | 泛域名证书私钥 |
+| Item                       | Description                 |
+| -------------------------- |-----------------------------|
+| `wildcard-certificate.crt` | wildcard domain certificate |
+| `wildcard-certificate.key` | certificate key             |
 
