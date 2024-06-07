@@ -1,8 +1,8 @@
 version: "3.9"
 
 services:
-  mysql_56:
-    image: mysql:5.6.51
+  mysql:
+    image: mysql:8.0.37
     ports:
       - published: 53306
         target: 3306
@@ -10,25 +10,25 @@ services:
         mode: host
     working_dir: /var/lib/mysql
     volumes:
-      - mysql_56_data:/var/lib/mysql:rw
-      - mysql_56_local_configs:/etc/mysql/conf.d:rw
+      - /var/lib/mysql:/var/lib/mysql:rw
+      - mysql_local_configs:/etc/mysql/conf.d:rw
     configs:
-      - source: mysql_56_common_config
-        target: /etc/mysql/mysql.conf.d/common.cnf
+      - source: mysql_config
+        target: /etc/my.cnf
     secrets:
-      - source: mysql_56_root_password
+      - source: mysql_root_password
         mode: 0600
       - source: mysql_root_host
         mode: 0600
     environment:
       TZ: "Asia/Shanghai"
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_56_root_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
       MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
     networks:
       - cluster
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 3
       restart_policy:
         condition: any
         max_attempts: 3
@@ -37,82 +37,25 @@ services:
       placement:
         max_replicas_per_node: 1
         constraints:
-          - node.hostname == ShangHai-CentOS
-          - node.platform.os == linux
-
-  mysql_57:
-    image: mysql:5.7.43
-    ports:
-      - published: 53307
-        target: 3306
-        protocol: tcp
-        mode: host
-    working_dir: /var/lib/mysql
-    volumes:
-      - mysql_57_data:/var/lib/mysql:rw
-      - mysql_57_local_configs:/etc/mysql/conf.d:rw
-    configs:
-      - source: mysql_57_common_config
-        target: /etc/mysql/mysql.conf.d/common.cnf
-    secrets:
-      - source: mysql_57_root_password
-        mode: 0600
-      - source: mysql_root_host
-        mode: 0600
-    environment:
-      TZ: "Asia/Shanghai"
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_57_root_password
-      MYSQL_ROOT_HOST_FILE: /run/secrets/mysql_root_host
-    networks:
-      - cluster
-    deploy:
-      mode: replicated
-      replicas: 1
-      restart_policy:
-        condition: any
-        max_attempts: 3
-        delay: 10s
-        window: 60s
-      placement:
-        max_replicas_per_node: 1
-        constraints:
-          - node.hostname == ShangHai-CentOS
+          - node.hostname != California-CentOS
           - node.platform.os == linux
 
 configs:
-  mysql_56_common_config:
-    name: mysql_56_common_config_v1
-    file: conf/mysql-56/mysql.conf.d/common.cnf
-  mysql_57_common_config:
-    name: mysql_57_common_config_v1
-    file: ./conf/mysql-57/mysql.conf.d/common.cnf
+  mysql_config:
+    name: mysql_config_v1
+    file: ./conf/mysql/my.cnf
 
 secrets:
   mysql_root_host:
     name: mysql_root_host_v1
     file: ./conf/secrets/mysql_root_host.txt
-  mysql_56_root_password:
-    name: mysql_56_root_password_v1
-    file: ./conf/secrets/mysql_56_root_password.txt
-  mysql_57_root_password:
-    name: mysql_57_root_password_v1
-    file: ./conf/secrets/mysql_57_root_password.txt
+  mysql_root_password:
+    name: mysql_root_password_v1
+    file: ./conf/secrets/mysql_root_password.txt
 
 volumes:
-  mysql_56_data:
-    name: mysql_56_data
-    driver: local
-    external: false
-  mysql_56_local_configs:
-    name: mysql_56_local_configs
-    driver: local
-    external: false
-  mysql_57_data:
-    name: mysql_57_data
-    driver: local
-    external: false
-  mysql_57_local_configs:
-    name: mysql_57_local_configs
+  mysql_local_configs:
+    name: mysql_local_configs
     driver: local
     external: false
 
