@@ -5,8 +5,9 @@ services:
     build:
       context: ./build
       dockerfile: Dockerfile
-    image: banjintaohua/camunda-bpm-platform:tomcat-7.10.0
+    image: banjintaohua/camunda-bpm-platform:tomcat-7.21.0
     container_name: camunda
+    restart: always
     ports:
       - "58088:8080"
     working_dir: /camunda
@@ -14,8 +15,6 @@ services:
       - /media/psf/Docker/Camunda/log/camunda:/camunda/logs:rw
       - /media/psf/Docker/Camunda/conf/bpm-platform.xml:/camunda/conf/bpm-platform.xml:rw
       - /media/psf/Docker/Camunda/conf/web.xml:/camunda/webapps/engine-rest/WEB-INF/web.xml:rw
-      # - /media/psf/Docker/Camunda/conf/mysql-connector-j-8.0.33.jar:/camunda/lib/mysql-connector-j-8.0.33.jar
-    restart: always
     networks:
       develop:
         ipv4_address: 172.19.0.38
@@ -26,26 +25,8 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-camunda}
       DB_VALIDATE_ON_BORROW: "true"
       DB_VALIDATION_QUERY: "SELECT 1"
-      WAIT_FOR: "camunda_db:3306"
+      WAIT_FOR: "mysql:3306"
       TZ: "Asia/Shanghai"
-
-  camunda_db:
-    image: mariadb:10.3.12
-    container_name: camunda_db
-    restart: "always"
-    ports:
-      - "53309:3306"
-    working_dir: /var/lib/mysql
-    volumes:
-      - /media/psf/Docker/Camunda/log/mariadb:/var/log/mariadb:rw
-      - /media/psf/Docker/Camunda/conf/mariadb/my.cnf:/etc/my.cnf:rw
-      - /media/psf/Docker/Camunda/conf/mariadb/my.cnf.d:/etc/my.cnf.d:rw
-      - /var/lib/mysql:/var/lib/mysql:rw
-    networks:
-      - develop
-    environment:
-      TZ: "Asia/Shanghai"
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
 
 networks:
   develop:
