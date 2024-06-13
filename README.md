@@ -69,6 +69,7 @@ best practice
 | Swagger-Editor              | `58081:8080`                             |               |
 | Swagger-UI                  | `58082:8080`                             |               |
 | VSCode                      | `58083:8080`                             |               |
+| XXL-JOB                     | `58084:8080`                             |               |
 
 
 

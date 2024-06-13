@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  xxl-job-admin:
+    image: xuxueli/xxl-job-admin:2.4.1
+    container_name: xxl-job-admin
+    restart: "no"
+    ports:
+      - "58084:8080"
+    working_dir: /data/applogs/xxl-job
+    volumes:
+      - /media/psf/Docker/XxlJob/log:/data/applogs:rw
+      - /media/psf/Docker/XxlJob/conf/admin:/etc/xxljob/admin:rw
+    networks:
+      - develop
+    environment:
+      JAVA_OPTS: "-Xmx512m"
+      SPRING_CONFIG_LOCATION: "/etc/xxljob/admin/application.properties"
+
+  xxl-job-executor:
+    image: banjintaohua/xxl-job-executor:2.4.1
+    container_name: xxl-job-executor
+    restart: "no"
+    depends_on:
+      - xxl-job-admin
+    volumes:
+      - /media/psf/Docker/XxlJob/log:/data/applogs:rw
+      - /media/psf/Docker/XxlJob/conf/executor:/etc/xxljob/executor:rw
+    networks:
+      - develop
+    environment:
+      JAVA_OPTS: "-Dnetworkaddress.cache.ttl=60 -Dnetworkaddress.cache.negative.ttl=10"
+      SPRING_CONFIG_LOCATION: "/etc/xxljob/executor/application.properties"
+
+networks:
+  develop:
+    name: develop
+    external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/24
