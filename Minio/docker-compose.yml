@@ -1,32 +1,55 @@
 version: "3.9"
 
 services:
-  minio-server:
-    image: minio/minio:${MINIO_VERSION:-RELEASE.2022-10-24T18-35-07Z}
-    container_name: minio
+  minio-filesystem:
+    image: minio/minio:RELEASE.2022-10-24T18-35-07Z
+    container_name: minio-filesystem
     restart: "no"
     ports:
       - "59005:9000"
       - "59004:9001"
+    command: server /minio_filesystem_data --console-address ":9001"
     volumes:
       - "/media/psf/Docker/Minio/conf/localtime:/etc/localtime"
-      - "/media/psf/minio:/data:rw"
+      - "/media/psf/minio:/minio_filesystem_data:rw"
     networks:
       develop:
         ipv4_address: 172.19.0.34
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-ch@ngeMe}
-    command: server /data --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-erasure-code:
+    image: minio/minio:${MINIO_VERSION:-RELEASE.2022-10-24T18-35-07Z}
+    container_name: minio-erasure-code
+    restart: "always"
+    ports:
+      - "59015:9000"
+      - "59014:9001"
+    command: server /minio_erasure_code_data --console-address ":9001"
+    volumes:
+      - "/media/psf/Docker/Minio/conf/localtime:/etc/localtime"
+      - "/media/psf/Docker/Minio/data:/minio_erasure_code_data:rw"
+    networks:
+      develop:
+        ipv4_address: 172.19.0.35
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-ch@ngeMe}
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
       interval: 30s
       timeout: 20s
       retries: 3
 
   minio-client:
     container_name: mc
-    image: minio/mc:${MC_VERSION:-RELEASE.2022-10-29T10-09-23Z}
+    image: minio/mc:RELEASE.2022-10-29T10-09-23Z
     restart: "no"
     network_mode: host
     entrypoint: "tail -f /dev/null"
