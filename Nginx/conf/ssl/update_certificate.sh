@@ -69,7 +69,7 @@ function main() {
       --key-file /acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.key
 
     # 导出配置文件
-    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.crt "$outputPath"
+    docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/"${domain}".crt "$outputPath"
     docker cp "$containerId":/acme.sh/"${domain}"_ecc/backup/"${domain}"-certificate.key "$outputPath"
     # docker exec nginx nginx -s reload
 }
