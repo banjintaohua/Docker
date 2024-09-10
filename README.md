@@ -70,6 +70,7 @@ best practice
 | Swagger-UI                  | `58082:8080`                             |               |
 | VSCode                      | `58083:8080`                             |               |
 | XXL-JOB                     | `58084:8080`                             |               |
+| StackStome Web              | `58089:80`                               |               |
 
 
 
