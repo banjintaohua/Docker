@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  nacos:
+    image: nacos/nacos-server:${NACOS_VERSION:-v2.4.2}
+    container_name: nacos
+    ports:
+      - "58848:8848"
+      - "59848:9848"
+    volumes:
+      - ./log/:/home/nacos/logs:rw
+      - ./conf/application.properties:/home/nacos/conf/application.properties:rw
+    environment:
+      MODE: standalone
+      PREFER_HOST_MODE: hostname
+      TZ: Asia/Shanghai
+      NACOS_AUTH_CACHE_ENABLE: ${NACOS_AUTH_CACHE_ENABLE:-true}
+      JVM_XMS: ${JVM_XMS:-256m}
+      JVM_XMX: ${JVM_XMX:-256m}
