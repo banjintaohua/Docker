@@ -2,7 +2,8 @@ version: "3.9"
 
 services:
   mysql:
-    image: mysql:8.0.37
+    # mysql:8.0.37 does not contain mysqlbinlog
+    image: mysql:8.0.39-debian
     command: mysqld
     #command: mysqld_safe
     container_name: mysql
